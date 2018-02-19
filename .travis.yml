@@ -6,10 +6,8 @@ branches:
 deploy:
   provider: heroku
   api_key:
-    secure: "cf4a6d53-25b8-4411-ae62-352cfab05270"
+    secure: $key
   app: test-trvis
   on:
     repo: Andreynnt/2018_1_Drive
     branch: feature-spa
-script:
-  - npm run eslint
