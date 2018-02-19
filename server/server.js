@@ -2,38 +2,30 @@
 
 const fs = require('fs');
 const http = require('http');
-
-
-/* Ссылки в браузере и в html страницах нужно
- * прописывать таким образом: site.com/login, а не site.com/login.html
- */
-const staticFiles = {
-    '/styles.css': '../static/styles.css',
-    '/login': '../static/login.html',
-    '/registration': '../static/registration.html',
-    '/empty': '../static/empty.html',
-    '/': '../static/index.html'
-};
+const path = require('path');
 
 
 const serverConfig = {
-    files: staticFiles,
+    folderWithStatic: '../public/static',
     defaultPort: 3000
 };
 
 
 const server = http.createServer((request, response) => {
 
-    const requestUrl = serverConfig.files[request.url];
-    let page;
-
-    if (requestUrl !== undefined) {
-        page = fs.readFileSync(requestUrl, 'utf-8');
-    } else {
-        page = fs.readFileSync(serverConfig.files['/empty'], 'utf-8');
+    if (request.url === '/') {
+        request.url = '/index.html';
     }
 
-    response.end(page);
+    fs.readFile(path.join(__dirname, serverConfig.folderWithStatic, request.url), (error, data) => {
+        if (error) {
+            response.write('Page that you are looking for doesn\'t exist');
+            return;
+        }
+        response.write(data);
+        response.end();
+    });
+
 });
 
 

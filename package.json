@@ -1,0 +1,29 @@
+{
+  "name": "drive",
+  "version": "1.0.0",
+  "description": "Drive game",
+  "main": "server/server.js",
+  "scripts": {
+    "start": "node server/server.js",
+    "eslint": "./node_modules/.bin/eslint ./public/ ./server/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Andreynnt/2018_1_Drive.git"
+  },
+  "keywords": [
+    "game",
+    "drive",
+    "frontend"
+  ],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Andreynnt/2018_1_Drive/issues"
+  },
+  "homepage": "https://github.com/Andreynnt/2018_1_Drive#readme",
+  "devDependencies": {
+    "eslint": "^4.18.0",
+    "eslint-config-google": "^0.9.1"
+  }
+}
