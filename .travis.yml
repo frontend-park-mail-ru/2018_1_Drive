@@ -2,12 +2,12 @@ language: node_js
 node_js:
   - "9"
 branches:
-  - feature-spa
+  - develop
 deploy:
   provider: heroku
   api_key:
     secure: $key
   app: test-trvis
   on:
-    repo: Andreynnt/2018_1_Drive
-    branch: feature-spa
+    repo: frontend-park-mail-ru/2018_1_Drive
+    branch: develop
