@@ -7,3 +7,7 @@ deploy:
   provider: heroku
   api_key:
     secure: "cf4a6d53-25b8-4411-ae62-352cfab05270"
+    app: test-server-travis
+    on:
+      repo: Andreynnt/2018_1_Drive
+      branch: feature-spa
