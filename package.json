@@ -5,7 +5,7 @@
   "main": "server/server.js",
   "scripts": {
     "start": "node server/server.js",
-    "eslint": "./node_modules/.bin/eslint ./server/server.js"
+    "eslint": "./node_modules/.bin/eslint ./public/ ./server/server.js"
   },
   "repository": {
     "type": "git",
