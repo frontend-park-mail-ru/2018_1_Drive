@@ -11,3 +11,5 @@ deploy:
   on:
     repo: Andreynnt/2018_1_Drive
     branch: feature-spa
+script:
+  - npm run eslint

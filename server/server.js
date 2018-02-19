@@ -5,16 +5,22 @@ const http = require('http');
 const path = require('path');
 
 
+const serverConfig = {
+    folderWithStatic: '../public/static',
+    defaultPort: 3000
+};
+
+
 const server = http.createServer((request, response) => {
 
     if (request.url === '/') {
         request.url = '/index.html';
     }
 
-    fs.readFile(path.join(__dirname , '../static', request.url), (error, data) => {
+    fs.readFile(path.join(__dirname, serverConfig.folderWithStatic, request.url), (error, data) => {
         if (error) {
-            data = 'Page that you are looking for doesn\'t exist';
-            response.writeHead(404);
+            response.write('Page that you are looking for doesn\'t exist');
+            return;
         }
         response.write(data);
         response.end();
@@ -23,5 +29,5 @@ const server = http.createServer((request, response) => {
 });
 
 
-server.listen(process.env.PORT || 3000);
+server.listen(process.env.PORT || serverConfig.defaultPort);
 console.log('Server started!');
