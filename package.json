@@ -4,7 +4,8 @@
   "description": "Drive game",
   "main": "server/server.js",
   "scripts": {
-    "start": "node server/server.js"
+    "start": "node server/server.js",
+    "eslint": "./node_modules/.bin/eslint ./server/server.js"
   },
   "repository": {
     "type": "git",
@@ -20,5 +21,9 @@
   "bugs": {
     "url": "https://github.com/Andreynnt/2018_1_Drive/issues"
   },
-  "homepage": "https://github.com/Andreynnt/2018_1_Drive#readme"
+  "homepage": "https://github.com/Andreynnt/2018_1_Drive#readme",
+  "devDependencies": {
+    "eslint": "^4.18.0",
+    "eslint-config-google": "^0.9.1"
+  }
 }
