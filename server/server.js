@@ -37,5 +37,5 @@ const server = http.createServer((request, response) => {
 });
 
 
-server.listen(process.env.PORT || serverConfig.defaultPort);
+server.listen(process.env.PRT || serverConfig.defaultPort);
 console.log('Server started!');
