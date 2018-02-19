@@ -1,0 +1,24 @@
+{
+  "name": "drive",
+  "version": "1.0.0",
+  "description": "Drive game",
+  "main": "server/server.js",
+  "scripts": {
+    "test": "node server/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Andreynnt/2018_1_Drive.git"
+  },
+  "keywords": [
+    "game",
+    "drive",
+    "frontend"
+  ],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Andreynnt/2018_1_Drive/issues"
+  },
+  "homepage": "https://github.com/Andreynnt/2018_1_Drive#readme"
+}
