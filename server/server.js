@@ -1,41 +1,25 @@
 'use strict';
 
-const fs = require('fs');
 const http = require('http');
+const fs = require('fs');
 
+const server = http.createServer(function(request,responce){
+	console.log(request.url, request.method);
 
-/* Ссылки в браузере и в html страницах нужно
- * прописывать таким образом: site.com/login, а не site.com/login.html
- */
-const staticFiles = {
-    '/styles.css': '../static/styles.css',
-    '/login': '../static/login.html',
-    '/registration': '../static/registration.html',
-    '/empty': '../static/empty.html',
-    '/': '../static/index.html'
-};
+	if(request.url == "/css/styles.css"){
+		const style = fs.readFileSync('./css/styles.css','utf8');
+		responce.end(style);
+	}
+	else if (request.url == "/js/script.js"){
+		const text = fs.readFileSync('./js/script.js','utf8');
+		responce.end(text);
+	}
+	else{
+		const text = fs.readFileSync('index.html','utf8');
+		responce.end(text);
+	}
 
-
-const serverConfig = {
-    files: staticFiles,
-    defaultPort: 3000
-};
-
-
-const server = http.createServer((request, response) => {
-
-    const requestUrl = serverConfig.files[request.url];
-    let page;
-
-    if (requestUrl !== undefined) {
-        page = fs.readFileSync(requestUrl, 'utf-8');
-    } else {
-        page = fs.readFileSync(serverConfig.files['/empty'], 'utf-8');
-    }
-
-    response.end(page);
 });
 
-
-server.listen(process.env.PORT || serverConfig.defaultPort);
-console.log('Server started!');
+server.listen(3000);
+console.log('Server startred');
