@@ -16,6 +16,7 @@ body {
     background-repeat: no-repeat;
     background-position: center center;
     background-size: cover;
+
 }
 
 /*Menu styling*/
@@ -78,7 +79,11 @@ input{
 input[type = "checkbox"]{
     float:left;
 }
+
+
 /*Modal windows*/
+
+
 .shadow .menu{
     z-index: 2;
     display: none;
@@ -86,4 +91,44 @@ input[type = "checkbox"]{
 }
 form{
     padding: 10px;
+}
+
+
+/*Scoreboard styling*/
+
+.leaderboard .button{
+    margin-bottom:0;
+}
+.leaderboard .button:hover{
+    background-color: #29C2E6;
+}
+
+.player{
+    padding:2px 20px;
+    font-size: 1.5em;   
+    background:  #C4C4C4;
+    height:50px;
+    vertical-align: middle;
+    text-align: center;
+    /*margin-bottom: 4%;*/
+    color: white;
+}
+.player:nth-child(2n){
+     background:  #D4D4D4;
+}
+.player:hover{
+    color:  #29C2E6;
+}
+
+.clearfix::after {
+  content: "";
+  display: block;
+  clear: both;
+}
+.floated-left{
+    float: left;
+}
+
+.floated-right{
+    float: right;
 }

@@ -1,7 +1,51 @@
+const players = [
+['Name1', 10000],
+['Name2', 1000],
+['Name3', 100],
+['Name4', 11],
+['Name5', 10],
+['Name6', 1]
+];
 
-function debug(){
-	alert('click!');
+
+function openLeaderboard(){
+	showModalWin();
+
+	leaderboard = document.querySelector('.leaderboard');
+	leaderboard.innerHTML = ' ';
+	const head = document.createElement('div');
+	head.setAttribute('class','button');
+	// head.setAttribute('style','margin:0;');
+	head.innerHTML = 'Top players:';
+	leaderboard.appendChild(head);
+	for(let player of players){
+		const str = document.createElement('div');
+		str.setAttribute('class','clearfix player');
+		const name = document.createElement('div');
+		const score = document.createElement('div');
+		name.setAttribute('class','floated-left');
+		score.setAttribute('class','floated-right');
+
+		name.innerHTML = player[0];
+		score.innerHTML = player[1];
+		str.appendChild(name);
+		str.appendChild(score);
+		leaderboard.appendChild(str);
+	}
+	const buttonLeft = document.createElement('div');
+	buttonLeft.setAttribute('class','button button-half');
+	buttonLeft.innerHTML = 'Prev';
+	leaderboard.appendChild(buttonLeft);
+	const buttonRight = document.createElement('div');
+	buttonRight.setAttribute('class','button button-half button-last');
+	buttonRight.innerHTML = 'Next';
+	leaderboard.appendChild(buttonRight);
+
+		//TODO: create pagination buttons!!!
+	
+	leaderboard.style.display = 'block';
 }
+
 
 function authorize() {
     var authorized = document.querySelector('.authorized');
@@ -37,22 +81,11 @@ function showModalWin() {
 	darkLayer = document.querySelector('.shadow');
 	darkLayer.style.display = 'block';
 }
-
-
 function closeModalWin(){
 	darkLayer = document.querySelector('.shadow');
-	log = document.querySelector('.login');
-	reg = document.querySelector('.register');
-	// top = document.querySelector('.leaderboard');
+	modals = document.querySelectorAll('.menu-modal');
+	modals.forEach(function(item){
+		item.style.display = 'none';
+	});
 	darkLayer.style.display = 'none';
-	log.style.display = 'none';
-	reg.style.display = 'none';
-	// top.style.display = 'none';
-
-
 }
-// function authorizeUser(){
-// 	showModalWin();
-// 	var form = document.querySelector('.authorize');
-// 	form.style.display = 'block';
-// }

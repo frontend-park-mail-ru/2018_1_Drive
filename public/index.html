@@ -37,13 +37,13 @@
 		</div>
 		<div class = "common-menu">
 			<div class="button"> Play singleplayer </div>
-			<div class="button"> Leaderboard </div>
+			<div class="button" onclick = "openLeaderboard();"> Leaderboard </div>
 		</div>
 	</div>
 
 		<!-- So, there is some forms on the shadow-->
 		<div class = "shadow " onclick="closeModalWin();">
-			<div class="menu login" onclick="event.stopPropagation();" >
+			<div class="menu menu-modal login" onclick="event.stopPropagation();" >
 			<form>
 				<h1>Welcome, again</h1>
 				<label for="login">Login/e-mail:</label>
@@ -56,7 +56,7 @@
 			</form>
 				
 			</div>
-			<div class="menu register" onclick="event.stopPropagation();">
+			<div class="menu menu-modal register" onclick="event.stopPropagation();">
 			<form>
 				<h1>Registration</h1>
 				<label for="login">E-mail:</label>
@@ -69,7 +69,7 @@
 			</form>
 			
 			</div>
-			<div class="menu settings" onclick="event.stopPropagation();">
+			<div class="menu menu-modal settings" onclick="event.stopPropagation();">
 			<form>
 				<h1>Settings</h1>
 				<label for="login">New nick:</label>
@@ -81,8 +81,8 @@
 				<div class="button" > Save settings</div>
 			</form>
 			</div>
-			<div class="menu leaderboard">
-				
+			<div class="menu menu-modal leaderboard" onclick="event.stopPropagation();">
+				<div class="button">Top players:</div>
 			</div>
 		</div>
 	
