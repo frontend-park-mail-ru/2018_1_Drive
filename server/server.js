@@ -11,7 +11,7 @@ const serverConfig = {
 };
 
 
-const server = http.createServer((request, response)=> {
+const server = http.createServer((request, response) => {
 
     if (request.url === '/') {
         request.url = '/index.html';
