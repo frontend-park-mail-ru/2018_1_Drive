@@ -1,0 +1,13 @@
+language: node_js
+node_js:
+  - "9"
+branches:
+  - develop
+deploy:
+  provider: heroku
+  api_key:
+    secure: $key
+  app: test-trvis
+  on:
+    repo: frontend-park-mail-ru/2018_1_Drive
+    branch: develop
