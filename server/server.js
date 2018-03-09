@@ -6,12 +6,14 @@ const path = require('path');
 
 
 const serverConfig = {
-    folderWithStatic: '../public/static',
+
+    folderWithStatic: '../public',
+
     defaultPort: 3000
 };
 
 
-const server = http.createServer((request, response) => {
+const server = http.createServer((request, response)=> {
 
     if (request.url === '/') {
         request.url = '/index.html';
