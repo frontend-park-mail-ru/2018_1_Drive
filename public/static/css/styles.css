@@ -84,7 +84,6 @@ input[type = "checkbox"]{
 
 /*Modal windows*/
 
-
 .shadow .menu{
     z-index: 2;
     display: none;
@@ -92,6 +91,11 @@ input[type = "checkbox"]{
 }
 form{
     padding: 10px;
+}
+
+.errors{
+    font-size: small;
+    color:red;
 }
 
 

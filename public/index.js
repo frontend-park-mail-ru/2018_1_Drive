@@ -1,3 +1,5 @@
+
+
 const players = [
 ['Name1', 10000],
 ['Name2', 1000],
@@ -6,6 +8,8 @@ const players = [
 ['Name5', 10],
 ['Name6', 1]
 ];
+
+const Validator = window.Validator;
 
 
 function openLeaderboard(){
@@ -48,32 +52,32 @@ function openLeaderboard(){
 
 
 function authorize() {
-    var authorized = document.querySelector('.authorized');
-    var unauthorized = document.querySelector('.unauthorized');
+    let authorized = document.querySelector('.authorized');
+    let unauthorized = document.querySelector('.unauthorized');
     unauthorized.style.display = 'none';
     authorized.style.display = 'block';
     closeModalWin();
 }
 function unauthorize() {
-    var authorized = document.querySelector('.authorized');
-    var unauthorized = document.querySelector('.unauthorized');
+    let authorized = document.querySelector('.authorized');
+    let unauthorized = document.querySelector('.unauthorized');
    	authorized.style.display = 'none';
   	unauthorized.style.display = 'inline';
 }
 
 function logInUser(){
 	showModalWin();
-	var form = document.querySelector('.login');
+	let form = document.querySelector('.login');
 	form.style.display = 'block';
 }
 function registerUser(){
 	showModalWin();
-	var form = document.querySelector('.register');
+	let form = document.querySelector('.register');
 	form.style.display = 'block';
 }
 function openSettings(){
 	showModalWin();
-	var form = document.querySelector('.settings');
+	let form = document.querySelector('.settings');
 	form.style.display = 'block';
 }
 
@@ -87,5 +91,31 @@ function closeModalWin(){
 	modals.forEach(function(item){
 		item.style.display = 'none';
 	});
+	
 	darkLayer.style.display = 'none';
+}
+
+function onSubmit(obj) {
+	const formData = {};
+	const fields = obj.parentNode.querySelectorAll('input');
+	for(let field of fields){
+		// formData[fields[field].name] = fields[field].value;
+		if(!field.hasAttribute('checked')){
+            formData[field.name] = field.value;
+		}
+		else {
+            formData[field.name] = field.checked;
+        }
+	}
+	// console.log(formData);
+	errors =  Validator.Validate(formData);
+    // const errWindow = document.createElement('div');
+    // errWindow.setAttribute('class','errors');
+	const errWindow = obj.parentNode.querySelector('.errors');
+    errWindow.innerHTML = '';
+	for(let error in errors){
+        errWindow.innerHTML+=error+" error! " + errors[error]+"<br>";
+	}
+	
+
 }

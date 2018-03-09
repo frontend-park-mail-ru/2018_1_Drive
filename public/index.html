@@ -6,7 +6,7 @@
 	<title>Driver - freaking awesome game</title>
 	<link rel="stylesheet" href="./static/css/styles.css" type="text/css">
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Oswald:400,300" type="text/css">
-	<script src="./index.js"></script>
+	
 
 
 	<!--[if lt IE 9]>
@@ -42,30 +42,37 @@
 	</div>
 
 		<!-- So, there is some forms on the shadow-->
-		<div class = "shadow " onclick="closeModalWin();">
+		<div class = "shadow" onclick="closeModalWin();">
 			<div class="menu menu-modal login" onclick="event.stopPropagation();" >
+
+
 			<form>
 				<h1>Welcome, again</h1>
-				<label for="login">Login/e-mail:</label>
-				<input type="login" name="login"><br>
+				<label for="e-mail">E-mail:</label>
+				<input type="login" name="e-mail"><br>
 				<label for="password">Password:</label>
 				<input type="password" name="password"><br>
-				<input type="checkbox" name="remember">
+
+				<input type="checkbox" name="remember" checked = 'true'>
 				<label for = "remember"> Remember me!</label><br>
-				<div class="button" onclick="authorize();"> Log me in!</div>
+				<div class="errors"> </div>
+				<div class="button" onclick="onSubmit(this);"> Log me in!</div>
 			</form>
 				
 			</div>
 			<div class="menu menu-modal register" onclick="event.stopPropagation();">
 			<form>
 				<h1>Registration</h1>
-				<label for="login">E-mail:</label>
+				<label for="e-mail">E-mail:</label>
+				<input type="login" name="e-mail"><br>
+				<label for="login">Login:</label>
 				<input type="login" name="login"><br>
 				<label for="password">Password:</label>
 				<input type="password" name="password"><br>
 				<label for="password-submit">Confirm:</label>
 				<input type="password" name="password-submit"><br>
-				<div class="button" onclick="authorize();"> Create account!</div>
+				<div class="errors"> </div>
+				<div class="button" onclick="onSubmit(this);"> Create account!</div>
 			</form>
 			
 			</div>
@@ -74,10 +81,13 @@
 				<h1>Settings</h1>
 				<label for="login">New nick:</label>
 				<input type="login" name="login"><br>
+				<label for="e-mail">New mail:</label>
+				<input type="login" name="e-mail"><br>
 				<label for="password">New password:</label>
 				<input type="password" name="password"><br>
 				<label for="password-submit">Confirm password:</label>
 				<input type="password" name="password-submit"><br>
+				<div class="errors"> </div>
 				<div class="button" > Save settings</div>
 			</form>
 			</div>
@@ -85,6 +95,9 @@
 				<div class="button">Top players:</div>
 			</div>
 		</div>
+
+		<script src="./modules/validator.js"></script>
+		<script src="./index.js"></script>
 	
 </body>
 </html>
