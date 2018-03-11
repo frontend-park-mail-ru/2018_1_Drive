@@ -7,7 +7,9 @@ const path = require('path');
 
 
 const serverConfig = {
+
     folderWithStatic: '../public',
+
     defaultPort: 3000
 };
 
