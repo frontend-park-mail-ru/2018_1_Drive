@@ -6,6 +6,8 @@
     const Validator = window.Validator;
 
     class Form extends BaseComponent {
+        //Constructs simple form
+        //@param {string} type - type of form: registration/login/settings
         constructor(type) {
             const element = document.createElement('div');
             element.setAttribute('class', 'menu menu-modal ' + type);
@@ -17,7 +19,11 @@
             this.form = form;
             this.type = type;
         }
-
+        //Rendering form
+        //Generates a context-menu with a form
+        //@param {string} caption - h1 header of form
+        //@param {2D array of strings} fields - types, names and for's for inputs and labels
+        //@param {string} buttonCaption - title on the button.
         render(caption, fields, buttonCaption) {
             const cap = document.createElement('h1');
             cap.innerHTML = caption;
@@ -43,9 +49,9 @@
             }, buttonCaption, '');
             button.appendAsChild(this.form);
         }
-
+        //Collects all data from the form and writes down all errors
         submitForm() {
-            const formData = {};
+            const formData = {};//All data from form. Looks like {'password':1234,'login':'imtired'}
             const fields = this.form.querySelectorAll('input');
             for (let field of fields) {
                 if (field.files !== null && field.files.length > 0) {
@@ -62,10 +68,13 @@
             const errWindow = this.form.querySelector('.errors');
             errWindow.innerHTML = '';
             if (Object.keys(errors).length > 0) {
+                //all the errors in the data
                 for (let error in errors) errWindow.innerHTML += error + " error! " + errors[error] + "<br>";
             }
             else {
+                //if you're here, means all data is valid
                 console.log('alright');
+
             }
         }
     }

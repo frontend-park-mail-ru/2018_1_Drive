@@ -13,17 +13,18 @@
     ];
 
 
-
     class Scoreboard extends BaseComponent {
         constructor(leaderboard) {
             super(leaderboard);
         }
 
-        // const compiledBoard = pug.compileFile('scoreboard.pug');
-        // element.innerHTML = compiledBoard(players);
+        //Renders scoreboard
+        //TODO:
+        //@param {2D string-int array} players - list of ten players to be shown on the page
+        //@param {int} page - current page with players
         render() {
             this.element.innerHTML = ' ';
-            const head = new Button(null,'Top players','');
+            const head = new Button(null, 'Top players', '');
             this.element.appendChild(head.element);
 
             for (let player of players) {
@@ -40,17 +41,12 @@
                 str.appendChild(score);
                 this.element.appendChild(str);
             }
-            const buttonLeft = new Button(null,'Prev', 'button-half');
+            const buttonLeft = new Button(null, 'Prev', 'button-half');
             this.element.appendChild(buttonLeft.element);
-            const buttonRight = new Button(null,'Next','button-half button-last');
+            const buttonRight = new Button(null, 'Next', 'button-half button-last');
             this.element.appendChild(buttonRight.element);
-
-            //TODO: create pagination buttons!!!
         }
-
-
     }
 
-
-window.Scoreboard = Scoreboard;
+    window.Scoreboard = Scoreboard;
 })();
