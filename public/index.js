@@ -4,8 +4,10 @@ const Validator = window.Validator;
 const UserService = window.UserService;
 const BaseComponent = window.BaseComponent;
 const Scoreboard = window.Scoreboard;
+const Button = window.Button;
 
 const userService = new UserService();
+
 //const scoreboard = new Scoreboard();
 
 userService.auth('username', '12345', function (err, responce) {
@@ -21,6 +23,12 @@ const settingsWindow = new BaseComponent(document.querySelector('.settings'));
 const loginButton = new BaseComponent(document.querySelector('.button-login'));
 const registerButton = new BaseComponent(document.querySelector('.button-register'));
 const settingsButton = new BaseComponent(document.querySelector('.button-settings'));
+
+const logMeInButton = new Button(submitForm.bind(this,loginWindow.element.querySelector('form')),'Log me in!','');
+const registerMeButton = new Button(submitForm.bind(this,registerWindow.element.querySelector('form')),'Register.','');
+logMeInButton.appendAsChild(loginWindow.element.querySelector('form'));
+registerMeButton.appendAsChild(registerWindow.element.querySelector('form'));
+
 
 darkLayer.on("click", closeModalWin);
 loginButton.on("click",function () {
@@ -96,9 +104,9 @@ function closeModalWin() {
     darkLayer.hide();
 }
 
-function onSubmit(obj) {
+function submitForm(obj) {
     const formData = {};
-    const fields = obj.parentNode.querySelectorAll('input');
+    const fields = obj.querySelectorAll('input');
     for (let field of fields) {
         // formData[fields[field].name] = fields[field].value;
         if (!field.hasAttribute('checked')) {
@@ -112,7 +120,7 @@ function onSubmit(obj) {
     let errors = Validator.Validate(formData);
     // const errWindow = document.createElement('div');
     // errWindow.setAttribute('class','errors');
-    const errWindow = obj.parentNode.querySelector('.errors');
+    const errWindow = obj.querySelector('.errors');
     errWindow.innerHTML = '';
     if(Object.keys(errors).length>0) {
         for (let error in errors) errWindow.innerHTML += error + " error! " + errors[error] + "<br>";

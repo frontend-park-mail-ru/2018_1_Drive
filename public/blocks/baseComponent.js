@@ -15,8 +15,9 @@
             this.element.style.display = 'block';
         }
 
-        append(otherElement) {
-            this.element.appendChild(otherElement.element);
+        appendAsChild(otherElement) {
+            //this.element.appendChild(otherElement.element);
+            otherElement.appendChild(this.element);
         }
 
         on(event, handler){
