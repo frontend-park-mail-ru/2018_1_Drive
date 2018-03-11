@@ -23,6 +23,9 @@
 
             //-----------Login tests
             if (arr.hasOwnProperty('login')) {
+                if (!/^[A-Z][a-z][0-9]*/.test(arr['login'])){
+                    errors['login'] = 'Only letters and numbers!'
+                }
                 if (arr['login'].length < 7) {
                     errors['login'] = 'Login must be  7 characters at least.';
                 }

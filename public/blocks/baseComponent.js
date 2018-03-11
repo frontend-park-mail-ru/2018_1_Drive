@@ -20,8 +20,12 @@
             otherElement.appendChild(this.element);
         }
 
-        on(event, handler){
-            this.element.addEventListener(event,handler);
+        on(event, handler) {
+            this.element.addEventListener(event, handler);
+        }
+
+        setText(text) {
+            this.element.innerHTML = text;
         }
     }
 
