@@ -55,7 +55,7 @@ let users = {
 
 const allowedOrigins = [
     'localhost',
-    'frontend-drive.herokuapp.com',
+    'https://frontend-drive.herokuapp.com',
 ];
 
 const CORS_HEADERS = {
@@ -72,6 +72,8 @@ app.use(function (req, res, next) {
     const requestOrigin = req.headers['origin'];
 
     if (typeof requestOrigin !== 'undefined') {
+        console.log('requestOrigin !== \'undefined\'');
+
         const requestOriginHostname = url.parse(requestOrigin).hostname;
 
         const requestedHeaders = req.headers[CORS_HEADERS.requestedHeaders];
