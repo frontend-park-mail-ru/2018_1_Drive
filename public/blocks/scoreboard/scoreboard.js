@@ -18,8 +18,8 @@
             const element = document.createElement('form');
             super(element);
 
-            //const compiledBoard = pug.compileFile('scoreboard.pug');
-            //element.innerHTML = compiledBoard(players);
+            const compiledBoard = pug.compileFile('scoreboard.pug');
+            element.innerHTML = compiledBoard(players);
 
         }
     }

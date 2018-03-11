@@ -17,18 +17,18 @@
     <div class="authorized">
         <div class="button">
             Play as %username%
-        </div><div class="button button-half" onclick="openSettings();">
+        </div><div class="button button-half button-settings" >
             Settings
-        </div><div class="button button-half button-last" onclick="unauthorize();">
+        </div><div class="button button-half button-last">
             Log out
         </div>
     </div>
     <div class="unauthorized">
-        <div class="button">
+        <div class="button ">
             Play as guest
-        </div><div class="button button-half" onclick="logInUser();">
+        </div><div class="button button-half button-login" >
             Log in
-        </div><div class="button button-half button-last" onclick="registerUser();">
+        </div><div class="button button-half button-last button-register">
             Register
         </div>
     </div>
@@ -55,7 +55,7 @@
             <input type="checkbox" name="remember" checked='true'>
             <label for="remember"> Remember me!</label><br>
             <div class="errors"></div>
-            <div class="button" onclick="onSubmit(this);"> Log me in!</div>
+            <div class="button" > Log me in!</div>
         </form>
 
     </div>
@@ -71,13 +71,14 @@
             <label for="password-submit">Confirm:</label>
             <input type="password" name="password-submit"><br>
             <div class="errors"></div>
-            <div class="button" onclick="onSubmit(this);"> Create account!</div>
+            <div class="button"> Create account!</div>
         </form>
 
     </div>
     <div class="menu menu-modal settings" onclick="event.stopPropagation();">
-        <form>
+        <form enctype="multipart/form-data">
             <h1>Settings</h1>
+            <input type="file" name = "avatar">
             <label for="login">New nick:</label>
             <input type="login" name="login"><br>
             <label for="e-mail">New mail:</label>
@@ -87,7 +88,7 @@
             <label for="password-submit">Confirm password:</label>
             <input type="password" name="password-submit"><br>
             <div class="errors"></div>
-            <div class="button" onclick="onSubmit(this);"> Save settings</div>
+            <div class="button"> Save settings</div>
         </form>
     </div>
     <!--<div class="menu menu-modal leaderboard" onclick="event.stopPropagation();">-->

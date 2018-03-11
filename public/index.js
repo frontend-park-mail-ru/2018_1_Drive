@@ -1,3 +1,4 @@
+//    "build": "pug ./public/blocks/scoreboard/scoreboard.pug -c -n scoreboard"
 
 const Validator = window.Validator;
 const UserService = window.UserService;
@@ -5,22 +6,35 @@ const BaseComponent = window.BaseComponent;
 const Scoreboard = window.Scoreboard;
 
 const userService = new UserService();
-const scoreboard = new Scoreboard();
+//const scoreboard = new Scoreboard();
 
 userService.auth('username', '12345', function (err, responce) {
     console.log(err, responce);
 });
-scoreboard.show();
+//scoreboard.show();
 
 const darkLayer = new BaseComponent(document.querySelector('.shadow'));
 const loginWindow = new BaseComponent(document.querySelector('.login'));
 const registerWindow = new BaseComponent(document.querySelector('.register'));
 const settingsWindow = new BaseComponent(document.querySelector('.settings'));
 
+const loginButton = new BaseComponent(document.querySelector('.button-login'));
+const registerButton = new BaseComponent(document.querySelector('.button-register'));
+const settingsButton = new BaseComponent(document.querySelector('.button-settings'));
+
 darkLayer.on("click", closeModalWin);
-
-
-
+loginButton.on("click",function () {
+    darkLayer.show();
+    loginWindow.show();
+});
+registerButton.on("click",function () {
+    darkLayer.show();
+    registerWindow.show();
+});
+settingsButton.on("click",function () {
+    darkLayer.show();
+    settingsWindow.show();
+});
 // function openLeaderboard() {
 //     darkLayer.show();
 //
@@ -74,10 +88,6 @@ function unauthorize() {
     unauthorized.style.display = 'inline';
 }
 
-
-}
-
-
 function closeModalWin() {
     let modals = document.querySelectorAll('.menu-modal');
     modals.forEach(function (item) {
@@ -108,6 +118,6 @@ function onSubmit(obj) {
         for (let error in errors) errWindow.innerHTML += error + " error! " + errors[error] + "<br>";
     }
     else{
-        console.log('alright')
+        console.log('alright');
     }
 }
