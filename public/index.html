@@ -17,33 +17,31 @@
     <div class="authorized">
         <div class="button">
             Play as %username%
-        </div>
-        <div class="button button-half" onclick="openSettings();">
+        </div><div class="button button-half" onclick="openSettings();">
             Settings
-        </div>
-        <div class="button button-half button-last" onclick="unauthorize();">
+        </div><div class="button button-half button-last" onclick="unauthorize();">
             Log out
         </div>
     </div>
     <div class="unauthorized">
         <div class="button">
             Play as guest
-        </div>
-        <div class="button button-half" onclick="logInUser();">
+        </div><div class="button button-half" onclick="logInUser();">
             Log in
-        </div>
-        <div class="button button-half button-last" onclick="registerUser();">
+        </div><div class="button button-half button-last" onclick="registerUser();">
             Register
         </div>
     </div>
     <div class="common-menu">
-        <div class="button"> Play singleplayer</div>
-        <div class="button" onclick="openLeaderboard();"> Leaderboard</div>
+        <div class="button">
+            Play singleplayer</div><div class="button" onclick="openLeaderboard();">
+        Leaderboard</div>
     </div>
 </div>
 
 <!-- So, there is some forms on the shadow-->
-<div class="shadow" onclick="closeModalWin();">
+<!--onclick="closeModalWin();"-->
+<div class="shadow" >
     <div class="menu menu-modal login" onclick="event.stopPropagation();">
 
 
@@ -89,15 +87,19 @@
             <label for="password-submit">Confirm password:</label>
             <input type="password" name="password-submit"><br>
             <div class="errors"></div>
-            <div class="button"> Save settings</div>
+            <div class="button" onclick="onSubmit(this);"> Save settings</div>
         </form>
     </div>
-    <div class="menu menu-modal leaderboard" onclick="event.stopPropagation();">
-        <div class="button">Top players:</div>
-    </div>
+    <!--<div class="menu menu-modal leaderboard" onclick="event.stopPropagation();">-->
+        <!--<div class="button">Top players:</div>-->
+    <!--</div>-->
 </div>
 
 <script src="./modules/validator.js"></script>
+<script src="./modules/http.js"></script>
+<script src="./services/user-service.js"></script>
+<script src="./blocks/baseComponent.js"></script>
+<script src="./blocks/scoreboard/scoreboard.js"></script>
 <script src="./index.js"></script>
 
 </body>

@@ -1,52 +1,63 @@
-const players = [
-    ['Name1', 10000],
-    ['Name2', 1000],
-    ['Name3', 100],
-    ['Name4', 11],
-    ['Name5', 10],
-    ['Name6', 1]
-];
 
 const Validator = window.Validator;
+const UserService = window.UserService;
+const BaseComponent = window.BaseComponent;
+const Scoreboard = window.Scoreboard;
+
+const userService = new UserService();
+const scoreboard = new Scoreboard();
+
+userService.auth('username', '12345', function (err, responce) {
+    console.log(err, responce);
+});
+scoreboard.show();
+
+const darkLayer = new BaseComponent(document.querySelector('.shadow'));
+const loginWindow = new BaseComponent(document.querySelector('.login'));
+const registerWindow = new BaseComponent(document.querySelector('.register'));
+const settingsWindow = new BaseComponent(document.querySelector('.settings'));
+
+darkLayer.on("click", closeModalWin);
 
 
-function openLeaderboard() {
-    showModalWin();
 
-    leaderboard = document.querySelector('.leaderboard');
-    leaderboard.innerHTML = ' ';
-    const head = document.createElement('div');
-    head.setAttribute('class', 'button');
-    // head.setAttribute('style','margin:0;');
-    head.innerHTML = 'Top players:';
-    leaderboard.appendChild(head);
-    for (let player of players) {
-        const str = document.createElement('div');
-        str.setAttribute('class', 'clearfix player');
-        const name = document.createElement('div');
-        const score = document.createElement('div');
-        name.setAttribute('class', 'floated-left');
-        score.setAttribute('class', 'floated-right');
-
-        name.innerHTML = player[0];
-        score.innerHTML = player[1];
-        str.appendChild(name);
-        str.appendChild(score);
-        leaderboard.appendChild(str);
-    }
-    const buttonLeft = document.createElement('div');
-    buttonLeft.setAttribute('class', 'button button-half');
-    buttonLeft.innerHTML = 'Prev';
-    leaderboard.appendChild(buttonLeft);
-    const buttonRight = document.createElement('div');
-    buttonRight.setAttribute('class', 'button button-half button-last');
-    buttonRight.innerHTML = 'Next';
-    leaderboard.appendChild(buttonRight);
-
-    //TODO: create pagination buttons!!!
-
-    leaderboard.style.display = 'block';
-}
+// function openLeaderboard() {
+//     darkLayer.show();
+//
+//     leaderboard = document.querySelector('.leaderboard');
+//     leaderboard.innerHTML = ' ';
+//     const head = document.createElement('div');
+//     head.setAttribute('class', 'button');
+//     // head.setAttribute('style','margin:0;');
+//     head.innerHTML = 'Top players:';
+//     leaderboard.appendChild(head);
+//     for (let player of players) {
+//         const str = document.createElement('div');
+//         str.setAttribute('class', 'clearfix player');
+//         const name = document.createElement('div');
+//         const score = document.createElement('div');
+//         name.setAttribute('class', 'floated-left');
+//         score.setAttribute('class', 'floated-right');
+//
+//         name.innerHTML = player[0];
+//         score.innerHTML = player[1];
+//         str.appendChild(name);
+//         str.appendChild(score);
+//         leaderboard.appendChild(str);
+//     }
+//     const buttonLeft = document.createElement('div');
+//     buttonLeft.setAttribute('class', 'button button-half');
+//     buttonLeft.innerHTML = 'Prev';
+//     leaderboard.appendChild(buttonLeft);
+//     const buttonRight = document.createElement('div');
+//     buttonRight.setAttribute('class', 'button button-half button-last');
+//     buttonRight.innerHTML = 'Next';
+//     leaderboard.appendChild(buttonRight);
+//
+//     //TODO: create pagination buttons!!!
+//
+//     leaderboard.style.display = 'block';
+// }
 
 
 // function authorize() {
@@ -63,37 +74,16 @@ function unauthorize() {
     unauthorized.style.display = 'inline';
 }
 
-function logInUser() {
-    showModalWin();
-    let form = document.querySelector('.login');
-    form.style.display = 'block';
+
 }
 
-function registerUser() {
-    showModalWin();
-    let form = document.querySelector('.register');
-    form.style.display = 'block';
-}
-
-function openSettings() {
-    showModalWin();
-    let form = document.querySelector('.settings');
-    form.style.display = 'block';
-}
-
-function showModalWin() {
-    let darkLayer = document.querySelector('.shadow');
-    darkLayer.style.display = 'block';
-}
 
 function closeModalWin() {
-    let darkLayer = document.querySelector('.shadow');
     let modals = document.querySelectorAll('.menu-modal');
     modals.forEach(function (item) {
         item.style.display = 'none';
     });
-
-    darkLayer.style.display = 'none';
+    darkLayer.hide();
 }
 
 function onSubmit(obj) {
@@ -114,7 +104,10 @@ function onSubmit(obj) {
     // errWindow.setAttribute('class','errors');
     const errWindow = obj.parentNode.querySelector('.errors');
     errWindow.innerHTML = '';
-    for (let error in errors) errWindow.innerHTML += error + " error! " + errors[error] + "<br>";
-
-
+    if(Object.keys(errors).length>0) {
+        for (let error in errors) errWindow.innerHTML += error + " error! " + errors[error] + "<br>";
+    }
+    else{
+        console.log('alright')
+    }
 }
