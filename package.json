@@ -5,6 +5,7 @@
   "main": "server/server.js",
   "scripts": {
     "start": "node ./server/server.js",
+    "build": "pug -c public --name-after-file",
     "eslint": "./node_modules/.bin/eslint ./public/ ./server/server.js"
   },
   "repository": {
@@ -25,5 +26,8 @@
   "devDependencies": {
     "eslint": "^4.18.0",
     "eslint-config-google": "^0.9.1"
+  },
+  "dependencies": {
+    "pug-cli": "^1.0.0-alpha6"
   }
 }

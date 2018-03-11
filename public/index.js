@@ -1,11 +1,19 @@
-//    "build": "pug ./public/blocks/scoreboard/scoreboard.pug -c -n scoreboard"
+//importinng
 const Validator = window.Validator;
 const UserService = window.UserService;
 const BaseComponent = window.BaseComponent;
 const Scoreboard = window.Scoreboard;
 const Button = window.Button;
 const Form = window.Form;
+//PUG magic
+let name = 'default';
+let template = window.menuTemplate(this.name);
+let templateSpan = document.createElement('div');
+templateSpan.innerHTML = template;
+const body = new BaseComponent(document.querySelector('body'));
+body.element.appendChild(templateSpan);
 
+//All our components
 const userService = new UserService();
 const scoreboard = new Scoreboard(document.querySelector('.leaderboard'));
 const darkLayer = new BaseComponent(document.querySelector('.shadow'));
@@ -18,6 +26,7 @@ const loginButton = new BaseComponent(document.querySelector('.button-login'));
 const registerButton = new BaseComponent(document.querySelector('.button-register'));
 const settingsButton = new BaseComponent(document.querySelector('.button-settings'));
 const leaderboardButton = new BaseComponent(document.querySelector('.button-leaderboard'));
+// const template = window.scoreboardTemplate();
 
 loginForm.render(
     'Login', [
