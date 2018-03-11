@@ -3,30 +3,42 @@
 
     const BaseComponent = window.BaseComponent;
     const Button = window.Button;
-    const players = [
-        ['Name1', 10000],
-        ['Name2', 1000],
-        ['Name3', 100],
-        ['Name4', 11],
-        ['Name5', 10],
-        ['Name6', 1]
-    ];
-
-
+    const ApiMethods = window.ApiMethods;
+    let allUsers = [];
 
     class Scoreboard extends BaseComponent {
         constructor(leaderboard) {
             super(leaderboard);
         }
 
-        // const compiledBoard = pug.compileFile('scoreboard.pug');
-        // element.innerHTML = compiledBoard(players);
+
+        loadData() {
+            const thisObject = this;
+
+            ApiMethods.loadAllUsers(function (err, response) {
+                if (err) {
+                    console.error(err);
+                    return;
+                }
+
+                if (response['success'] !== 'true') {
+                    alert(response['status']);
+                }
+
+                allUsers = response['users'];
+                thisObject.render();
+            });
+        }
+
+
         render() {
+
             this.element.innerHTML = ' ';
             const head = new Button(null,'Top players','');
             this.element.appendChild(head.element);
 
-            for (let player of players) {
+            console.dir(allUsers);
+            for (let player of allUsers) {
                 const str = document.createElement('div');
                 str.setAttribute('class', 'clearfix player');
                 const name = document.createElement('div');
@@ -34,8 +46,8 @@
                 name.setAttribute('class', 'floated-left');
                 score.setAttribute('class', 'floated-right');
 
-                name.innerHTML = player[0];
-                score.innerHTML = player[1];
+                name.innerHTML = player['mail'];
+                score.innerHTML = player['score'];
                 str.appendChild(name);
                 str.appendChild(score);
                 this.element.appendChild(str);
@@ -47,7 +59,6 @@
 
             //TODO: create pagination buttons!!!
         }
-
 
     }
 

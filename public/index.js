@@ -1,12 +1,7 @@
-//    "build": "pug ./public/blocks/scoreboard/scoreboard.pug -c -n scoreboard"
-const Validator = window.Validator;
-const UserService = window.UserService;
 const BaseComponent = window.BaseComponent;
 const Scoreboard = window.Scoreboard;
-const Button = window.Button;
 const Form = window.Form;
 
-const userService = new UserService();
 const scoreboard = new Scoreboard(document.querySelector('.leaderboard'));
 const darkLayer = new BaseComponent(document.querySelector('.shadow'));
 
@@ -16,12 +11,24 @@ const settingsForm = new Form('settings');
 
 const loginButton = new BaseComponent(document.querySelector('.button-login'));
 const registerButton = new BaseComponent(document.querySelector('.button-register'));
-const settingsButton = new BaseComponent(document.querySelector('.button-settings'));
 const leaderboardButton = new BaseComponent(document.querySelector('.button-leaderboard'));
+
+
+switch (window.location.hostname) {
+    case 'localhost':
+        window.HttpModule.baseUrl = 'http://localhost:8080';
+        break;
+    case 'frontend-drive.herokuapp.com':
+        window.HttpModule.baseUrl = '//backend-drive.herokuapp.com';
+        break;
+    default:
+        window.HttpModule.baseUrl = '';
+}
+
 
 loginForm.render(
     'Login', [
-        ['e-mail', 'login'],
+        ['mail', 'login'],
         ['password', 'password'],
         ['remember', 'checkbox']
     ], 'Log me in!');
@@ -29,7 +36,7 @@ darkLayer.element.appendChild(loginForm.element);
 
 registerForm.render(
     'Register', [
-        ['e-mail', 'login'],
+        ['mail', 'login'],
         ['login', 'login'],
         ['password', 'password'],
         ['password-submit', 'password']
@@ -38,7 +45,7 @@ darkLayer.element.appendChild(registerForm.element);
 
 settingsForm.render(
     'Settings', [
-        ['e-mail', 'login'],
+        ['mail', 'login'],
         ['login', 'login'],
         ['password', 'password'],
         ['password-submit', 'password']
@@ -55,13 +62,11 @@ registerButton.on('click', () => {
     registerForm.show();
 });
 leaderboardButton.on('click', () => {
-    scoreboard.render();
+    scoreboard.loadData();
     darkLayer.show();
     scoreboard.show();
 });
-// leaderboardButton.on('click', () => {
-//     scoreboard.show();
-// });
+
 darkLayer.on('click', () => {
     loginForm.hide();
     registerForm.hide();

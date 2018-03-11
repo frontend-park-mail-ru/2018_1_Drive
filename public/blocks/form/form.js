@@ -4,6 +4,7 @@
     const BaseComponent = window.BaseComponent;
     const Button = window.Button;
     const Validator = window.Validator;
+    const ApiMethods = window.ApiMethods;
 
     class Form extends BaseComponent {
         constructor(type) {
@@ -44,6 +45,8 @@
             button.appendAsChild(this.form);
         }
 
+
+
         submitForm() {
             const formData = {};
             const fields = this.form.querySelectorAll('input');
@@ -62,11 +65,13 @@
             const errWindow = this.form.querySelector('.errors');
             errWindow.innerHTML = '';
             if (Object.keys(errors).length > 0) {
-                for (let error in errors) errWindow.innerHTML += error + " error! " + errors[error] + "<br>";
+                for (let error in errors) errWindow.innerHTML += error + 'error!' + errors[error] + '<br>';
+            } else {
+
+                ApiMethods.RegOrSignin(this.type, formData);
+
             }
-            else {
-                console.log('alright');
-            }
+
         }
     }
 
