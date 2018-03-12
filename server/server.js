@@ -11,7 +11,6 @@ const url = require('url');
 console.log('Starting app');
 const app = express();
 
-
 app.use(morgan('dev'));
 app.use(express.static(path.resolve(__dirname, '..', 'public')));
 app.use(body.json());

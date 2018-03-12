@@ -5,6 +5,7 @@
   "main": "server/server.js",
   "scripts": {
     "start": "node ./server/server.js",
+    "build": "pug -c public --name-after-file",
     "eslint": "./node_modules/.bin/eslint ./public/ ./server/server.js"
   },
   "repository": {
@@ -31,5 +32,6 @@
     "cookie-parser": "^1.4.3",
     "express": "^4.16.2",
     "morgan": "^1.9.0"
+    "pug-cli": "^1.0.0-alpha6"
   }
 }

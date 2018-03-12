@@ -63,6 +63,7 @@ body {
 
 .button-last {
     margin-right: 0px;
+    /*margin-left: -10px;*/
 }
 
 /*Auth form styles*/

@@ -7,6 +7,8 @@
     const ApiMethods = window.ApiMethods;
 
     class Form extends BaseComponent {
+        //Constructs simple form
+        //@param {string} type - type of form: registration/login/settings
         constructor(type) {
             const element = document.createElement('div');
             element.setAttribute('class', 'menu menu-modal ' + type);
@@ -18,7 +20,11 @@
             this.form = form;
             this.type = type;
         }
-
+        //Rendering form
+        //Generates a context-menu with a form
+        //@param {string} caption - h1 header of form
+        //@param {2D array of strings} fields - types, names and for's for inputs and labels
+        //@param {string} buttonCaption - title on the button.
         render(caption, fields, buttonCaption) {
             const cap = document.createElement('h1');
             cap.innerHTML = caption;
@@ -45,10 +51,8 @@
             button.appendAsChild(this.form);
         }
 
-
-
         submitForm() {
-            const formData = {};
+            const formData = {};//All data from form. Looks like {'password':1234,'login':'imtired'}
             const fields = this.form.querySelectorAll('input');
             for (let field of fields) {
                 if (field.files !== null && field.files.length > 0) {
@@ -69,7 +73,7 @@
             } else {
 
                 ApiMethods.RegOrSignin(this.type, formData);
-
+              
             }
 
         }

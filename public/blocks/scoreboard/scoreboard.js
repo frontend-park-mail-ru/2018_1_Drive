@@ -11,7 +11,6 @@
             super(leaderboard);
         }
 
-
         loadData() {
             const thisObject = this;
 
@@ -29,12 +28,12 @@
                 thisObject.render();
             });
         }
-
+      
 
         render() {
 
             this.element.innerHTML = ' ';
-            const head = new Button(null,'Top players','');
+            const head = new Button(null, 'Top players', '');
             this.element.appendChild(head.element);
 
             console.dir(allUsers);
@@ -52,16 +51,12 @@
                 str.appendChild(score);
                 this.element.appendChild(str);
             }
-            const buttonLeft = new Button(null,'Prev', 'button-half');
+            const buttonLeft = new Button(null, 'Prev', 'button-half');
             this.element.appendChild(buttonLeft.element);
-            const buttonRight = new Button(null,'Next','button-half button-last');
+            const buttonRight = new Button(null, 'Next', 'button-half button-last');
             this.element.appendChild(buttonRight.element);
-
-            //TODO: create pagination buttons!!!
         }
-
     }
 
-
-window.Scoreboard = Scoreboard;
+    window.Scoreboard = Scoreboard;
 })();

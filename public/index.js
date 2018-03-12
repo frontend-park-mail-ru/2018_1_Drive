@@ -1,6 +1,13 @@
 const BaseComponent = window.BaseComponent;
 const Scoreboard = window.Scoreboard;
 const Form = window.Form;
+//PUG magic
+let name = 'default';
+let template = window.menuTemplate(this.name);
+let templateSpan = document.createElement('div');
+templateSpan.innerHTML = template;
+const body = new BaseComponent(document.querySelector('body'));
+body.element.appendChild(templateSpan);
 
 const scoreboard = new Scoreboard(document.querySelector('.leaderboard'));
 const darkLayer = new BaseComponent(document.querySelector('.shadow'));
@@ -12,6 +19,7 @@ const settingsForm = new Form('settings');
 const loginButton = new BaseComponent(document.querySelector('.button-login'));
 const registerButton = new BaseComponent(document.querySelector('.button-register'));
 const leaderboardButton = new BaseComponent(document.querySelector('.button-leaderboard'));
+// const template = window.scoreboardTemplate();
 
 
 switch (window.location.hostname) {
