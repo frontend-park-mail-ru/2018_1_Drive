@@ -2,7 +2,7 @@ const BaseComponent = window.BaseComponent;
 const Scoreboard = window.Scoreboard;
 const Form = window.Form;
 //PUG magic
-let name = 'default';
+//let name = 'default';
 let template = window.menuTemplate(this.name);
 let templateSpan = document.createElement('div');
 templateSpan.innerHTML = template;
