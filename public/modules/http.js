@@ -1,41 +1,80 @@
 (function () {
 
-    'use strict';
+    const noop = () => null;
 
-    class Http {
-        static Get(adress, callback) {
+    class HttpModule {
+
+        static doGet({url = '/', callback = noop} = {}) {
             const xhr = new XMLHttpRequest();
-            xhr.open('GET', adress, true);
-            xhr.withCredentials = true;
+            xhr.open('GET', HttpModule.baseUrl + url, true);
 
             xhr.onreadystatechange = function () {
-                if (xhr.readyState !== 4) return;
-                if (+xhr.status !== 200) {
-                    return callback(xhr, null);
+                if (xhr.readyState != 4) {
+                    return;
                 }
 
-                const responce = JSON.parse(xhr.responseText);
-                callback(null,responce);
+                if (xhr.status === 200) {
+                    const responseText = xhr.responseText;
+                    try {
+                        const response = JSON.parse(responseText);
+
+                        if (response['success'] === 'false') {
+                            callback(response['status'], response);
+                            return;
+                        }
+
+                        callback(null, response);
+                    } catch (err) {
+                        console.error('doGet error: ', err);
+                        callback(err);
+                    }
+                } else {
+                    callback(xhr);
+                }
             };
+
+            xhr.withCredentials = true;
+
             xhr.send();
         }
 
-        static Post(adress, body, callback) {
+        static doPost({url = '/', callback = noop, data = {}} = {}) {
             const xhr = new XMLHttpRequest();
-            xhr.open('POST', adress, true);
-            xhr.withCredentials = true;
-            xhr.setRequestHeader('Content-type', 'aplication/json; charset=utf8');
+            xhr.open('POST', HttpModule.baseUrl + url, true);
+
             xhr.onreadystatechange = function () {
-                if (xhr.readyState !== 4) return;
-                if (+xhr.status !== 200) {
-                    return callback(xhr, null);
+                if (xhr.readyState != 4) {
+                    return;
                 }
 
-                const responce = JSON.parse(xhr.responseText);
-                callback(null,responce);
+                if (xhr.status < 300) {
+                    const responseText = xhr.responseText;
+
+                    try {
+                        const response = JSON.parse(responseText);
+
+                        if (response['success'] === 'false') {
+                            callback(response['status'], response);
+                            return;
+                        }
+
+                        callback(null, response);
+                    } catch (err) {
+                        console.error('doPost error: ', err);
+                        callback(err);
+                    }
+                } else {
+                    callback(xhr);
+                }
             };
-            xhr.send(JSON.stringify(body));
+
+            xhr.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
+            xhr.withCredentials = true;
+
+            xhr.send(JSON.stringify(data));
         }
     }
-    window.Http = Http;
+    HttpModule.baseUrl = '';
+
+    window.HttpModule = HttpModule;
 })();
