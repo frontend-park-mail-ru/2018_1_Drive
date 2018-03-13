@@ -13,50 +13,21 @@
     <![endif]-->
 </head>
 <body>
-<!--<div class="menu">-->
-    <!--<div class="authorized">-->
-        <!--<div class="button">-->
-            <!--Play as %username%-->
-        <!--</div><div class="button button-half button-settings" >-->
-            <!--Settings-->
-        <!--</div><div class="button button-half button-last">-->
-            <!--Log out-->
-        <!--</div>-->
-    <!--</div>-->
-    <!--<div class="unauthorized">-->
-        <!--<div class="button ">-->
-            <!--Play as guest-->
-        <!--</div><div class="button button-half button-login" >-->
-            <!--Log in-->
-        <!--</div><div class="button button-half button-last button-register">-->
-            <!--Register-->
-        <!--</div>-->
-    <!--</div>-->
-    <!--<div class="common-menu">-->
-        <!--<div class="button">-->
-            <!--Play singleplayer</div><div class="button button-leaderboard">-->
-        <!--Leaderboard</div>-->
-    <!--</div>-->
-<!--</div>-->
-
-<!-- So, there is some forms on the shadow-->
-<!--onclick="closeModalWin();"-->
-<div class="shadow">
-    <div class="menu menu-modal leaderboard" onclick="event.stopPropagation();">
-        <!--<div class="button">Top players:</div>-->
+    <div class="menu menu-modal leaderboard" >
     </div>
-</div>
 
-<script src="./modules/validator.js"></script>
-<script src="./modules/http.js"></script>
-<script src="./services/user-service.js"></script>
-<script src="./blocks/baseComponent.js"></script>
+    <script src="./modules/validator.js"></script>
+    <script src="./modules/http.js"></script>
+    <script src="./modules/api.js"></script>
+    <script src="./services/user-service.js"></script>
+    <script src="./blocks/baseComponent.js"></script>
 
-<script src="./blocks/button/button.js"></script>
-<script src="./blocks/form/form.js"></script>
-<script src="./blocks/scoreboard/scoreboard.js"></script>
-<script src="./blocks/menu/menu.js"></script>
-<script src="./index.js"></script>
+    <script src="./blocks/button/button.js"></script>
+    <script src="./blocks/form/form.js"></script>
+    <script src="./blocks/scoreboard/scoreboard-view.js"></script>
+    <script src="./blocks/scoreboard/scoreboard.js"></script>
+    <script src="./blocks/menu/menu-view.js"></script>
+    <script src="./index.js"></script>
 
 </body>
 </html>

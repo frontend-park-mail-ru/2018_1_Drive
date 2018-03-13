@@ -11,7 +11,7 @@
         constructor(type) {
             const element = document.createElement('div');
             element.setAttribute('class', 'menu menu-modal ' + type);
-            element.setAttribute('onclick', 'event.stopPropagation();');
+            // element.setAttribute('onclick', 'event.stopPropagation();');
             super(element);
             const form = document.createElement('form');
             form.setAttribute('enctype', 'multipart/form-data');
@@ -73,8 +73,7 @@
             }
             else {
                 //if you're here, means all data is valid
-                console.log('alright');
-
+                ApiMethods.RegOrSignin(this.type, formData);
             }
         }
     }

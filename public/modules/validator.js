@@ -9,8 +9,8 @@
             //-E-mail tests
             let mailReg = /.+@.+\..+/i;//https://habrahabr.ru/post/175375/
             let passReg = /(?=.*[0-9])(?=.*[a-z])/i;
-            if (!mailReg.test(arr['e-mail'])) {
-                errors['e-mail'] = 'E-mail should be like example@sth.com';
+            if (!mailReg.test(arr['mail'])) {
+                errors['mail'] = 'E-mail should be like example@sth.com';
             }
 
             //Password tests
