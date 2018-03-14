@@ -11,7 +11,7 @@
         }
 
         loadData() {
-            ApiMethods.loadAllUsers(function (err, response) {
+            ApiMethods.loadAllUsers((err, response) => {
                 if (err) {
                     console.error(err);
                     return;

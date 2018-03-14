@@ -22,7 +22,7 @@
         }
 
         static checkAuth() {
-            this.loadMe(function (err, me) {
+            this.loadMe((err, me) => {
                 if (err) {
                     console.dir(me);
                     console.log('Вы не авторизованы');
@@ -52,7 +52,7 @@
 
             if (type === 'register') {
                 console.info('Регистрация пользователя', formData);
-                this.signupUser(formData, function (err) {
+                this.signupUser(formData, (err) => {
                     if (err) {
                         alert('Wrong: ' + err);
                         return;
@@ -61,7 +61,7 @@
                 });
 
             } else if (type === 'login') {
-                this.loginUser(formData, function (err) {
+                this.loginUser(formData, (err) => {
                     if (err) {
                         alert('Wrong: '+ err);
                         return;

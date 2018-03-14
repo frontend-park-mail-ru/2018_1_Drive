@@ -8,7 +8,7 @@
             const xhr = new XMLHttpRequest();
             xhr.open('GET', HttpModule.baseUrl + url, true);
 
-            xhr.onreadystatechange = function () {
+            xhr.onreadystatechange =  () => {
                 if (xhr.readyState != 4) {
                     return;
                 }
@@ -42,7 +42,7 @@
             const xhr = new XMLHttpRequest();
             xhr.open('POST', HttpModule.baseUrl + url, true);
 
-            xhr.onreadystatechange = function () {
+            xhr.onreadystatechange = () => {
                 if (xhr.readyState != 4) {
                     return;
                 }
