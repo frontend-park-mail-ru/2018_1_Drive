@@ -13,9 +13,9 @@ body.element.appendChild(templateSpan);
 const scoreboard = new Scoreboard(document.querySelector('.leaderboard'));
 const darkLayer = new BaseComponent(document.querySelector('.shadow'));
 
-const loginForm = new Form('login');
-const registerForm = new Form('register');
-const settingsForm = new Form('settings');
+const loginForm = new Form(document.querySelector('.login'),'login');
+const registerForm = new Form(document.querySelector('.register'),'register');
+const settingsForm = new Form(document.querySelector('.settings'),'settings');
 
 const loginButton = new BaseComponent(document.querySelector('.button-login'));
 const registerButton = new BaseComponent(document.querySelector('.button-register'));

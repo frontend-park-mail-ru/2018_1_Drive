@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node ./server/server.js",
     "build": "pug -c public --name-after-file",
-    "eslint": "./node_modules/.bin/eslint ./public/ ./server/server.js"
+    "eslint": "./node_modules/.bin/eslint ./public/ ./server/server.js",
+    "test": "pug -c public --name-after-file && node ./server/server.js"
   },
   "repository": {
     "type": "git",
