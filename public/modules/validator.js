@@ -8,15 +8,9 @@
 
             //-E-mail tests
             let mailReg = /.+@.+\..+/i;//https://habrahabr.ru/post/175375/
-<<<<<<< HEAD
             let passReg = /(?=.*[0-9])(?=.*[a-z][A-Z])/i;
             if (!mailReg.test(arr.mail)) {
                 errors.mail = 'E-mail should be like example@sth.com';
-=======
-            let passReg = /(?=.*[0-9])(?=.*[a-z])/i;
-            if (!mailReg.test(arr['mail'])) {
-                errors['mail'] = 'E-mail should be like example@sth.com';
->>>>>>> Main/develop
             }
 
             //Password tests
@@ -30,13 +24,8 @@
 
             //Login tests
             if (arr.hasOwnProperty('login')) {
-<<<<<<< HEAD
                 if (!/^[a-z][0-9]*/.test(arr.login.toLowerCase())){
                     errors.login = 'Only letters and numbers!'
-=======
-                if (/^[A-Z][a-z][0-9]*/.test(arr['login'])){
-                    errors['login'] = 'Only letters and numbers!';
->>>>>>> Main/develop
                 }
                 if (arr.login.length < 7) {
                     errors.login = 'Login must be  7 characters at least.';
