@@ -1,0 +1,11 @@
+form(enctype = "multipart/form-data")
+    h1 #{caption}
+    - for (let field of fields) {
+        label(for = field[0] ) #{field[0]} :
+        input(
+        name = field[0]
+        type = field[1])
+        br
+    - }
+    .errors
+    .button #{buttonCaption}
