@@ -18,7 +18,7 @@
                     try {
                         const response = JSON.parse(responseText);
 
-                        if (response['success'] === 'false') {
+                        if (!response['success']) {
                             callback(response['status'], response);
                             return;
                         }
@@ -53,7 +53,7 @@
                     try {
                         const response = JSON.parse(responseText);
 
-                        if (response['success'] === 'false') {
+                        if (!response['success']) {
                             callback(response['status'], response);
                             return;
                         }

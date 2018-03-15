@@ -1,26 +1,77 @@
 (function () {
     'use strict';
 
-    const Http = window.Http;
+    const httpModule = window.HttpModule;
 
     class UserService {
-
-        constructor() {
-
+        static signupUser(user, callback) {
+            httpModule.doPost({
+                url: '/register',
+                callback,
+                data: user
+            });
         }
 
-        auth(login, password, callback) {
-            const user = {login, password};
-            Http.Post('/auth', user, callback);
+        static loginUser(user, callback) {
+            httpModule.doPost({
+                url: '/signin',
+                callback,
+                data: user
+            });
+            console.dir(user);
         }
 
-        whoami(callback) {
-            Http.Get('/me', callback());
+        static checkAuth() {
+            this.loadMe((err, me) => {
+                if (err) {
+                    console.dir(me);
+                    console.log('Вы не авторизованы');
+                    return;
+                }
+
+                console.log('me is', me);
+                alert('Добро пожаловать!');
+            });
         }
 
-        loadUsers(callback) {
-            Http.Get('/users', callback);
+        static loadMe(callback) {
+            httpModule.doGet({
+                url: '/user',
+                callback
+            });
         }
+
+        static loadUsers(firstManPos, amountOfPeople, callback) {
+            httpModule.doGet({
+                url: `/leaders/${firstManPos}/${amountOfPeople}`,
+                callback
+            });
+        }
+
+        static RegOrSignin(type, formData) {
+
+            if (type === 'register') {
+                console.info('Регистрация пользователя', formData);
+                this.signupUser(formData, (err) => {
+                    if (err) {
+                        alert('Wrong: ' + err);
+                        return;
+                    }
+                    UserService.checkAuth();
+                });
+
+            } else if (type === 'login') {
+                this.loginUser(formData, (err) => {
+                    if (err) {
+                        alert('Wrong: '+ err);
+                        return;
+                    }
+
+                    UserService.checkAuth();
+                });
+            }
+        }
+
     }
 
     window.UserService = UserService;

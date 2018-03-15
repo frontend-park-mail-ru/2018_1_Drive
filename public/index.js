@@ -33,7 +33,7 @@ switch (window.location.hostname) {
         window.HttpModule.baseUrl = '';
 }
 
-scoreboard.render();
+
 loginForm.render(
     'Login', [
         ['mail', 'login'],
@@ -60,7 +60,9 @@ settingsForm.render(
     ],
     'Apply'
 );
+
 body.element.appendChild(scoreboard.element);
+
 
 loginButton.on('click', () => {
     darkLayer.show();
@@ -75,8 +77,7 @@ settingsButton.on('click', () => {
     settingsForm.show();
 });
 leaderboardButton.on('click', () => {
-    // scoreboard.loadData();
-
+    scoreboard.loadDataAndRender();
     darkLayer.show();
     scoreboard.show();
 });
@@ -86,6 +87,7 @@ darkLayer.on('click', () => {
     loginForm.hide();
     registerForm.hide();
     scoreboard.hide();
+    scoreboard.setFirstPage();
     darkLayer.hide();
 });
 
