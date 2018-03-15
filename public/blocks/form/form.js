@@ -4,6 +4,7 @@
     const BaseComponent = window.BaseComponent;
     const Button = window.Button;
     const Validator = window.Validator;
+    const ApiMethods = window.ApiMethods;
 
     class Form extends BaseComponent {
         //Constructs simple form
@@ -53,15 +54,15 @@
             if (Object.keys(errors).length > 0) {
                 //all the errors in the data
                 for (let error in errors) {
-                    errWindow.innerHTML += error + ' error! ';
+                    errWindow.innerHTML += error + 'error!';
                     errWindow.innerHTML += errors[error] + '<br>';
-
                 }
             }
             else {
                 //if you're here, means all data is valid
                 UserService.RegOrSignin(this.type, formData);
             }
+
         }
     }
 

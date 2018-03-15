@@ -17,7 +17,6 @@ const settingsForm = new Form(document.querySelector('.settings'),'settings');
 
 const loginButton = new BaseComponent(document.querySelector('.button-login'));
 const registerButton = new BaseComponent(document.querySelector('.button-register'));
-const settingsButton = new BaseComponent(document.querySelector('.button-settings'));
 const leaderboardButton = new BaseComponent(document.querySelector('.button-leaderboard'));
 // const template = window.scoreboardTemplate();
 
