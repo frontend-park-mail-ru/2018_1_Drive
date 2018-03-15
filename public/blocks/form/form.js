@@ -4,6 +4,7 @@
     const BaseComponent = window.BaseComponent;
     const Button = window.Button;
     const Validator = window.Validator;
+    const ApiMethods = window.ApiMethods;
 
     class Form extends BaseComponent {
         //Constructs simple form
@@ -32,7 +33,10 @@
                 });
         }
 
+<<<<<<< HEAD
         //Collects all data from the form and writes down all errors
+=======
+>>>>>>> Main/develop
         submitForm() {
             const formData = {};//All data from form. Looks like {'password':1234,'login':'imtired'}
             const fields = this.form.querySelectorAll('input');
@@ -51,6 +55,7 @@
             const errWindow = this.form.querySelector('.errors');
             errWindow.innerHTML = '';
             if (Object.keys(errors).length > 0) {
+<<<<<<< HEAD
                 //all the errors in the data
                 for (let error in errors) {
                     errWindow.innerHTML += error + " error! ";
@@ -61,7 +66,15 @@
             else {
                 //if you're here, means all data is valid
                 ApiMethods.RegOrSignin(this.type, formData);
+=======
+                for (let error in errors) errWindow.innerHTML += error + 'error!' + errors[error] + '<br>';
+            } else {
+
+                ApiMethods.RegOrSignin(this.type, formData);
+              
+>>>>>>> Main/develop
             }
+
         }
     }
 

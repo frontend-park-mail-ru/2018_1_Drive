@@ -4,9 +4,18 @@ const Form = window.Form;
 const body = new BaseComponent(document.querySelector('body'));
 
 //PUG magic
+<<<<<<< HEAD
 let name = 'default';
 let template = window.menuViewTemplate(this);
 body.element.innerHTML += template;
+=======
+//let name = 'default';
+let template = window.menuTemplate(this.name);
+let templateSpan = document.createElement('div');
+templateSpan.innerHTML = template;
+const body = new BaseComponent(document.querySelector('body'));
+body.element.appendChild(templateSpan);
+>>>>>>> Main/develop
 
 const scoreboard = new Scoreboard(document.querySelector('.leaderboard'));
 const darkLayer = new BaseComponent(document.querySelector('.shadow'));
@@ -17,7 +26,6 @@ const settingsForm = new Form(document.querySelector('.settings'),'settings');
 
 const loginButton = new BaseComponent(document.querySelector('.button-login'));
 const registerButton = new BaseComponent(document.querySelector('.button-register'));
-const settingsButton = new BaseComponent(document.querySelector('.button-settings'));
 const leaderboardButton = new BaseComponent(document.querySelector('.button-leaderboard'));
 // const template = window.scoreboardTemplate();
 
@@ -33,7 +41,11 @@ switch (window.location.hostname) {
         window.HttpModule.baseUrl = '';
 }
 
+<<<<<<< HEAD
 scoreboard.render();
+=======
+
+>>>>>>> Main/develop
 loginForm.render(
     'Login', [
         ['mail', 'login'],
@@ -75,8 +87,12 @@ settingsButton.on('click', () => {
     settingsForm.show();
 });
 leaderboardButton.on('click', () => {
+<<<<<<< HEAD
     // scoreboard.loadData();
 
+=======
+    scoreboard.loadData();
+>>>>>>> Main/develop
     darkLayer.show();
     scoreboard.show();
 });
