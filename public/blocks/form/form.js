@@ -54,8 +54,8 @@
             if (Object.keys(errors).length > 0) {
                 //all the errors in the data
                 for (let error in errors) {
-                    errWindow.innerHTML += error + " error! ";
-                    errWindow.innerHTML += errors[error] + "<br>";
+                    errWindow.innerHTML += error + 'error!';
+                    errWindow.innerHTML += errors[error] + '<br>';
 
                 }
             }
