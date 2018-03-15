@@ -71,10 +71,7 @@ registerButton.on('click', () => {
     darkLayer.show();
     registerForm.show();
 });
-settingsButton.on('click', () => {
-    darkLayer.show();
-    settingsForm.show();
-});
+
 leaderboardButton.on('click', () => {
     scoreboard.loadDataAndRender();
     darkLayer.show();
