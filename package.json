@@ -4,7 +4,7 @@
   "description": "Drive game",
   "main": "server/server.js",
   "scripts": {
-    "start": "node ./server/server.js pug -c public --name-after-file",
+    "start": "pug -c public --name-after-file && node ./server/server.js && ",
     "build": "pug -c public --name-after-file",
     "buildall": "pug -c public --name-after-file && node ./server/server.js",
     "test": "./node_modules/.bin/eslint ./public/ ./server/server.js"
