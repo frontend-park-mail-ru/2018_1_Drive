@@ -50,8 +50,8 @@
 
         static logout() {
             httpModule.doGet({
-                url: '/logout';
-            })
+                url: '/logout'
+            });
         }
 
         static RegOrSignin(type, formData) {
