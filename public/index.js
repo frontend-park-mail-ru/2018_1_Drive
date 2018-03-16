@@ -18,7 +18,7 @@ const settingsForm = new Form(document.querySelector('.settings'),'settings');
 const loginButton = new BaseComponent(document.querySelector('.button-login'));
 const registerButton = new BaseComponent(document.querySelector('.button-register'));
 const leaderboardButton = new BaseComponent(document.querySelector('.button-leaderboard'));
-// const template = window.scoreboardTemplate();
+const logoutButton = new BaseComponent(document.querySelector('.button-logout'));
 
 
 switch (window.location.hostname) {
@@ -77,6 +77,11 @@ leaderboardButton.on('click', () => {
     darkLayer.show();
     scoreboard.show();
 });
+
+logoutButton.on('click', () => {
+   UserService.logout();
+});
+
 
 darkLayer.on('click', () => {
     settingsForm.hide();

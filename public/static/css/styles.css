@@ -150,3 +150,7 @@ form {
 .floated-right {
     float: right;
 }
+
+.scoreboard-preloader {
+    text-align: center;
+}

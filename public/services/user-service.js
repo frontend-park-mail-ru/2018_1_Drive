@@ -48,6 +48,12 @@
             });
         }
 
+        static logout() {
+            httpModule.doGet({
+                url: '/logout';
+            })
+        }
+
         static RegOrSignin(type, formData) {
 
             if (type === 'register') {
