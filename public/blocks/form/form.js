@@ -56,12 +56,11 @@
                 for (let error in errors) {
                     errWindow.innerHTML += error + 'error!';
                     errWindow.innerHTML += errors[error] + '<br>';
-
                 }
             }
             else {
                 //if you're here, means all data is valid
-                ApiMethods.RegOrSignin(this.type, formData);
+                UserService.RegOrSignin(this.type, formData);
             }
 
         }

@@ -24,7 +24,7 @@
 
             //Login tests
             if (arr.hasOwnProperty('login')) {
-                if (!/^[a-z][0-9]*/.test(arr.login.toLowerCase())){
+                if (!/^[a-z][0-9]*/.test(arr.login.toLowerCase())) {
                     errors.login = 'Only letters and numbers!';
                 }
                 if (arr.login.length < 7) {
