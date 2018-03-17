@@ -152,5 +152,9 @@ form {
 }
 
 .scoreboard-preloader {
-    text-align: center;
+    background-image: url("../img/preloader.gif");
+    height: 3rem;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
 }

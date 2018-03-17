@@ -10,7 +10,6 @@
         appendItself() {
             const preloaderBody = document.createElement('div');
             preloaderBody.className = this.divClass;
-            preloaderBody.innerText = 'Loading...';
             preloaderBody.style.display = 'none';
             this.preloaderBody = preloaderBody;
             this.element.element.appendChild(preloaderBody);
