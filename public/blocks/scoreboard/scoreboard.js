@@ -2,8 +2,8 @@
     'use strict';
 
     const BaseComponent = window.BaseComponent;
-    const UserService = window.UserService;
     const Preloader = window.Preloader;
+    const UserService = window.UserServiceSingleton;
 
     class Scoreboard extends BaseComponent {
         constructor(element) {
@@ -18,7 +18,7 @@
         loadDataAndRender() {
             const firstManPosition = (this.page - 1) * this.playersOnPage + 1;
             this.preloader.start();
-            UserService.loadUsers(firstManPosition, this.playersOnPage, (err, response) => {
+            UserService.getInstance().loadUsers(firstManPosition, this.playersOnPage, (err, response) => {
                 if (err) {
                     console.error(err);
                     return;

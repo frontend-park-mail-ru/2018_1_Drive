@@ -4,7 +4,7 @@
     const BaseComponent = window.BaseComponent;
     const Button = window.Button;
     const Validator = window.Validator;
-    const ApiMethods = window.ApiMethods;
+    const UserService = window.UserServiceSingleton;
 
     class Form extends BaseComponent {
         //Constructs simple form
@@ -60,7 +60,7 @@
             }
             else {
                 //if you're here, means all data is valid
-                UserService.RegOrSignin(this.type, formData);
+                UserService.getInstance().RegOrSignin(this.type, formData);
             }
 
         }

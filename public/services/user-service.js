@@ -1,10 +1,11 @@
-(function () {
+
+const UserServiceSingleton = (function () {
     'use strict';
 
     const httpModule = window.HttpModule;
 
     class UserService {
-        static signupUser(user, callback) {
+        signupUser(user, callback) {
             httpModule.doPost({
                 url: '/register',
                 callback,
@@ -12,7 +13,7 @@
             });
         }
 
-        static loginUser(user, callback) {
+        loginUser(user, callback) {
             httpModule.doPost({
                 url: '/signin',
                 callback,
@@ -21,7 +22,7 @@
             console.dir(user);
         }
 
-        static checkAuth() {
+        checkAuth() {
             this.loadMe((err, me) => {
                 if (err) {
                     console.dir(me);
@@ -34,27 +35,27 @@
             });
         }
 
-        static loadMe(callback) {
+        loadMe(callback) {
             httpModule.doGet({
                 url: '/user',
                 callback
             });
         }
 
-        static loadUsers(firstManPos, amountOfPeople, callback) {
+        loadUsers(firstManPos, amountOfPeople, callback) {
             httpModule.doGet({
                 url: `/leaders/${firstManPos}/${amountOfPeople}`,
                 callback
             });
         }
 
-        static logout() {
+        logout() {
             httpModule.doGet({
                 url: '/logout'
             });
         }
 
-        static RegOrSignin(type, formData) {
+        RegOrSignin(type, formData) {
 
             if (type === 'register') {
                 console.info('Регистрация пользователя', formData);
@@ -63,7 +64,7 @@
                         alert('Wrong: ' + err);
                         return;
                     }
-                    UserService.checkAuth();
+                    this.checkAuth();
                 });
 
             } else if (type === 'login') {
@@ -73,12 +74,28 @@
                         return;
                     }
 
-                    UserService.checkAuth();
+                    this.checkAuth();
                 });
             }
         }
 
     }
 
-    window.UserService = UserService;
+    let instance;
+
+    function createInstance() {
+        return new UserService();
+    }
+
+    return {
+        getInstance: function () {
+            if (!instance) {
+                instance = createInstance();
+            }
+            return instance;
+        }
+    };
+
 })();
+
+window.UserServiceSingleton = UserServiceSingleton;
