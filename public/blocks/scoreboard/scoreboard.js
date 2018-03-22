@@ -2,7 +2,8 @@
     'use strict';
 
     const BaseComponent = window.BaseComponent;
-    const UserService = window.UserService;
+    const Preloader = window.Preloader;
+    const UserService = window.UserServiceSingleton;
 
     class Scoreboard extends BaseComponent {
         constructor(element) {
@@ -10,12 +11,14 @@
             this.allUsers = [];
             this.page = 1;
             this.playersOnPage = 5;
+            this.preloader = new Preloader(this, 'scoreboard-preloader');
+            this.preloader.appendItself();
         }
 
         loadDataAndRender() {
             const firstManPosition = (this.page - 1) * this.playersOnPage + 1;
-
-            UserService.loadUsers(firstManPosition, this.playersOnPage, (err, response) => {
+            this.preloader.start();
+            UserService.getInstance().loadUsers(firstManPosition, this.playersOnPage, (err, response) => {
                 if (err) {
                     console.error(err);
                     return;
@@ -27,13 +30,15 @@
 
                 this.usersLeft = response.usersLeft;
                 this.allUsers = response.users;
+                this.preloader.stop();
                 this.render();
             });
         }
 
         render() {
 
-            this.element.innerHTML = window.scoreboardViewTemplate(this);
+            let usersBlock = this.element.querySelector('.leaderboard-body');
+            usersBlock.innerHTML = window.scoreboardViewTemplate(this);
             let paginatorPrevButton = new Button (this.element.querySelector('.pagination-prev'),
                 () => {
                     if (this.page === 1) {
