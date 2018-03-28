@@ -16,6 +16,7 @@ const registerForm = new Form(document.querySelector('.register'),'register');
 const settingsForm = new Form(document.querySelector('.settings'),'settings');
 
 const loginButton = new BaseComponent(document.querySelector('.button-login'));
+const settingsButton = new BaseComponent(document.querySelector('.button-settings'));
 const registerButton = new BaseComponent(document.querySelector('.button-register'));
 const leaderboardButton = new BaseComponent(document.querySelector('.button-leaderboard'));
 // const template = window.scoreboardTemplate();
@@ -35,27 +36,27 @@ switch (window.location.hostname) {
 scoreboard.render();
 loginForm.render(
     'Login', [
-        ['mail', 'login'],
-        ['password', 'password'],
-        ['remember', 'checkbox']
+        ['mail', 'text','login-mail'],
+        ['password', 'password','login-password'],
+        ['remember', 'checkbox','remember']
     ], 'Log me in!');
 body.element.appendChild(loginForm.element);
 
 registerForm.render(
     'Register', [
-        ['mail', 'login'],
-        ['login', 'login'],
-        ['password', 'password'],
-        ['passwordSubmit', 'password']
+        ['mail', 'text','register-mail'],
+        ['login', 'text','register-login'],
+        ['password', 'password','register-password'],
+        ['passwordSubmit', 'password','register-submit']
     ], 'Register me');
 body.element.appendChild(registerForm.element);
 
 settingsForm.render(
     'Settings', [
-        ['mail', 'login'],
-        ['login', 'login'],
-        ['password', 'password'],
-        ['password-submit', 'password']
+        ['mail', 'text','settings-mail'],
+        ['login', 'text','settings-login'],
+        ['password', 'password','settings-password'],
+        ['password-submit', 'password','settings-submit']
     ],
     'Apply'
 );
