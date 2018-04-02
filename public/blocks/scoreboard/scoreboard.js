@@ -2,59 +2,65 @@
     'use strict';
 
     const BaseComponent = window.BaseComponent;
-    const Button = window.Button;
-    const ApiMethods = window.ApiMethods;
-    let allUsers = [];
+    const Preloader = window.Preloader;
+    const UserService = window.UserServiceSingleton;
 
     class Scoreboard extends BaseComponent {
-        constructor(leaderboard) {
-            super(leaderboard);
+        constructor(element) {
+            super(element);
+            this.allUsers = [];
+            this.page = 1;
+            this.playersOnPage = 5;
+            this.preloader = new Preloader(this, 'scoreboard-preloader');
+            this.preloader.appendItself();
         }
 
-        loadData() {
-            const thisObject = this;
-
-            ApiMethods.loadAllUsers(function (err, response) {
+        loadDataAndRender() {
+            const firstManPosition = (this.page - 1) * this.playersOnPage + 1;
+            this.preloader.start();
+            UserService.getInstance().loadUsers(firstManPosition, this.playersOnPage, (err, response) => {
                 if (err) {
                     console.error(err);
                     return;
                 }
 
-                if (response['success'] !== 'true') {
-                    alert(response['status']);
+                if (!response.success) {
+                    alert(response.status);
                 }
 
-                allUsers = response['users'];
-                thisObject.render();
+                this.usersLeft = response.usersLeft;
+                this.allUsers = response.users;
+                this.preloader.stop();
+                this.render();
             });
         }
-      
 
         render() {
 
-            this.element.innerHTML = ' ';
-            const head = new Button(null, 'Top players', '');
-            this.element.appendChild(head.element);
+            let usersBlock = this.element.querySelector('.leaderboard-body');
+            usersBlock.innerHTML = window.scoreboardViewTemplate(this);
+            let paginatorPrevButton = new Button (this.element.querySelector('.pagination-prev'),
+                () => {
+                    if (this.page === 1) {
+                        return;
+                    }
+                    this.page--;
+                    this.loadDataAndRender();
+                });
 
-            console.dir(allUsers);
-            for (let player of allUsers) {
-                const str = document.createElement('div');
-                str.setAttribute('class', 'clearfix player');
-                const name = document.createElement('div');
-                const score = document.createElement('div');
-                name.setAttribute('class', 'floated-left');
-                score.setAttribute('class', 'floated-right');
+            let paginatorNextButton = new Button (this.element.querySelector('.pagination-next'),
+                () => {
+                    if (this.usersLeft === 0) {
+                        return;
+                    }
+                    this.page++;
+                    this.loadDataAndRender();
+                });
 
-                name.innerHTML = player['mail'];
-                score.innerHTML = player['score'];
-                str.appendChild(name);
-                str.appendChild(score);
-                this.element.appendChild(str);
-            }
-            const buttonLeft = new Button(null, 'Prev', 'button-half');
-            this.element.appendChild(buttonLeft.element);
-            const buttonRight = new Button(null, 'Next', 'button-half button-last');
-            this.element.appendChild(buttonRight.element);
+        }
+
+        setFirstPage() {
+            this.page = 1;
         }
     }
 

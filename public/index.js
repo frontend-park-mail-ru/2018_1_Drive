@@ -1,25 +1,25 @@
 const BaseComponent = window.BaseComponent;
 const Scoreboard = window.Scoreboard;
 const Form = window.Form;
+const body = new BaseComponent(document.querySelector('body'));
+
 //PUG magic
 let name = 'default';
-let template = window.menuTemplate(this.name);
-let templateSpan = document.createElement('div');
-templateSpan.innerHTML = template;
-const body = new BaseComponent(document.querySelector('body'));
-body.element.appendChild(templateSpan);
+let template = window.menuViewTemplate(this);
+body.element.innerHTML += template;
 
 const scoreboard = new Scoreboard(document.querySelector('.leaderboard'));
 const darkLayer = new BaseComponent(document.querySelector('.shadow'));
 
-const loginForm = new Form('login');
-const registerForm = new Form('register');
-const settingsForm = new Form('settings');
+const loginForm = new Form(document.querySelector('.login'),'login');
+const registerForm = new Form(document.querySelector('.register'),'register');
+const settingsForm = new Form(document.querySelector('.settings'),'settings');
 
 const loginButton = new BaseComponent(document.querySelector('.button-login'));
+const settingsButton = new BaseComponent(document.querySelector('.button-settings'));
 const registerButton = new BaseComponent(document.querySelector('.button-register'));
 const leaderboardButton = new BaseComponent(document.querySelector('.button-leaderboard'));
-// const template = window.scoreboardTemplate();
+const logoutButton = new BaseComponent(document.querySelector('.button-logout'));
 
 
 switch (window.location.hostname) {
@@ -36,30 +36,33 @@ switch (window.location.hostname) {
 
 loginForm.render(
     'Login', [
-        ['mail', 'login'],
-        ['password', 'password'],
-        ['remember', 'checkbox']
+        ['mail', 'text','login-mail'],
+        ['password', 'password','login-password'],
+        ['remember', 'checkbox','remember']
     ], 'Log me in!');
-darkLayer.element.appendChild(loginForm.element);
+body.element.appendChild(loginForm.element);
 
 registerForm.render(
     'Register', [
-        ['mail', 'login'],
-        ['login', 'login'],
-        ['password', 'password'],
-        ['password-submit', 'password']
+        ['mail', 'text','register-mail'],
+        ['login', 'text','register-login'],
+        ['password', 'password','register-password'],
+        ['passwordSubmit', 'password','register-submit']
     ], 'Register me');
-darkLayer.element.appendChild(registerForm.element);
+body.element.appendChild(registerForm.element);
 
 settingsForm.render(
     'Settings', [
-        ['mail', 'login'],
-        ['login', 'login'],
-        ['password', 'password'],
-        ['password-submit', 'password']
+        ['mail', 'text','settings-mail'],
+        ['login', 'text','settings-login'],
+        ['password', 'password','settings-password'],
+        ['password-submit', 'password','settings-submit']
     ],
     'Apply'
 );
+
+body.element.appendChild(scoreboard.element);
+
 
 loginButton.on('click', () => {
     darkLayer.show();
@@ -69,21 +72,24 @@ registerButton.on('click', () => {
     darkLayer.show();
     registerForm.show();
 });
+
 leaderboardButton.on('click', () => {
-    scoreboard.loadData();
+    scoreboard.loadDataAndRender();
     darkLayer.show();
     scoreboard.show();
 });
 
-darkLayer.on('click', () => {
-    loginForm.hide();
-    registerForm.hide();
-    scoreboard.hide();
-    darkLayer.hide();
+logoutButton.on('click', () => {
+   UserService.logout();
 });
 
 
-// userService.auth('username', '12345', function (err, responce) {
-//     console.log(err, responce);
-// });
+darkLayer.on('click', () => {
+    settingsForm.hide();
+    loginForm.hide();
+    registerForm.hide();
+    scoreboard.hide();
+    scoreboard.setFirstPage();
+    darkLayer.hide();
+});
 
