@@ -6,9 +6,9 @@ html {
 }
 
 body {
-    color: #8f8f8f;
+    color: #3E3E3E;
     font-family: 'Oswald', sans-serif;
-    background-color: #f8f8f8;
+    background-color: #FFFFFF;
     border-top: 0px solid #7e7e7e;
     margin: 0;
     height: auto;
@@ -21,16 +21,14 @@ body {
 
 }
 
+
+
 /*Menu styling*/
 .menu {
 
     width: 350px;
-    /*height: 500px;*/
     margin: auto;
-    /*background-color: #7e7e7e;*/
-    /*vertical-align: middle;*/
     margin-top: 100px;
-    /*border:1px solid white;*/
 
 }
 
@@ -40,18 +38,36 @@ body {
 
 .button {
     font-size: 1.5em;
-    background: #29C2E6;
+    background: #FBF55D;
     height: 50px;
     vertical-align: middle;
     text-align: center;
     margin-bottom: 4%;
-    color: white;
+    color: #262626;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.15), 0 5px 5px rgba(0,0,0,0.12);
+    transition-duration: .3s;
+    transition-timing-function: linear;
 
 }
+.button-positive{
+    background: #44AF69;
+    color: #FFFFFF;
 
-.button:hover {
+}
+.button-negative{
+    background: #ED254E;
+    color: #FFFFFF;
+
+}
+.button:hover{
     cursor: pointer;
-    background: #028dae;
+    box-shadow: 0 8px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+}
+.button:hover::after {
+    transform: scale(1.1);
+    cursor: pointer;
+    /*box-shadow: 2px 3px 3px rgba(0,0,0,0.5);*/
+    /*background: #028dae;*/
 }
 
 .button-half {
@@ -74,18 +90,12 @@ body {
     height: 100%;
     z-index: 1; /* поверх всех  кроме окна*/
     background-color: rgb(0, 0, 0);
-    opacity: 0.9;
+    opacity: 1;
     left: 0;
     top: 0;
 }
 
-input {
-    float: right;
-}
 
-input[type = "checkbox"] {
-    float: left;
-}
 
 /*Modal windows*/
 
@@ -107,34 +117,41 @@ form {
     font-size: small;
     color: red;
 }
-
+.menu-modal img{
+    width: 100%;
+    height: auto;
+}
+.menu-modal h1{
+    position: absolute;
+    color:  #FBF55D;
+    top: 10px;
+    left:5px;
+}
 /*Scoreboard styling*/
-
 .leaderboard .button {
     margin-bottom: 0;
 }
-
+/*
 .leaderboard .button:hover {
     background-color: #29C2E6;
-}
+}*/
 
 .player {
+
     padding: 2px 20px;
     font-size: 1.5em;
-    background: #C4C4C4;
+    background: white;
     height: 40px;
     vertical-align: middle;
     text-align: center;
     /*margin-bottom: 4%;*/
-    color: white;
+    color: black;
 }
 
-.player:nth-child(2n) {
-    background: #D4D4D4;
-}
 
 .player:hover {
-    color: #29C2E6;
+    background-color: #3E3E3E;
+    color: #FBF55D;
 }
 
 .clearfix::after {
@@ -150,6 +167,101 @@ form {
 .floated-right {
     float: right;
 }
+
+.label-box {
+    position: relative;
+    width: 270px;
+}
+.label-box::before,
+.label-box::after {
+    content: "";
+    position: absolute;
+    height: 3px;
+    width: 0;
+    bottom: 0px;
+    background-color: #FBF55D;
+    transition-property: width;
+    transition-duration: 0.3s;
+}
+.label-box::before {
+    left: 50%;
+}
+
+.label-box::after {
+    right: 50%;
+}
+
+input:focus + .label-box::before,
+input:focus + .label-box::after {
+    width: 50%;
+}
+
+input[type = "text"],input[type = "password"] {
+    width: 270px;
+    padding: 5px;
+    font-size: 18px;
+    border: none;
+    border-bottom: 2px solid #FFC841;
+    box-sizing: border-box;
+}
+
+input[type = "text"] + .label-box label,
+input[type = "password"] + .label-box label {
+    position: absolute;
+    top: -36px;
+    font-size: 18px;
+    color: #757575;
+    transition: 0.2s ease all;
+    pointer-events: none;
+}
+
+input:focus + .label-box label{
+
+    font-size: 14px;
+    transform: translateY(-20px);
+}
+input:focus{
+    outline: none;
+}
+
+
+
+
+.check{
+    margin-left:45px;
+}
+
+input[type="checkbox"] + label {
+    position: relative;
+    cursor: pointer;
+}
+
+input[type="checkbox"] + label::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -44px;
+    z-index: 1;
+    width: 16px;
+    height: 16px;
+    border: 4px solid #262626;
+    transition-duration: 0.3s;
+    transition-timing-function: ease-in-out;
+}
+
+input[type="checkbox"] {
+    display: none;
+}
+
+input[type="checkbox"]:checked + label::before {
+    width: 21px;
+    height: 10px;
+    border-color: #44AF69;
+    border-left-style: none;
+    border-bottom-style: none;
+    transform: rotate(135deg);
+}
+
 
 .scoreboard-preloader {
     background-image: url("../img/preloader.gif");
