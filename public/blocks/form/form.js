@@ -25,7 +25,7 @@
             this.caption = caption;
             this.fields = fields;
             this.buttonCaption = buttonCaption;
-            this.element.innerHTML = "<img src = './static/img/default_avatar.jpg'>"
+            this.element.innerHTML = '<img src = \'./static/img/default_avatar.jpg\'>';
             this.element.innerHTML += window.formViewTemplate(this);
             this.form = this.element.querySelector('form');
             const button = new Button(
