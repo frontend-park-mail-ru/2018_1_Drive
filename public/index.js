@@ -19,7 +19,7 @@ const loginButton = new BaseComponent(document.querySelector('.button-login'));
 const settingsButton = new BaseComponent(document.querySelector('.button-settings'));
 const registerButton = new BaseComponent(document.querySelector('.button-register'));
 const leaderboardButton = new BaseComponent(document.querySelector('.button-leaderboard'));
-// const template = window.scoreboardTemplate();
+const logoutButton = new BaseComponent(document.querySelector('.button-logout'));
 
 
 switch (window.location.hostname) {
@@ -33,7 +33,7 @@ switch (window.location.hostname) {
         window.HttpModule.baseUrl = '';
 }
 
-scoreboard.render();
+
 loginForm.render(
     'Login', [
         ['mail', 'text','login-mail'],
@@ -60,7 +60,9 @@ settingsForm.render(
     ],
     'Apply'
 );
+
 body.element.appendChild(scoreboard.element);
+
 
 loginButton.on('click', () => {
     darkLayer.show();
@@ -70,21 +72,24 @@ registerButton.on('click', () => {
     darkLayer.show();
     registerForm.show();
 });
-settingsButton.on('click', () => {
-    darkLayer.show();
-    settingsForm.show();
-});
+
 leaderboardButton.on('click', () => {
-    scoreboard.loadData();
+    scoreboard.loadDataAndRender();
     darkLayer.show();
     scoreboard.show();
 });
+
+logoutButton.on('click', () => {
+   UserService.logout();
+});
+
 
 darkLayer.on('click', () => {
     settingsForm.hide();
     loginForm.hide();
     registerForm.hide();
     scoreboard.hide();
+    scoreboard.setFirstPage();
     darkLayer.hide();
 });
 

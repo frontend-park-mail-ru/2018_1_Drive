@@ -8,7 +8,7 @@
             const xhr = new XMLHttpRequest();
             xhr.open('GET', HttpModule.baseUrl + url, true);
 
-            xhr.onreadystatechange = function () {
+            xhr.onreadystatechange =  () => {
                 if (xhr.readyState != 4) {
                     return;
                 }
@@ -18,7 +18,7 @@
                     try {
                         const response = JSON.parse(responseText);
 
-                        if (response['success'] === 'false') {
+                        if (!response['success']) {
                             callback(response['status'], response);
                             return;
                         }
@@ -42,7 +42,7 @@
             const xhr = new XMLHttpRequest();
             xhr.open('POST', HttpModule.baseUrl + url, true);
 
-            xhr.onreadystatechange = function () {
+            xhr.onreadystatechange = () => {
                 if (xhr.readyState != 4) {
                     return;
                 }
@@ -53,7 +53,7 @@
                     try {
                         const response = JSON.parse(responseText);
 
-                        if (response['success'] === 'false') {
+                        if (!response['success']) {
                             callback(response['status'], response);
                             return;
                         }
