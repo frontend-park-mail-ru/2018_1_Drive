@@ -25,7 +25,8 @@
             this.caption = caption;
             this.fields = fields;
             this.buttonCaption = buttonCaption;
-            this.element.innerHTML = window.formViewTemplate(this);
+            this.element.innerHTML = "<img src = './static/img/default_avatar.jpg'>"
+            this.element.innerHTML += window.formViewTemplate(this);
             this.form = this.element.querySelector('form');
             const button = new Button(
                 this.element.querySelector('.button'), () => {
@@ -61,6 +62,8 @@
             }
             else {
                 //if you're here, means all data is valid
+                this.form.reset();
+                darkLayer.element.click();
                 ApiMethods.RegOrSignin(this.type, formData);
             }
 

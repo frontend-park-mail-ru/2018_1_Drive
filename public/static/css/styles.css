@@ -47,14 +47,17 @@ body {
     box-shadow: 0 4px 14px rgba(0,0,0,0.15), 0 5px 5px rgba(0,0,0,0.12);
     transition-duration: .3s;
     transition-timing-function: linear;
+
 }
 .button-positive{
     background: #44AF69;
     color: #FFFFFF;
+
 }
 .button-negative{
     background: #ED254E;
     color: #FFFFFF;
+
 }
 .button:hover{
     cursor: pointer;
@@ -63,10 +66,12 @@ body {
 .button:hover::after {
     transform: scale(1.1);
     cursor: pointer;
+    /*box-shadow: 2px 3px 3px rgba(0,0,0,0.5);*/
+    /*background: #028dae;*/
 }
 
 .button-half {
-    float: left;
+    /*float: left;*/
     display: inline-block;
     width: 48%;
     margin-right: 4%;
@@ -74,6 +79,7 @@ body {
 
 .button-last {
     margin-right: 0px;
+    /*margin-left: -10px;*/
 }
 
 /*Auth form styles*/
@@ -111,9 +117,17 @@ form {
     font-size: small;
     color: red;
 }
-
+.menu-modal img{
+    width: 100%;
+    height: auto;
+}
+.menu-modal h1{
+    position: absolute;
+    color:  #FBF55D;
+    top: 10px;
+    left:5px;
+}
 /*Scoreboard styling*/
-
 .leaderboard .button {
     margin-bottom: 0;
 }
@@ -123,12 +137,14 @@ form {
 }*/
 
 .player {
+
     padding: 2px 20px;
     font-size: 1.5em;
     background: white;
     height: 40px;
     vertical-align: middle;
     text-align: center;
+    /*margin-bottom: 4%;*/
     color: black;
 }
 
