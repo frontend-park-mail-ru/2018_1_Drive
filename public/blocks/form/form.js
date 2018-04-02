@@ -4,7 +4,7 @@
     const BaseComponent = window.BaseComponent;
     const Button = window.Button;
     const Validator = window.Validator;
-    const ApiMethods = window.ApiMethods;
+    const UserService = window.UserServiceSingleton;
 
     class Form extends BaseComponent {
         //Constructs simple form
@@ -57,14 +57,13 @@
                 for (let error in errors) {
                     errWindow.innerHTML += error + ' error!';
                     errWindow.innerHTML += errors[error] + '<br>';
-
                 }
             }
             else {
                 //if you're here, means all data is valid
                 this.form.reset();
                 darkLayer.element.click();
-                ApiMethods.RegOrSignin(this.type, formData);
+                UserService.getInstance().RegOrSignin(this.type, formData);
             }
 
         }

@@ -169,8 +169,6 @@ form {
 }
 
 
-
-
 .label-box {
     position: relative;
     width: 270px;
@@ -266,3 +264,11 @@ input[type="checkbox"]:checked + label::before {
 }
 
 /*input:valid ~ .label-box label */
+.scoreboard-preloader {
+    background-image: url("../img/preloader.gif");
+    height: 3rem;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
