@@ -19,7 +19,6 @@ const UserServiceSingleton = (function () {
                 callback,
                 data: user
             });
-            console.dir(user);
         }
 
         checkAuth() {
@@ -59,22 +58,22 @@ const UserServiceSingleton = (function () {
 
             if (type === 'register') {
                 console.info('Регистрация пользователя', formData);
-                this.signupUser(formData, (err) => {
+                this.signupUser(formData, (err, response) => {
                     if (err) {
-                        alert('Wrong: ' + err);
+                        alert('Пользователь с такими данными уже существует');
                         return;
                     }
-                    this.checkAuth();
+                    alert('Ваш login: ' + response.user.login + ' и почта: ' + response.user.mail)
                 });
 
             } else if (type === 'login') {
-                this.loginUser(formData, (err) => {
+                this.loginUser(formData, (err, response) => {
                     if (err) {
-                        alert('Wrong: '+ err);
+                        alert('Пользователь не существует');
                         return;
                     }
 
-                    this.checkAuth();
+                    alert('Привет ' + response.user.login +'!');
                 });
             }
         }

@@ -13,10 +13,11 @@
             this.playersOnPage = 5;
             this.preloader = new Preloader(this, 'scoreboard-preloader');
             this.preloader.appendItself();
+            this.stopRendrer = false;
         }
 
         loadDataAndRender() {
-            const firstManPosition = (this.page - 1) * this.playersOnPage + 1;
+            const firstManPosition = (this.page - 1) * this.playersOnPage;
             this.preloader.start();
             UserService.getInstance().loadUsers(firstManPosition, this.playersOnPage, (err, response) => {
                 if (err) {
@@ -28,8 +29,12 @@
                     alert(response.status);
                 }
 
-                this.usersLeft = response.usersLeft;
-                this.allUsers = response.users;
+                if (response.users.length !== 0) {
+                    this.allUsers = response.users;
+                    this.stopRendrer = false;
+                } else  {
+                    this.stopRendrer = true;
+                }
                 this.preloader.stop();
                 this.render();
             });
@@ -50,7 +55,7 @@
 
             let paginatorNextButton = new Button (this.element.querySelector('.pagination-next'),
                 () => {
-                    if (this.usersLeft === 0) {
+                    if (this.stopRendrer) {
                         return;
                     }
                     this.page++;
