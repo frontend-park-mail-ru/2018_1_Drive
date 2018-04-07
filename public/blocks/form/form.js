@@ -25,7 +25,8 @@
             this.caption = caption;
             this.fields = fields;
             this.buttonCaption = buttonCaption;
-            this.element.innerHTML = window.formViewTemplate(this);
+            this.element.innerHTML = '<img src = \'./static/img/default_avatar.jpg\'>';
+            this.element.innerHTML += window.formViewTemplate(this);
             this.form = this.element.querySelector('form');
             const button = new Button(
                 this.element.querySelector('.button'), () => {
@@ -54,12 +55,14 @@
             if (Object.keys(errors).length > 0) {
                 //all the errors in the data
                 for (let error in errors) {
-                    errWindow.innerHTML += error + 'error!';
+                    errWindow.innerHTML += error + ' error!';
                     errWindow.innerHTML += errors[error] + '<br>';
                 }
             }
             else {
                 //if you're here, means all data is valid
+                this.form.reset();
+                darkLayer.element.click();
                 UserService.getInstance().RegOrSignin(this.type, formData);
             }
 
