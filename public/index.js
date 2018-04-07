@@ -20,6 +20,7 @@ const registerButton = new BaseComponent(document.querySelector('.button-registe
 const leaderboardButton = new BaseComponent(document.querySelector('.button-leaderboard'));
 const logoutButton = new BaseComponent(document.querySelector('.button-logout'));
 
+const UserService = window.UserServiceSingleton;
 
 switch (window.location.hostname) {
     case 'localhost':
@@ -79,7 +80,7 @@ leaderboardButton.on('click', () => {
 });
 
 logoutButton.on('click', () => {
-   UserService.logout();
+    UserService.getInstance().logout();
 });
 
 

@@ -54,7 +54,8 @@ let users = {
 
 const allowedOrigins = [
     'localhost',
-    'https://frontend-drive.herokuapp.com',
+    '127.0.0.1',
+    'https://frontend-drive.herokuapp.com'
 ];
 
 const CORS_HEADERS = {
