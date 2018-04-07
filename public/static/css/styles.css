@@ -13,7 +13,6 @@ body {
     margin: 0;
     height: auto;
     width: 100%;
-    background-image: url("../img/back.jpg");
     background-position: fixed;
     background-repeat: no-repeat;
     background-position: center center;
@@ -73,8 +72,15 @@ body {
 .button-half {
     /*float: left;*/
     display: inline-block;
-    width: 48%;
-    margin-right: 4%;
+    width: 49%;
+}
+
+.button-left {
+    margin-right: 1%;
+}
+
+.button-right {
+    margin-left: 1%;
 }
 
 .button-last {

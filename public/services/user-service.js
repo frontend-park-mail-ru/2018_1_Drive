@@ -63,7 +63,7 @@ const UserServiceSingleton = (function () {
                         alert('Пользователь с такими данными уже существует');
                         return;
                     }
-                    alert('Ваш login: ' + response.user.login + ' и почта: ' + response.user.mail)
+                    alert('Ваш login: ' + response.user.login + ' и почта: ' + response.user.mail);
                 });
 
             } else if (type === 'login') {
