@@ -1,0 +1,16 @@
+.game-view {
+
+}
+
+.game-view__canvas {
+	position: absolute;
+	display: block;
+	width: 600px;
+	height: 600px;
+
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+
+	border: 1px solid black;
+}

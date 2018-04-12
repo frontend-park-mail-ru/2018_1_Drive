@@ -1,3 +1,4 @@
+@import url("../js/views/GameView/styles.css");
 /*Menu  styles*/
 
 html {
@@ -275,4 +276,17 @@ input[type="checkbox"]:checked + label::before {
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
+}
+
+.themes{
+    width: 400px;
+    margin-top: 20px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.questions{
+    width: 400px;
+    margin-top: 20px;
+    margin-left: auto;
+    margin-right: auto;
 }

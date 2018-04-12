@@ -21,6 +21,16 @@
         // const registerButton = new BaseComponent(document.querySelector('.button-register'));
         // const leaderboardButton = new BaseComponent(document.querySelector('.button-leaderboard'));
         const HttpModule = require('HttpModule');
+        const GameView = require('GameView');
+        const Ws = require('Ws');
+        const bus = require('bus');
+        const root = document.getElementById('application');
+        const Router = require('Router');
+        const MenuView = require('MenuView');
+        const LoginView = require('LoginView');
+        const SignupView = require('SignupView');
+        const ScoreboardView = require('ScoreboardView');
+        const UsersModel = require('UsersModel');
 
         switch (window.location.hostname) {
             case 'localhost':
@@ -32,22 +42,13 @@
             default:
                 HttpModule.baseUrl = '';
         }
-
-
-        const bus = require('bus');
-        const root = document.getElementById('application');
-        const Router = require('Router');
-        const MenuView = require('MenuView');
-        const LoginView = require('LoginView');
-        const SignupView = require('SignupView');
-        const ScoreboardView = require('ScoreboardView');
-        const UsersModel = require('UsersModel');
-
         const rooter = new Router(root);
         rooter.add('/', MenuView);
         rooter.add('/signin', LoginView);
         rooter.add('/signup', SignupView);
         rooter.add('/leaderboard', ScoreboardView);
+        rooter.add('/game/online-mode', GameView);
+        rooter.add('/game/offline-mode', GameView);
         rooter.start();
 
         bus.on('signin', function (userdata) {
