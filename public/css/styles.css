@@ -270,7 +270,7 @@ input[type="checkbox"]:checked + label::before {
 
 
 .scoreboard-preloader {
-    background-image: url("../img/preloader.gif");
+    background-image: url("../static/img/preloader.gif");
     height: 3rem;
     background-size: contain;
     background-repeat: no-repeat;

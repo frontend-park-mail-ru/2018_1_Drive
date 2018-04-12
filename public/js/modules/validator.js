@@ -1,4 +1,4 @@
-(function() {
+define('Validator', function(require) {
     'use strict';
     //Validates data with regular expressions.
     //Validates E-mail, login, password, password-submit.
@@ -36,6 +36,5 @@
         }
     }
 
-    window.Validator = Validator;
-
+    return Validator;
 })();

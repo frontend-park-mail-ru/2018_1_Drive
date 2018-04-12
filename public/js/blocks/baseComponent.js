@@ -1,8 +1,6 @@
-(function () {
+define('BaseComponent', function () {
 
-    'use strict';
-
-    class BaseComponent {
+    return class BaseComponent {
         constructor(element) {
             this.element = element;
         }
@@ -27,8 +25,6 @@
         setText(text) {
             this.element.innerHTML = text;
         }
-    }
+    };
 
-    window.BaseComponent = BaseComponent;
-
-})();
+});

@@ -5,13 +5,14 @@
         .button.button-half.button-last Log out
     .unauthorized
         .button Play as guest
-        .button.button-half.button-login.button-left Log in
-        .button.button-half.button-register.button-right Register
+        .button.button-half.button-login.button-left
+            a(href="/signin") Log in
+        .button.button-half.button-register.button-right
+            a(href="/signup") Register
     .common-menu
         .button Play singleplayer
-        .button.button-leaderboard Leaderboard
-    .logout
-        .button.button-logout Logout
+        .button.button-leaderboard
+            a(href="/leaderboard") Leaderboard
 .shadow
 .menu.menu-modal.leaderboard
     .leaderboard-body

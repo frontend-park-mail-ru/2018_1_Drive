@@ -4,7 +4,7 @@
     <meta http-equiv="Content-type" content="text/html; charset=utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
     <title>Driver - freaking awesome game</title>
-    <link rel="stylesheet" href="./static/css/styles.css" type="text/css">
+    <link rel="stylesheet" href="css/styles.css" type="text/css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Oswald:400,300" type="text/css">
 
 
@@ -13,19 +13,30 @@
     <![endif]-->
 </head>
 <body>
-    <script src="./modules/validator.js"></script>
-    <script src="./modules/http.js"></script>
-    <script src="./services/user-service.js"></script>
-    <script src="./blocks/baseComponent.js"></script>
+    <main id="application"></main>
 
-    <script src="./blocks/button/button.js"></script>
-    <script src="./blocks/form/form.js"></script>
-    <script src="./blocks/form/form-view.js"></script>
-    <script src="./blocks/preloader/preloader.js"></script>
-    <script src="./blocks/scoreboard/scoreboard-view.js"></script>
-    <script src="./blocks/scoreboard/scoreboard.js"></script>
-    <script src="./blocks/menu/menu-view.js"></script>
-    <script src="./index.js"></script>
 
+    <script src="js/modules/module-system.js"></script>
+    <script src="js/index.js"></script>
+
+    <script src="js/modules/bus.js"></script>
+    <script src="js/modules/http.js"></script>
+    <script src="js/modules/router.js"></script>
+
+    <script src="js/models/UsersModel.js"></script>
+
+    <script src="js/blocks/form/form.js"></script>
+    <script src="js/blocks/form/form-view.js"></script>
+    <script src="js/blocks/baseComponent.js"></script>
+    <script src="js/blocks/button/button.js"></script>
+    <script src="js/blocks/scoreboard/scoreboard.js"></script>
+
+    <script src="js/views/View/view.js"></script>
+    <script src="js/views/LoginView/index.js"></script>
+    <script src="js/views/MenuView/index.js"></script>
+    <script src="js/views/MenuView/menu-view.js"></script>
+    <script src="js/views/SignupView/index.js"></script>
+    <script src="js/views/ScoreboardView/index.js"></script>
+    <script src="js/views/ScoreboardView/scoreboard-view.js"></script>
 </body>
 </html>
