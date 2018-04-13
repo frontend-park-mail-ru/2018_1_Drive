@@ -21,6 +21,8 @@ define('GameView', function (require) {
 
         destroy() {
             this.game.destroy();
+            this.hide();
+            this.el.innerHTML = '';
             return this;
         }
 
