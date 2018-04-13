@@ -17,6 +17,7 @@ define('SignupView', function(require) {
                 ],
                 buttonCaption: 'Register me'
             };
+            this.bus.on('signup-error', this.onerror.bind(this));
         }
 
         allowed() {
@@ -45,6 +46,11 @@ define('SignupView', function(require) {
             }
 
             this.bus.emit('signup', formdata);
+        }
+
+        onerror() {
+            const errWindow = this.formComponent.element.querySelector('.errors');
+            errWindow.innerHTML = 'User already exists!';
         }
 
     };
