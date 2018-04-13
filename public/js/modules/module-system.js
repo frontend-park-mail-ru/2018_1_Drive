@@ -9,7 +9,7 @@
      * @return {*|null}
      */
     window.require = function (name) {
-        return modules[name] || factories[name] && (modules[name] = factories[name](require)) || null;
+        return modules[name] || factories[name] && (modules[name] = factories[name](require)) || console.log('problems with '+name+' module');
     };
 
     /**
