@@ -81,7 +81,7 @@ define('game/core/offline', function (require) {
             this.state.theme = evt;
             this.themeMenu.setAttribute('style', 'display:none');
             for (let answerButton of this.answerButtons) {
-                answerButton.setAttribute('style', 'display:block');
+                answerButton.setAttribute('style', 'display:inline-block');
             }
             this.questionMenu.setAttribute('style', 'display:block');
             //TODO: method requestSet(theme) -> question_set
