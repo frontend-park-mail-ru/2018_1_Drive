@@ -2,27 +2,10 @@
 
     document.addEventListener('DOMContentLoaded', function () {
 
-        // const BaseComponent = window.BaseComponent;
-        // const Scoreboard = window.Scoreboard;
-        // const Form = window.Form;
-        // const body = new BaseComponent(document.querySelector('body'));
-        //
-        // //body.element.innerHTML += window.menuViewTemplate(this);
-        //
-        // const scoreboard = new Scoreboard(document.querySelector('.leaderboard'));
-        // const darkLayer = new BaseComponent(document.querySelector('.shadow'));
-        //
-        // const loginForm = new Form(document.querySelector('.login'), 'login');
-        // const registerForm = new Form(document.querySelector('.register'), 'register');
-        // const settingsForm = new Form(document.querySelector('.settings'), 'settings');
-        //
-        // const loginButton = new BaseComponent(document.querySelector('.button-login'));
-        // const settingsButton = new BaseComponent(document.querySelector('.button-settings'));
-        // const registerButton = new BaseComponent(document.querySelector('.button-register'));
-        // const leaderboardButton = new BaseComponent(document.querySelector('.button-leaderboard'));
         const HttpModule = require('HttpModule');
         const GameView = require('GameView');
         const Ws = require('Ws');
+        
         const bus = require('bus');
         const root = document.getElementById('application');
         const Router = require('Router');
@@ -31,6 +14,8 @@
         const SignupView = require('SignupView');
         const ScoreboardView = require('ScoreboardView');
         const UsersModel = require('UsersModel');
+        const SettingsView = require('SettingsView');
+        const LogoutView = require('LogoutView');
 
         switch (window.location.hostname) {
             case 'localhost':
@@ -42,14 +27,20 @@
             default:
                 HttpModule.baseUrl = '';
         }
+      
         const rooter = new Router(root);
         rooter.add('/', MenuView);
         rooter.add('/signin', LoginView);
         rooter.add('/signup', SignupView);
         rooter.add('/leaderboard', ScoreboardView);
+        rooter.add('/settings', SettingsView);
+        rooter.add('/logout', LogoutView);
         rooter.add('/game/online-mode', GameView);
         rooter.add('/game/offline-mode', GameView);
         rooter.start();
+
+        //todo shadow
+        // const shadow = new darkness();
 
         bus.on('signin', function (userdata) {
             UsersModel.login(userdata.mail, userdata.password)
@@ -73,61 +64,16 @@
         });
 
 
+        bus.on('logout', function () {
+            UsersModel.logout()
+                .then(function () {
+                    new Router().open('/');
+                })
+                .catch(function (error) {
+                        bus.emit('logout-error', error);
+                });
+        });
 
 
-        // loginForm.render(
-        //     'Login', [
-        //         ['mail', 'text', 'login-mail'],
-        //         ['password', 'password', 'login-password'],
-        //         ['remember', 'checkbox', 'remember']
-        //     ], 'Log me in!');
-        // body.element.appendChild(loginForm.element);
-        //
-        // registerForm.render(
-        //     'Register', [
-        //         ['mail', 'text', 'register-mail'],
-        //         ['login', 'text', 'register-login'],
-        //         ['password', 'password', 'register-password'],
-        //         ['passwordSubmit', 'password', 'register-submit']
-        //     ], 'Register me');
-        // body.element.appendChild(registerForm.element);
-        //
-        // settingsForm.render(
-        //     'Settings', [
-        //         ['mail', 'text', 'settings-mail'],
-        //         ['login', 'text', 'settings-login'],
-        //         ['password', 'password', 'settings-password'],
-        //         ['password-submit', 'password', 'settings-submit']
-        //     ],
-        //     'Apply'
-        // );
-        //
-        // body.element.appendChild(scoreboard.element);
-
-
-        // loginButton.on('click', () => {
-        //     darkLayer.show();
-        //     loginForm.show();
-        // });
-        // registerButton.on('click', () => {
-        //     darkLayer.show();
-        //     registerForm.show();
-        // });
-        //
-        // leaderboardButton.on('click', () => {
-        //     scoreboard.loadDataAndRender();
-        //     darkLayer.show();
-        //     scoreboard.show();
-        // });
-        //
-        //
-        // darkLayer.on('click', () => {
-        //     settingsForm.hide();
-        //     loginForm.hide();
-        //     registerForm.hide();
-        //     scoreboard.hide();
-        //     scoreboard.setFirstPage();
-        //     darkLayer.hide();
-        // });
     });
 })();

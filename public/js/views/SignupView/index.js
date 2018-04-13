@@ -2,6 +2,7 @@ define('SignupView', function(require) {
     const View = require('View');
     const FormComponent = require('FormComponent');
     const UsersModel = require('UsersModel');
+    const Validator = require('Validator');
 
     return class SignupView extends View {
         constructor() {
@@ -31,6 +32,18 @@ define('SignupView', function(require) {
         }
 
         onSubmit(formdata) {
+            const errWindow = this.formComponent.element.querySelector('.errors');
+            errWindow.innerHTML = '';
+
+            let errors = Validator.validate(formdata);
+            if (Object.keys(errors).length > 0) {
+                for (let error in errors) {
+                    errWindow.innerHTML += error + ' error!';
+                    errWindow.innerHTML += errors[error] + '<br>';
+                }
+                return;
+            }
+
             this.bus.emit('signup', formdata);
         }
 

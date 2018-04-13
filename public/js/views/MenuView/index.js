@@ -10,9 +10,12 @@ define('MenuView', function (require) {
 
 
         render() {
-            // todo
-            // if (UsersModel.isAuthorized());
-            return super.render();
+
+            UsersModel.auth()
+                .then((user) => super.render({authorized: true, login: user.login}))
+                .catch(() =>super.render({authorized: false}));
+
+            return this;
         }
     };
 

@@ -2,6 +2,9 @@ define('LoginView', function (require) {
     const View = require('View');
     const FormComponent = require('FormComponent');
     const UsersModel = require('UsersModel');
+    const Validator = require('Validator');
+    //const shadow = require('darkness');
+
 
     return class LoginView extends View {
         constructor() {
@@ -15,7 +18,6 @@ define('LoginView', function (require) {
                 ],
                 buttonCaption: 'Log me in!'
             };
-            this.bus.on('login-error', this.onerror.bind(this));
         }
 
         allowed() {
@@ -25,18 +27,26 @@ define('LoginView', function (require) {
         create() {
             super.create();
             this.formRoot = this.el.querySelector('.menu');
+
             this.formComponent = new FormComponent(this.formRoot, this.attrs, this.onSubmit.bind(this));
             this.formComponent.init();
+
             return this;
         }
 
-        onerror(err) {
-            if (this.active) {
-                console.error(err);
-            }
-        }
-
         onSubmit(formdata) {
+            const errWindow = this.formComponent.element.querySelector('.errors');
+            errWindow.innerHTML = '';
+
+            let errors = Validator.validate(formdata);
+            if (Object.keys(errors).length > 0) {
+                for (let error in errors) {
+                    errWindow.innerHTML += error + ' error!';
+                    errWindow.innerHTML += errors[error] + '<br>';
+                }
+                return;
+            }
+
             this.bus.emit('signin', formdata);
         }
     };
