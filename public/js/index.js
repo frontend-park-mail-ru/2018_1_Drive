@@ -5,6 +5,7 @@
         const HttpModule = require('HttpModule');
         const GameView = require('GameView');
         const Ws = require('Ws');
+        
         const bus = require('bus');
         const root = document.getElementById('application');
         const Router = require('Router');
@@ -13,6 +14,8 @@
         const SignupView = require('SignupView');
         const ScoreboardView = require('ScoreboardView');
         const UsersModel = require('UsersModel');
+        const SettingsView = require('SettingsView');
+        const LogoutView = require('LogoutView');
 
         switch (window.location.hostname) {
             case 'localhost':
@@ -24,17 +27,6 @@
             default:
                 HttpModule.baseUrl = '';
         }
-      
-        const bus = require('bus');
-        const root = document.getElementById('application');
-        const Router = require('Router');
-        const MenuView = require('MenuView');
-        const LoginView = require('LoginView');
-        const SignupView = require('SignupView');
-        const ScoreboardView = require('ScoreboardView');
-        const UsersModel = require('UsersModel');
-        const SettingsView = require('SettingsView');
-        const LogoutView = require('LogoutView');
       
         const rooter = new Router(root);
         rooter.add('/', MenuView);
