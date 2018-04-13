@@ -32,10 +32,6 @@ define('UsersModel', function (require) {
                     url: '/user',
                     callback(err, response) {
                         if (err) {
-                            // if (err.status == 401) {
-                            //     return resolve(null);
-                            // }
-                            console.log('Вы не авторизованы');
                             return reject(err);
                         }
 
@@ -94,15 +90,20 @@ define('UsersModel', function (require) {
             });
         }
 
-        // loadUsers(firstManPos, amountOfPeople) {
-        //     return httpModule.promiseGet(`/leaders/${firstManPos}/${amountOfPeople}`);
-        // }
-        //
-        // logout() {
-        //     httpModule.doGet({
-        //         url: '/logout'
-        //     });
-        // }
+        static logout() {
+            return new Promise(function (resolve, reject) {
+                HttpModule.doGet({
+                    url: '/logout',
+                    callback(err, response) {
+                        if (err) {
+                            return reject(err);
+                        }
+                        currentUser = null;
+                        resolve();
+                    }
+                });
+            });
+        }
 
     };
 });

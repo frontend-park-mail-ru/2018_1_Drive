@@ -6,13 +6,12 @@ define('ScoreboardView', function (require) {
     return class ScoreboardView extends View {
         constructor() {
             super('scoreboard', window.scoreboardViewTemplate);
-            //this.attrs = [];
         }
 
-        create(attrs = []) {
+        create(attrs) {
             super.create(attrs);
             const scoreboardRoot = this.el.querySelector('.menu');
-            this.scoreboard = new ScoreboardComponent(scoreboardRoot);
+            this.scoreboard = new ScoreboardComponent(scoreboardRoot, this.update.bind(this));
 
             UsersModel.loadUsers(this.scoreboard.getFirstPosition(), this.scoreboard.playersOnPage)
                 .then(function (users) {
@@ -22,5 +21,23 @@ define('ScoreboardView', function (require) {
                 .catch(console.error);
             return this;
         }
+
+        update() {
+            UsersModel.loadUsers(this.scoreboard.getFirstPosition(), this.scoreboard.playersOnPage)
+                .then(function (users) {
+                    if (users.length === 0 ) {
+                        this.scoreboard.stopRendrer = true;
+                        return;
+                    }
+                    this.scoreboard.users = users;
+                    this.scoreboard.render();
+
+                    if (users.length < this.scoreboard.playersOnPage) {
+                        this.scoreboard.stopRendrer = true;
+                    }
+                }.bind(this))
+                .catch(console.error);
+        }
+
     };
 });
