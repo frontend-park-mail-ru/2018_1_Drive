@@ -60,6 +60,7 @@
                 })
                 .catch(function (error) {
                     bus.emit('signup-error', error);
+                    console.log(error);
                 });
         });
 

@@ -18,6 +18,7 @@ define('LoginView', function (require) {
                 ],
                 buttonCaption: 'Log me in!'
             };
+            this.bus.on('login-error', this.onerror.bind(this));
         }
 
         allowed() {
@@ -48,6 +49,11 @@ define('LoginView', function (require) {
             }
 
             this.bus.emit('signin', formdata);
+        }
+
+        onerror() {
+            const errWindow = this.formComponent.element.querySelector('.errors');
+            errWindow.innerHTML = 'User doesn\'t exists';
         }
     };
 });
