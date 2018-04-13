@@ -14,11 +14,13 @@ module.exports = {
             "error",
             "unix"
         ],
+        "no-unused-vars": "off",
         "quotes": [
             "error",
             "single"
         ],
         "no-undef": "off",
+        "no-unused-vars": "off",
         "no-console": "off",
         "semi": [
             "error",
