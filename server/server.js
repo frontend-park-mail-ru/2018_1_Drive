@@ -1,7 +1,7 @@
 'use strict';
 
+const fallback = require('express-history-api-fallback');
 const path = require('path');
-
 const express = require('express');
 const body = require('body-parser');
 const cookie = require('cookie-parser');
@@ -158,6 +158,8 @@ app.post('/signin', function (req, res) {
     res.status(201).json(users[mail]);
 });
 
+const root = path.resolve(__dirname, '..', 'public');
+app.use(fallback('index.html', {root}));
 const port = process.env.PORT || 3000;
 
 app.listen(port, function () {
