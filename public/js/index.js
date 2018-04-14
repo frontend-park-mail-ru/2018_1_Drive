@@ -35,8 +35,8 @@
         rooter.add('/leaderboard', ScoreboardView);
         rooter.add('/settings', SettingsView);
         rooter.add('/logout', LogoutView);
-        rooter.add('/game/online-mode', GameView);
-        rooter.add('/game/offline-mode', GameView);
+        rooter.add('/offline-game', GameView);
+        //rooter.add('/game/offline-mode', GameView);
         rooter.start();
 
         //todo shadow

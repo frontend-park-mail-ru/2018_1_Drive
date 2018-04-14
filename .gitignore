@@ -1,5 +1,14 @@
 /node_modules
-/public/blocks/form/form-view.js
-/public/blocks/scoreboard/scoreboard-view.js
-/public/blocks/menu/menu-view.js
 .idea/
+
+
+public/blocks/form/form-view.js
+public/blocks/scoreboard/scoreboard-view.js
+public/blocks/menu/menu-view.js
+public/js/blocks/form/form-view.js
+public/js/blocks/scoreboard/scoreboard-body.js
+public/js/views/GameView/game-view.js
+public/js/views/MenuView/menu-view.js
+public/js/views/ScoreboardView/scoreboard-view.js
+public/js/views/SettingsView/setting-view.js
+
