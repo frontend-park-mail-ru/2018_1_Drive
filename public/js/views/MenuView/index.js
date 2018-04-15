@@ -1,19 +1,16 @@
-define('MenuView', function (require) {
+import {View} from '../View/view';
+import {UsersModel} from '../../models/UsersModel';
+//import {menuViewTemplate} from './menu-view.pug';
+const menuViewTemplate = require('./menu-view.pug');
 
-    const View = require('View');
-    const UsersModel = require('UsersModel');
+export class MenuView extends View {
+    constructor() {
 
-    return class MenuView extends View {
-        constructor() {
-            super('Menu', window.menuViewTemplate);
-        }
+        super('Menu', menuViewTemplate);
+    }
 
-
-        render() {
-            // todo
-            // if (UsersModel.isAuthorized());
-            return super.render();
-        }
-    };
-
-});
+    render() {
+        // TODO:if (UsersModel.isAuthorized());
+        return super.render();
+    }
+}

@@ -1,3 +1,14 @@
+import {HttpModule} from './modules/http';
+import {Ws} from './modules/ws';
+import * as busSingletone from './modules/bus';
+import {Router} from './modules/router';
+import {MenuView} from './views/MenuView/index';
+import {LoginView} from './views/LoginView/index';
+import {SignupView} from './views/SignupView/index';
+import {ScoreboardView} from './views/ScoreboardView/index';
+import {GameView} from './views/GameView/index';
+import {UsersModel} from './models/UsersModel';
+
 (function () {
 
     document.addEventListener('DOMContentLoaded', function () {
@@ -20,17 +31,8 @@
         // const settingsButton = new BaseComponent(document.querySelector('.button-settings'));
         // const registerButton = new BaseComponent(document.querySelector('.button-register'));
         // const leaderboardButton = new BaseComponent(document.querySelector('.button-leaderboard'));
-        const HttpModule = require('HttpModule');
-        const GameView = require('GameView');
-        const Ws = require('Ws');
-        const bus = require('bus');
         const root = document.getElementById('application');
-        const Router = require('Router');
-        const MenuView = require('MenuView');
-        const LoginView = require('LoginView');
-        const SignupView = require('SignupView');
-        const ScoreboardView = require('ScoreboardView');
-        const UsersModel = require('UsersModel');
+        const bus = busSingletone.getInstance();
 
         switch (window.location.hostname) {
             case 'localhost':
