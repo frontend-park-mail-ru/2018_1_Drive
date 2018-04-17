@@ -1,9 +1,6 @@
-define('Validator', function(require) {
-    'use strict';
-    //Validates data with regular expressions.
-    //Validates E-mail, login, password, password-submit.
-    class Validator {
-        static Validate(arr) {
+
+export class Validator {
+        static validate(arr) {
             let errors = {};
 
             //-E-mail tests
@@ -34,7 +31,4 @@ define('Validator', function(require) {
             //return errors like {"problem-source1":"problem description 1", ...}
             return errors;
         }
-    }
-
-    return Validator;
-})();
+}

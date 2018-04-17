@@ -5,12 +5,13 @@ const menuViewTemplate = require('./menu-view.pug');
 
 export class MenuView extends View {
     constructor() {
-
         super('Menu', menuViewTemplate);
     }
 
     render() {
-        // TODO:if (UsersModel.isAuthorized());
-        return super.render();
+        UsersModel.auth()
+            .then((user) => super.render({authorized: true, login: user.login}))
+            .catch(() =>super.render({authorized: false}));
+        return this;
     }
 }

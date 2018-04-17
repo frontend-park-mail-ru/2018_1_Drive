@@ -1,8 +1,11 @@
 import {View} from '../View/view';
 import {UsersModel} from '../../models/UsersModel';
 import {FormComponent} from '../../blocks/form/form';
-//import {formViewTemplate} from '../../blocks/form/form-view.pug';
 const formViewTemplate = require('../../blocks/form/form-view.pug');
+import * as busSingletone from '../../modules/bus';
+import {Validator} from '../../modules/validator';
+
+
 export class LoginView extends View {
     constructor() {
         super('Login', formViewTemplate);
@@ -15,7 +18,7 @@ export class LoginView extends View {
             ],
             buttonCaption: 'Log me in!'
         };
-        this.bus.on('login-error', this.onerror.bind(this));
+        busSingletone.getInstance().on('login-error', this.onerror.bind(this));
     }
 
     allowed() {
@@ -30,13 +33,23 @@ export class LoginView extends View {
         return this;
     }
 
-    onerror(err) {
-        if (this.active) {
-            console.error(err);
+    onSubmit(formdata) {
+        const errWindow = this.formComponent.element.querySelector('.errors');
+        errWindow.innerHTML = '';
+
+        let errors = Validator.validate(formdata);
+        if (Object.keys(errors).length > 0) {
+            for (let error in errors) {
+                errWindow.innerHTML += error + ' error!';
+                errWindow.innerHTML += errors[error] + '<br>';
+            }
+            return;
         }
+        busSingletone.getInstance().emit('signin', formdata);
     }
 
-    onSubmit(formdata) {
-        this.bus.emit('signin', formdata);
+    onerror() {
+        const errWindow = this.formComponent.element.querySelector('.errors');
+        errWindow.innerHTML = 'User doesn\'t exists';
     }
-};
+}

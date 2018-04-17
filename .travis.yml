@@ -7,7 +7,7 @@ deploy:
   provider: heroku
   api_key:
     secure: $key
-  app: test-trvis
+  app: frontend-drive
   on:
     repo: frontend-park-mail-ru/2018_1_Drive
     branch: develop

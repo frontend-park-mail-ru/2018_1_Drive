@@ -13,8 +13,8 @@ export class FormComponent extends BaseComponent {
         this.fields = params.fields;
         this.buttonCaption = params.buttonCaption;
         this._callback = callback;
+        this.template = formViewTemplate;
     }
-
 
     init() {
         this.form = this.element.querySelector('form');
@@ -24,16 +24,14 @@ export class FormComponent extends BaseComponent {
             });
     }
 
-
+    //todo pictures
     render() {
-        //todo pictures
         //this.element.innerHTML = '<img src = \'./static/img/default_avatar.jpg\'>';
-        this.element.innerHTML += formViewTemplate(this);
+        this.element.innerHTML += this.template(this);
     }
 
-
     getFields() {
-        const formData = {};//All data from form. Looks like {'password':1234,'login':'imtired'}
+        const formData = {};
         const fields = this.form.querySelectorAll('input');
         for (let field of fields) {
             if (field.files && field.files.length > 0) {
@@ -49,39 +47,5 @@ export class FormComponent extends BaseComponent {
         return formData;
     }
 
-
-    // submitForm() {
-    //     const formData = {};//All data from form. Looks like {'password':1234,'login':'imtired'}
-    //     const fields = this.form.querySelectorAll('input');
-    //     for (let field of fields) {
-    //         if (field.files && field.files.length > 0) {
-    //             //File is uploaded
-    //         }
-    //         if (!field.hasAttribute('checked')) {
-    //             formData[field.name] = field.value;
-    //         }
-    //         else {
-    //             formData[field.name] = field.checked;
-    //         }
-    //     }
-    //     let errors = Validator.Validate(formData);
-    //     const errWindow = this.form.querySelector('.errors');
-    //     errWindow.innerHTML = '';
-    //     if (Object.keys(errors).length > 0) {
-    //         //all the errors in the data
-    //         for (let error in errors) {
-    //             errWindow.innerHTML += error + ' error!';
-    //             errWindow.innerHTML += errors[error] + '<br>';
-    //         }
-    //     }
-    //     else {
-    //         //if you're here, means all data is valid
-    //         this.form.reset();
-    //         darkLayer.element.click();
-    //         UserService.getInstance().RegOrSignin(this.type, formData)
-    //             .then(this.hide());
-    //     }
-    //
-    // }
 }
 

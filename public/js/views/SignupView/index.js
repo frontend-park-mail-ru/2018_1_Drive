@@ -3,6 +3,10 @@ import {FormComponent} from '../../blocks/form/form';
 import {UsersModel} from '../../models/UsersModel';
 //import {formViewTemplate} from '../../blocks/form/form-view.pug';
 const formViewTemplate = require('../../blocks/form/form-view.pug');
+import * as busSingleton from '../../modules/bus';
+import {Validator} from '../../modules/validator';
+
+
 export class SignupView extends View {
     constructor() {
         super('Register', formViewTemplate);
@@ -16,6 +20,7 @@ export class SignupView extends View {
             ],
             buttonCaption: 'Register me'
         };
+        busSingleton.getInstance().on('signup-error', this.onerror.bind(this));
     }
 
     allowed() {
@@ -31,6 +36,24 @@ export class SignupView extends View {
     }
 
     onSubmit(formdata) {
-        this.bus.emit('signup', formdata);
+        const errWindow = this.formComponent.element.querySelector('.errors');
+        errWindow.innerHTML = '';
+
+        let errors = Validator.validate(formdata);
+        if (Object.keys(errors).length > 0) {
+            for (let error in errors) {
+                errWindow.innerHTML += error + ' error!';
+                errWindow.innerHTML += errors[error] + '<br>';
+            }
+            return;
+        }
+
+        busSingleton.getInstance().emit('signup', formdata);
     }
+
+    onerror() {
+        const errWindow = this.formComponent.element.querySelector('.errors');
+        errWindow.innerHTML = 'User already exists!';
+    }
+
 }
