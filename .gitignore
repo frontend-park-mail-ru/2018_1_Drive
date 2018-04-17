@@ -1,7 +1,7 @@
 /node_modules
 .idea/
 
-
+/public/js/dist/
 public/blocks/form/form-view.js
 public/blocks/scoreboard/scoreboard-view.js
 public/blocks/menu/menu-view.js

@@ -1,15 +1,15 @@
-define('SettingsView', function (require) {
+import {UsersModel} from '../../models/UsersModel';
+import {View} from '../View/view';
 
-    const View = require('View');
-    const UserModel = require('UsersModel');
+const template = require('./setting-view.pug');
 
-    return class SettingsView extends View {
+export class SettingsView extends View {
         constructor() {
-            super('Settings', window.settingViewTemplate);
+            super('Settings', template);
         }
 
         create() {
-            const user = UserModel.getCurrentUser();
+            const user = UsersModel.getCurrentUser();
             this.attrs = {
                 login: user.login,
                 mail: user.mail,
@@ -18,7 +18,4 @@ define('SettingsView', function (require) {
             super.create();
             return this;
         }
-
-    };
-
-});
+}

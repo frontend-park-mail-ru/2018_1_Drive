@@ -1,14 +1,12 @@
-define('Button', function () {
+import { BaseComponent } from '../baseComponent';
 
-    const BaseComponent = require('BaseComponent');
-
-    return class Button extends BaseComponent {
-        constructor(element, handler = null) {
-            super(element);
-            if(handler){
-                this.on('click', handler);
-            }
+export class Button extends BaseComponent {
+    constructor(element, handler = null) {
+        super(element);
+        if(handler){
+            this.on('click', handler);
         }
-    };
+    }
+}
 
-});
+

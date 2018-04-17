@@ -1,13 +1,15 @@
-define('Ws', function (require) {
-    const bus = require('bus');
 
-    class Ws {
+    import * as busSingleton from './bus';
+
+    export class Ws {
         constructor() {
+            this.bus = busSingleton.getInstance();
+            this.host = window.location.host;
             if (Ws.__instance) {
                 return Ws.__instance;
             }
 
-            const address = `${window.location.protocol.replace('http', 'ws')}//${Ws.host}/ws`;
+            const address = `${window.location.protocol.replace('http', 'ws')}//${this.host}/ws`;
             this.ws = new WebSocket(address);
             this.ws.onopen = (event) => {
                 console.log(`WebSocket on address ${address} opened`);
@@ -28,7 +30,7 @@ define('Ws', function (require) {
 
             try {
                 const message = JSON.parse(messageText);
-                bus.emit(message.type, message.payload);
+                this.bus.emit(message.type, message.payload);
             } catch (err) {
                 console.error('smth went wront in handleMessage: ', err);
             }
@@ -39,7 +41,4 @@ define('Ws', function (require) {
         }
     }
 
-    Ws.host = window.location.host;
 
-    return Ws;
-});

@@ -1,11 +1,8 @@
-define('LogoutView', function (require) {
+import {View} from '../View/view';
+import * as busSingleton from '../../modules/bus';
 
-    const View = require('View');
-    const bus = require('bus');
-
-    return class LogoutView extends View {
+export class LogoutView extends View {
         create() {
-            this.bus.emit('logout');
+            busSingleton.getInstance().emit('logout');
         }
-    };
-});
+}

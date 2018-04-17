@@ -1,53 +1,51 @@
-define('FormComponent', function (require) {
+import {BaseComponent} from '../baseComponent';
+import {Button} from '../button/button';
+//import {formViewTemplate} from './form-view.pug';
+//const Validator = window.Validator;
+const formViewTemplate = require('./form-view.pug');
 
-    const BaseComponent = require('BaseComponent');
-    const Button = require('Button');
-    //const Validator = window.Validator;
+export class FormComponent extends BaseComponent {
 
-    return class Form extends BaseComponent {
-        constructor(element, params, callback) {
-            super(element);
-            this.type = params.type;
-            this.caption = params.caption;
-            this.fields = params.fields;
-            this.buttonCaption = params.buttonCaption;
-            this._callback = callback;
-        }
+    constructor(element, params, callback) {
+        super(element);
+        this.type = params.type;
+        this.caption = params.caption;
+        this.fields = params.fields;
+        this.buttonCaption = params.buttonCaption;
+        this._callback = callback;
+        this.template = formViewTemplate;
+    }
 
+    init() {
+        this.form = this.element.querySelector('form');
+        const button = new Button(
+            this.element.querySelector('.button'), () => {
+                this._callback(this.getFields());
+            });
+    }
 
-        init() {
-            this.form = this.element.querySelector('form');
-            const button = new Button(
-                this.element.querySelector('.button'), () => {
-                    this._callback(this.getFields());
-                });
-        }
+    //todo pictures
+    render() {
+        //this.element.innerHTML = '<img src = \'./static/img/default_avatar.jpg\'>';
+        this.element.innerHTML += this.template(this);
+    }
 
-
-            //todo pictures
-            render() {
-            //this.element.innerHTML = '<img src = \'./static/img/default_avatar.jpg\'>';
-            this.element.innerHTML += window.formViewTemplate(this);
-        }
-
-
-        getFields() {
-            const formData = {};
-            const fields = this.form.querySelectorAll('input');
-            for (let field of fields) {
-                if (field.files && field.files.length > 0) {
-                    //File is uploaded
-                }
-                if (!field.hasAttribute('checked')) {
-                    formData[field.name] = field.value;
-                }
-                else {
-                    formData[field.name] = field.checked;
-                }
+    getFields() {
+        const formData = {};
+        const fields = this.form.querySelectorAll('input');
+        for (let field of fields) {
+            if (field.files && field.files.length > 0) {
+                //File is uploaded
             }
-            return formData;
+            if (!field.hasAttribute('checked')) {
+                formData[field.name] = field.value;
+            }
+            else {
+                formData[field.name] = field.checked;
+            }
         }
+        return formData;
+    }
 
-    };
+}
 
-});
