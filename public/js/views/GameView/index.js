@@ -20,6 +20,7 @@ export class GameView extends View {
     }
 
     destroy() {
+        this.el.innerHTML = '';
         this.game.destroy();
         return this;
     }
