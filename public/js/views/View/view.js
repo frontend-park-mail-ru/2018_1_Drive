@@ -3,8 +3,6 @@ import * as busSingleton from '../../modules/bus';
 
 export class View {
     constructor(name, template = this.noop) {
-        //console.log('wow');
-        console.log(template);
         this.noop = () => null;
         this.name = name;
         this.attrs = {};
