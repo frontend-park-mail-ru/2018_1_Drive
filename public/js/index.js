@@ -1,21 +1,22 @@
+import {HttpModule} from './modules/http';
+import {Ws} from './modules/ws';
+import * as busSingletone from './modules/bus';
+import {Router} from './modules/router';
+import {MenuView} from './views/MenuView/index';
+import {LoginView} from './views/LoginView/index';
+import {SignupView} from './views/SignupView/index';
+import {ScoreboardView} from './views/ScoreboardView/index';
+import {GameView} from './views/GameView/index';
+import {UsersModel} from './models/UsersModel';
+import {SettingsView} from './views/SettingsView/SettingsView';
+import {LogoutView} from './views/LogoutView/LogoutView';
+
 (function () {
 
     document.addEventListener('DOMContentLoaded', function () {
 
-        const HttpModule = require('HttpModule');
-        const GameView = require('GameView');
-        const Ws = require('Ws');
-        
-        const bus = require('bus');
         const root = document.getElementById('application');
-        const Router = require('Router');
-        const MenuView = require('MenuView');
-        const LoginView = require('LoginView');
-        const SignupView = require('SignupView');
-        const ScoreboardView = require('ScoreboardView');
-        const UsersModel = require('UsersModel');
-        const SettingsView = require('SettingsView');
-        const LogoutView = require('LogoutView');
+        const bus = busSingletone.getInstance();
 
         switch (window.location.hostname) {
             case 'localhost':
@@ -27,7 +28,7 @@
             default:
                 HttpModule.baseUrl = '';
         }
-      
+
         const rooter = new Router(root);
         rooter.add('/', MenuView);
         rooter.add('/signin', LoginView);
@@ -35,8 +36,8 @@
         rooter.add('/leaderboard', ScoreboardView);
         rooter.add('/settings', SettingsView);
         rooter.add('/logout', LogoutView);
-        rooter.add('/game/online-mode', GameView);
-        rooter.add('/game/offline-mode', GameView);
+        rooter.add('/offline-game', GameView);
+        //rooter.add('/game/offline-mode', GameView);
         rooter.start();
 
         //todo shadow
@@ -74,7 +75,5 @@
                         bus.emit('logout-error', error);
                 });
         });
-
-
     });
 })();

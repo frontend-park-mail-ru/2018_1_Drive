@@ -1,22 +1,17 @@
-define('MenuView', function (require) {
+import {View} from '../View/view';
+import {UsersModel} from '../../models/UsersModel';
+//import {menuViewTemplate} from './menu-view.pug';
+const menuViewTemplate = require('./menu-view.pug');
 
-    const View = require('View');
-    const UsersModel = require('UsersModel');
+export class MenuView extends View {
+    constructor() {
+        super('Menu', menuViewTemplate);
+    }
 
-    return class MenuView extends View {
-        constructor() {
-            super('Menu', window.menuViewTemplate);
-        }
-
-
-        render() {
-
-            UsersModel.auth()
-                .then((user) => super.render({authorized: true, login: user.login}))
-                .catch(() =>super.render({authorized: false}));
-
-            return this;
-        }
-    };
-
-});
+    render() {
+        UsersModel.auth()
+            .then((user) => super.render({authorized: true, login: user.login}))
+            .catch(() =>super.render({authorized: false}));
+        return this;
+    }
+}

@@ -1,28 +1,30 @@
-define('bus', function (require) {
+class Bus {
+    constructor() {
+        this.listeners = {};
+    }
 
-    return new class Bus {
-        constructor() {
-            this.listeners = {};
+    on(event, listener) {
+        (this.listeners[event] || (this.listeners[event] = [])).push(listener);
+        return this;
+    }
+
+    off(event, listener) {
+        if (listener) {
+            this.listeners[event] = (this.listeners[event] || []).filter(l => l !== listener);
+        } else {
+            this.listeners[event] = [];
         }
+        return this;
+    }
 
-        on(event, listener) {
-            (this.listeners[event] || (this.listeners[event] = [])).push(listener);
-            return this;
-        }
+    emit(event, data) {
+        (this.listeners[event] || (this.listeners[event] = [])).forEach(l => l(data));
+        return this;
+    }
+}
 
-        off(event, listener) {
-            if (listener) {
-                this.listeners[event] = (this.listeners[event] || []).filter(l => l !== listener);
-            } else {
-                this.listeners[event] = [];
-            }
-            return this;
-        }
+let instance = new Bus();
 
-        emit(event, data) {
-            (this.listeners[event] || (this.listeners[event] = [])).forEach(l => l(data));
-            return this;
-        }
-    };
-
-});
+export function getInstance() {
+    return instance;
+}
