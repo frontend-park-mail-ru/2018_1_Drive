@@ -61,6 +61,7 @@ import {LogoutView} from './views/LogoutView/LogoutView';
                 })
                 .catch(function (error) {
                     bus.emit('signup-error', error);
+                    console.log(error);
                 });
         });
 
@@ -74,5 +75,9 @@ import {LogoutView} from './views/LogoutView/LogoutView';
                         bus.emit('logout-error', error);
                 });
         });
+        bus.on('home', ()=> {
+            rooter.open('/');
+        });
+
     });
 })();
