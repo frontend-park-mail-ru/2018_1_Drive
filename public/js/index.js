@@ -75,5 +75,9 @@ import {LogoutView} from './views/LogoutView/LogoutView';
                         bus.emit('logout-error', error);
                 });
         });
+        bus.on('home', ()=> {
+            rooter.open('/');
+        });
+
     });
 })();
