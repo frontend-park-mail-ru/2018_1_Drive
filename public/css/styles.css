@@ -12,16 +12,11 @@ body {
     background-color: #FFFFFF;
     border-top: 0px solid #7e7e7e;
     margin: 0;
-    height: auto;
+    height: 100%;
     width: 100%;
-    background-position: fixed;
-    background-repeat: no-repeat;
-    background-position: center center;
-    background-size: cover;
-
 }
 
-a {
+.menu-href {
     height: 100%;
     width: 100%;
     left: 0;
@@ -36,21 +31,203 @@ a:visited {
     color: black;
 }
 
-/*Menu styling*/
-.menu {
-
-    width: 350px;
-    margin: auto;
-    margin-top: 100px;
-
+#application {
+    width: 100%;
+    height: 100%;
+    display: block;
 }
 
+.header {
+    float: left;
+    display: flex;
+    width: 100%;
+    height: 10rem;
+}
+
+
+.logo-section {
+    width: 30%;
+    height: 100%;
+    display: inline-block;
+}
+
+.logo-section__logo {
+    display: inline-block;
+    width: 100%;
+    height: 80%;
+    font: 400 100px/1.2 'Leckerli One', Helvetica, sans-serif;
+    color: #000;
+    text-shadow: 2px 2px 0px rgba(0,0,0,0.2), 4px 4px 8px rgba(0,0,0,0.2);
+    font-size:70px;
+    text-align: center;
+}
+
+.free-section {
+    background-color: white;
+    height: 100%;
+    width: 40%;
+}
+
+.profile-section {
+    font-family: 'Antic Didone', serif;
+    width: 35rem;
+}
+
+.profile-img {
+    display: block;
+    height: 90%;
+    width: 90%;
+    margin-top: 5%;
+    margin-left: 6%;
+}
+
+.profile-section__profile {
+    display: flex;
+}
+
+.material {
+    background: #fff;
+    border-radius: 2px;
+    position: relative;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+}
+
+.profile-section__profile-authorized {
+    float: right;
+    height: 25%;
+    width: 11.5rem;
+    margin-right: 0.5rem;
+}
+
+.profile-section__profile-unauthorized {
+    float: right;
+    height: 25%;
+    width: 12rem;
+    margin-right: 0.5rem;
+}
+
+.profile-login__login {
+    height: 100%;
+    width: 50%;
+    font-size: 1.3rem;
+    float:left;
+}
+
+.profile-login__login  a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: black;
+    text-decoration: none;
+    width: 100%;
+    height: 100%;
+}
+
+.profile-login__first-letter {
+    color: orange;
+}
+
+.profile-login__signup {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.3rem;
+    width: 50%;
+    height: 100%;
+}
+
+.profile-login__signup a {
+    width: 100%;
+    height: 100%;
+    color: black;
+    text-decoration: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.profile-photo {
+    float: left;
+    display: inline-block;
+    height: 100%;
+    width: 25%;
+    margin-left: 0.3rem;
+}
+
+.profile-login {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.3rem;
+    float: left;
+    width: 70%;
+    height: 100%;
+}
+
+.profile-score {
+    float: left;
+    text-align: center;
+    display: flex;
+    font-size: 1.2rem;
+    justify-content: center;
+    align-items: center;
+    width: 60%;
+    height: 50%;
+}
+
+.main-block {
+    width: 100%;
+    display: flex;
+    height: 80%;
+    justify-content: center;
+}
+
+.logo-oil {
+    position: absolute;
+    top: 10rem;
+    z-index: 0;
+    width: 800px;
+    height: 600px;
+    background-image: url("../img/oil.GIF");
+    background-size:70%;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.black-background {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    z-index: 0;
+    opacity: 0.95;
+}
+
+
+/*Menu styling*/
+.menu {
+    z-index: 1;
+    display: inline-block;
+    width: 350px;
+    margin-top: 11rem;
+}
+
+.white-background {
+    background-color: white;
+}
+
+
+.yellow {
+    background: #FBF55D;
+}
 
 
 .button {
     position: relative;
     font-size: 1.5em;
-    background: #FBF55D;
     min-height: 50px;
     vertical-align: middle;
     text-align: center;
@@ -157,7 +334,6 @@ form {
 }*/
 
 .player {
-
     padding: 2px 20px;
     font-size: 1.5em;
     background: white;

@@ -2,14 +2,13 @@ import {View} from '../View/view';
 import {FormComponent} from '../../blocks/form/form';
 import {UsersModel} from '../../models/UsersModel';
 //import {formViewTemplate} from '../../blocks/form/form-view.pug';
-const formViewTemplate = require('../../blocks/form/form-view.pug');
 import * as busSingleton from '../../modules/bus';
 import {Validator} from '../../modules/validator';
-
+const gridViewTemplate = require('../GridView/grid-view.pug');
 
 export class SignupView extends View {
     constructor() {
-        super('Register', formViewTemplate);
+        super('Register', gridViewTemplate);
         this.attrs = {
             caption: 'Register',
             fields: [
@@ -31,7 +30,8 @@ export class SignupView extends View {
         super.create();
         this.formRoot = this.el.querySelector('.menu');
         this.formComponent = new FormComponent(this.formRoot, this.attrs, this.onSubmit.bind(this));
-        this.formComponent.init();
+        this.formComponent.render();
+        this.formComponent.addListeners();
         return this;
     }
 
