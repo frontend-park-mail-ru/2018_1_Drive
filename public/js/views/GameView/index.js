@@ -7,7 +7,7 @@ const gameViewTemplate = require('./game-view.pug');
 
 export class GameView extends View {
     constructor() {
-        super('GameView',gameViewTemplate);
+        super('GameView', gameViewTemplate);
         this.attrs = {};
         this.canvas = null;
         this.game = null;

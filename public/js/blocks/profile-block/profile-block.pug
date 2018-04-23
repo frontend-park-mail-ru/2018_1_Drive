@@ -1,0 +1,14 @@
+- if (authorized) {
+.profile-section__profile-authorized.material
+    .profile-photo
+        img.profile-img(src="../../img/avatar.png")
+    .profile-login
+        span.profile-login__first-letter #{firstLetter}
+        | #{otherLetters}
+- } else {
+.profile-section__profile-unauthorized.material
+    .profile-login__login
+        a(href="/signin") Log in
+    .profile-login__signup
+        a(href="/signup") Register
+-}

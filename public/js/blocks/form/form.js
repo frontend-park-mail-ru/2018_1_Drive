@@ -16,7 +16,7 @@ export class FormComponent extends BaseComponent {
         this.template = formViewTemplate;
     }
 
-    init() {
+    addListeners() {
         this.form = this.element.querySelector('form');
         const button = new Button(
             this.element.querySelector('.button'), () => {
@@ -24,10 +24,8 @@ export class FormComponent extends BaseComponent {
             });
     }
 
-    //todo pictures
     render() {
-        //this.element.innerHTML = '<img src = \'./static/img/default_avatar.jpg\'>';
-        this.element.innerHTML += this.template(this);
+        this.element.innerHTML = this.template(this);
     }
 
     getFields() {
