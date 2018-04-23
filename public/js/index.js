@@ -67,6 +67,7 @@ import * as UserSingletone from './services/user-singletone';
                 })
                 .catch(function (error) {
                     bus.emit('signup-error', error);
+                    console.log(error);
                 });
         });
 
@@ -82,10 +83,13 @@ import * as UserSingletone from './services/user-singletone';
                 });
         });
 
-
         bus.on('profile-settings', function (user) {
             rooter.open('/profile', user);
         });
-
+      
+        bus.on('home', () => {
+            rooter.open('/');
+        });
+      
     });
 })();
