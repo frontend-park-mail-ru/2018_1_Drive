@@ -43,7 +43,7 @@ import * as UserSingletone from './services/user-singletone';
             rooter.add('/profile', ProfileView);
             rooter.add('/offline-game', GameView);
             rooter.start();
-        }
+        };
 
         authorizeAndStart();
 
