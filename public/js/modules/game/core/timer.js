@@ -40,8 +40,13 @@ export class Timer {
         let a = ((new Date).getTime() - this.timeStart) / this.timeLimit;
         this.ctx.strokeStyle = this.getColor(Math.sqrt(a) * a / (Math.sqrt(this.time) * this.time));
         this.ctx.clearRect(0, 0, this.drawSize * 2, this.drawSize * 2);
-        this.ctx.font = '110px "Oswald"';
-        this.ctx.fillText((this.time - a + 1) | 0, this.radius-22, this.radius*1.7);
+        this.ctx.font = '100px "Oswald"';
+        let time = this.time - a + 1;
+        if(time > 10) {
+            this.ctx.fillText(time | 0, this.radius - 30, this.radius*1.6);
+        } else{
+            this.ctx.fillText(time | 0, this.radius-15, this.radius*1.6);
+        }
         this.ctx.arc(this.drawSize, this.drawSize, this.radius, -Math.PI / 2 + 2 * Math.PI * a / this.time, -Math.PI / 2 - Math.PI / 40, !1);
         this.ctx.stroke();
         this.go && this.time > a && requestAnimationFrame(() => {

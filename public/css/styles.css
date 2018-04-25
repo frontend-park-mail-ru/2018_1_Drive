@@ -46,9 +46,9 @@ a:visited {
 
 
 .logo-section {
-    width: 30%;
-    height: 100%;
-    display: inline-block;
+    width: 5vw;
+    height: 5vh;
+    float: left;
 }
 
 .logo-section__logo {
@@ -70,7 +70,10 @@ a:visited {
 
 .profile-section {
     font-family: 'Antic Didone', serif;
-    width: 35rem;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 10vw;
 }
 
 .profile-img {
@@ -185,12 +188,12 @@ a:visited {
 
 .logo-oil {
     position: absolute;
-    top: 10rem;
-    z-index: 0;
-    width: 800px;
-    height: 600px;
+    top: 10vh;
+    z-index: -1;
+    width: 100%;
+    height: 90vh;
     background-image: url("../img/oil.GIF");
-    background-size:70%;
+    background-size:90vh;
     background-repeat: no-repeat;
     background-position: center;
 }
@@ -210,13 +213,22 @@ a:visited {
 /*Menu styling*/
 .menu {
     z-index: 1;
+    position: absolute;
+    top:35vh;
+    left: calc(50% - 175px);
     display: inline-block;
     width: 350px;
-    margin-top: 11rem;
 }
+
 
 .white-background {
     background-color: white;
+    z-index: 1;
+    position: absolute;
+    top:15vh;
+    left: calc(50% - 175px);
+    display: inline-block;
+    width: 350px;
 }
 
 
