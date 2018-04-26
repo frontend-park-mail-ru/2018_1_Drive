@@ -211,13 +211,26 @@ a:visited {
 
 
 /*Menu styling*/
-.menu {
-    z-index: 1;
-    position: absolute;
-    top:35vh;
-    left: calc(50% - 175px);
-    display: inline-block;
-    width: 350px;
+
+@media screen and (min-width: 801px) {
+    .menu {
+        z-index: 1;
+        position: absolute;
+        top: 35vh;
+        left: calc(50% - 175px);
+        display: inline-block;
+        width: 350px;
+    }
+}
+@media screen and (max-width: 800px) {
+    .menu{
+        z-index: 1;
+        position: absolute;
+        top: 35vh;
+        width:90%;
+        display: inline-block;
+        left:5%;
+    }
 }
 
 
@@ -478,3 +491,5 @@ input[type="checkbox"]:checked + label::before {
     background-repeat: no-repeat;
     background-position: center;
 }
+
+
