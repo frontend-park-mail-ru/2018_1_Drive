@@ -34,8 +34,8 @@ export class ProfileView extends View {
 
     show() {
         const user = UserSingletone.getInstance().getUser();
-        if (!this.el.querySelector('.main-block') && user) {
-            this.create(user);
+        if (user && this.attrs.login != user.login) {
+            this.create();
         }
         this.el.removeAttribute('hidden');
         this.active = true;
