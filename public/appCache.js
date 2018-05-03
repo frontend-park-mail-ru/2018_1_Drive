@@ -1,10 +1,10 @@
 const CACHE_NAME = 'app_serviceworker_v_1';
 const cacheUrls = [
-    '/',
+    //'/',
     '/img/oil.GIF',
     '/js/dist/bundle.js',
     '/img/',
-    '/css/styles.css',
+    //'/css/styles.css',
     '/js/views/GameView/styles.css'
 ];
 
