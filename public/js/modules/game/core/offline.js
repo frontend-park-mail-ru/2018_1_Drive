@@ -9,7 +9,7 @@ const question_set = [
     'Как совместить в одном выражении разные единицы(px и % например)', ['add()', 'eval()', 'apply()', 'calc()'],
     'Как выбрать все div одним селектором?', ['div', ':div', '.div', 'all:div'],
 ];
-const answer_set = ['2n', 'calc()', 'div!'];
+const answer_set = ['2n', 'calc()', 'div'];
 
 export class OfflineGame extends GameCore {
     constructor() {
@@ -54,6 +54,12 @@ export class OfflineGame extends GameCore {
         this.gameloop = this.gameloop.bind(this);
         this.gameloopRequestId = null;
         this.lastFrame = 0;
+        //service worker
+        navigator.serviceWorker.register('/appCache.js').then(function (registration) {
+            console.log('ServiceWorker registration', registration);
+        }).catch(function (err) {
+            throw new Error('ServiceWorker error: ' + err);
+        });
     }
 
     start() {//initial state здесь надо отрисовать менюшку и скрытые вопросы
@@ -104,7 +110,7 @@ export class OfflineGame extends GameCore {
         this.bus.emit(events.GAME_STATE_CHANGED, this.state);
     }
 
-    onTimeOver(evt){
+    onTimeOver(evt) {
         console.log(this);
         this.state.answers.push('');
         this.bus.emit(events.GAME_STATE_CHANGED);
