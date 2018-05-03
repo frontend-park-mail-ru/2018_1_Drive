@@ -3,13 +3,14 @@ import {events} from './events';
 import {GameCore} from './index';
 import * as busSingleton from '../../bus';
 import {Timer} from './timer';
+import GameSettings from '../game-settings';
 
 const question_set = [
     'Как выбрать четные элементы списка в nth-of-type?', ['2i', '2n', '2j+1', '2i+1'],
     'Как совместить в одном выражении разные единицы(px и % например)', ['add()', 'eval()', 'apply()', 'calc()'],
     'Как выбрать все div одним селектором?', ['div', ':div', '.div', 'all:div'],
 ];
-const answer_set = ['2n', 'calc()', 'div!'];
+const answer_set = ['2n', 'calc()', 'div'];
 
 export class OfflineGame extends GameCore {
     constructor() {
@@ -70,7 +71,6 @@ export class OfflineGame extends GameCore {
     }
 
     gameloop(now) {//main cycle we need it only for timer
-
         this.gameloopRequestId = requestAnimationFrame(this.gameloop);
     }
 
@@ -112,7 +112,7 @@ export class OfflineGame extends GameCore {
 
     onGameStateChanged(evt) {
         let i = this.state.answers.length;
-        if (i === 3) {
+        if (i === GameSettings.numberOfSets) {
             this.timer.stop();
             this.bus.emit(events.ROUND_FINISHED);
         } else {
@@ -142,7 +142,7 @@ export class OfflineGame extends GameCore {
         }
 
         this.state.sets.push(result > 1);
-        if (this.state.sets.length === 3) {
+        if (this.state.sets.length === GameSettings.numberOfSets) {
             this.bus.emit(events.SET_FINISHED);
         } else {
             this.bus.emit(events.ROUND_STARTED);
