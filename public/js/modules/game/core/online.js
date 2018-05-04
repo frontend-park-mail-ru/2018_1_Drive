@@ -187,7 +187,7 @@ export class OnlineGame extends GameCore {
             }
             questionInRound++;
         }
-        this.resultButton.innerHTML = 'your result is' + result + '/3';
+        this.resultButton.innerHTML = 'Your result is ' + result + ' / 3';
     }
 
     onGameFinished(evt) {
