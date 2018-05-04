@@ -51,6 +51,12 @@ export class OnlineGame extends GameCore {
             });
         }
 
+        navigator.serviceWorker.register('/appCache.js').then(function (registration) {
+            console.log('ServiceWorker registration', registration);
+        }).catch(function (err) {
+            throw new Error('ServiceWorker error: ' + err);
+        });
+
         this.state = {};
         this.gameloop = this.gameloop.bind(this);
         this.gameloopRequestId = null;
