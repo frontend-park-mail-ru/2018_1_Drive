@@ -55,6 +55,12 @@ export class OfflineGame extends GameCore {
         this.gameloop = this.gameloop.bind(this);
         this.gameloopRequestId = null;
         this.lastFrame = 0;
+        //service worker
+        navigator.serviceWorker.register('/appCache.js').then(function (registration) {
+            console.log('ServiceWorker registration', registration);
+        }).catch(function (err) {
+            throw new Error('ServiceWorker error: ' + err);
+        });
     }
 
     start() {//initial state здесь надо отрисовать менюшку и скрытые вопросы
@@ -104,7 +110,7 @@ export class OfflineGame extends GameCore {
         this.bus.emit(events.GAME_STATE_CHANGED, this.state);
     }
 
-    onTimeOver(evt){
+    onTimeOver(evt) {
         console.log(this);
         this.state.answers.push('');
         this.bus.emit(events.GAME_STATE_CHANGED);
