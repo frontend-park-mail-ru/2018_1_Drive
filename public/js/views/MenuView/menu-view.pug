@@ -1,27 +1,14 @@
-.menu
-    - if (authorized) {
-        .authorized
-            .button Play as #{login}
-            .button.button-half.button-settings.button-left
-                a(href="/settings") Settings
-            .button.button-half.button-last.button-right
-                a(href="/logout") Log out
-    - } else  {
+.header
+    .logo-section
+        .logo-section__logo
+    .profile-section
+.main-block
+    .logo-oil
+    .menu
         .unauthorized
-            .button Play as guest
-            .button.button-half.button-login.button-left
-                a(href="/signin") Log in
-            .button.button-half.button-register.button-right
-                a(href="/signup") Register
-    -}
-    .common-menu
-        .button
-            a(href = "/game/offline-mode") Play singleplayer
-        .button.button-leaderboard
-            a(href="/leaderboard") Leaderboard
-.shadow
-.menu.menu-modal.leaderboard
-    .leaderboard-body
-.menu.menu-modal.login
-.menu.menu-modal.register
-.menu.menu-modal.settings
+            .button Play
+        .common-menu
+            .button
+                a.menu-href(href = "/offline-game") Play singleplayer
+            .button.button-leaderboard
+                a.menu-href(href="/leaderboard") Leaderboard
