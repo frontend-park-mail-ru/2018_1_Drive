@@ -13,6 +13,7 @@ export class GameCore {
         this.onSetFinished = this.onSetFinished.bind(this);
         this.onRoundFinished= this.onRoundFinished.bind(this);
         this.onRoundStarted= this.onRoundStarted.bind(this);
+        this.onTimeOver = this.onTimeOver.bind(this);
         this.bus = busSingleton.getInstance();
 
     }
@@ -28,6 +29,8 @@ export class GameCore {
         this.bus.on(events.THEME_SELECTED, this.onThemeSelected);
         this.bus.on(events.GAME_STATE_CHANGED, this.onGameStateChanged);
 
+        this.bus.on(events.TIME_OVER, this.onTimeOver);
+
     }
 
     destroy() {
@@ -40,8 +43,14 @@ export class GameCore {
         this.bus.off(events.ANSWER_SELECTED, this.onAnswerSelected);
         this.bus.off(events.THEME_SELECTED, this.onThemeSelected);
         this.bus.off(events.GAME_STATE_CHANGED, this.onGameStateChanged);
+
+        this.bus.on(events.TIME_OVER, this.onTimeOver);
     }
 
+
+    onTimeOver(evt){
+        throw new Error('This method must be overridden');
+    }
     onAnswerSelected(evt) {
         throw new Error('This method must be overridden');
     }

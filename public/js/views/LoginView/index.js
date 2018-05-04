@@ -1,14 +1,14 @@
 import {View} from '../View/view';
 import {UsersModel} from '../../models/UsersModel';
 import {FormComponent} from '../../blocks/form/form';
-const formViewTemplate = require('../../blocks/form/form-view.pug');
 import * as busSingletone from '../../modules/bus';
 import {Validator} from '../../modules/validator';
 
+const gridViewTemplate = require('../GridView/grid-view.pug');
 
 export class LoginView extends View {
     constructor() {
-        super('Login', formViewTemplate);
+        super('Login', gridViewTemplate);
         this.attrs = {
             caption: 'Login',
             fields: [
@@ -27,9 +27,11 @@ export class LoginView extends View {
 
     create() {
         super.create();
+        super.hide();
         this.formRoot = this.el.querySelector('.menu');
         this.formComponent = new FormComponent(this.formRoot, this.attrs, this.onSubmit.bind(this));
-        this.formComponent.init();
+        this.formComponent.render();
+        this.formComponent.addListeners();
         return this;
     }
 

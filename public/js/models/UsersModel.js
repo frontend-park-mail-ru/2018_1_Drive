@@ -1,4 +1,5 @@
 import {HttpModule} from '../modules/http';
+import * as UserSingletone from '../services/user-singletone';
 
 let currentUser = null;
 
@@ -37,6 +38,7 @@ export class UsersModel {
             });
         });
     }
+
 
     static login(mail, password) {
         return new Promise(function (resolve, reject) {

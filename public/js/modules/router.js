@@ -7,12 +7,12 @@ export class Router {
         this.root = root;
         this.map = {};
         this.active = null;
-
         Router.__instance = this;
     }
 
     add(path, View) {
-        this.map[path] = new View().renderTo(this.root);
+        this.map[path] = new View().renderTo(this.root).create();
+        this.map[path].hide();
         return this;
     }
 
@@ -23,11 +23,16 @@ export class Router {
         }
 
         if (this.active) {
-            this.active.destroy();
+            this.active.hide();
             this.active = null;
         }
 
-        this.active = view.create();
+        if (this.map.hasOwnProperty(path)) {
+            this.active = this.map[path].show();
+        } else {
+            this.active = view.create();
+        }
+
         if (window.location.pathname !== path) {
             window.history.pushState(null, '', path);
         }
@@ -46,7 +51,6 @@ export class Router {
             }
         });
 
-        console.log(window.location.pathname);
         this.open(window.location.pathname);
     }
 }

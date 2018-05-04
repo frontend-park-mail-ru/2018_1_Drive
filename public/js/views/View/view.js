@@ -30,6 +30,12 @@ export class View {
     render(attrs) {
         this.attrs = attrs || this.attrs;
         this.el.innerHTML = this.tmpl(this.attrs);
+        const shadow = this.el.querySelector('.black-background');
+        if(shadow){
+            shadow.addEventListener('click',()=>{
+               this.bus.emit('home');
+            });
+        }
         return this;
     }
 

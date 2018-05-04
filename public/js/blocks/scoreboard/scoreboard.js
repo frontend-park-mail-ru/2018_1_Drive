@@ -14,8 +14,17 @@ export class ScoreboardComponent extends BaseComponent {
         //this.preloader = new Preloader(this, 'scoreboard-preloader');
         //this.preloader.appendItself();
         this.stopRendrer = false;
+    }
 
-        this.element.querySelector('.pagination-prev').addEventListener('click', () => {
+    getFirstPosition() {
+        return (this.page - 1) * this.playersOnPage;
+    }
+
+    render() {
+        let usersBlock = this.element.querySelector('.menu');
+        usersBlock.innerHTML = this.template(this.users);
+
+        usersBlock.querySelector('.pagination-prev').addEventListener('click', () => {
             if (this.page === 1) {
                 return;
             }
@@ -24,8 +33,7 @@ export class ScoreboardComponent extends BaseComponent {
             this.updateAction();
         });
 
-
-        this.element.querySelector('.pagination-next').addEventListener('click', () => {
+        usersBlock.querySelector('.pagination-next').addEventListener('click', () => {
             if (this.stopRendrer) {
                 return;
             }
@@ -34,13 +42,5 @@ export class ScoreboardComponent extends BaseComponent {
         });
     }
 
-    getFirstPosition() {
-        return (this.page - 1) * this.playersOnPage;
-    }
-
-    render() {
-        let usersBlock = this.element.querySelector('.leaderboard-body');
-        usersBlock.innerHTML = this.template(this);
-    }
 
 }
