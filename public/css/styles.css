@@ -62,10 +62,12 @@ a:visited {
     .profile-section__profile-unauthorized{
         width: 90%;
     }
+
     .logo-section {
-        width: 45%;
-        height:auto;
+        width: 30vw;
+        height: 12vh;
         float: left;
+        display: flex;
     }
 }
 
@@ -73,13 +75,16 @@ a:visited {
 
 .logo-section__logo {
     display: inline-block;
-    width: 100%;
+    float: left;
+    width: 50%;
     height: 80%;
-    font: 400 100px/1.2 'Leckerli One', Helvetica, sans-serif;
     color: #000;
-    text-shadow: 2px 2px 0px rgba(0,0,0,0.2), 4px 4px 8px rgba(0,0,0,0.2);
-    font-size:70px;
+    font-size:1.8rem;
     text-align: center;
+    background-image: url("../img/logo3.JPEG");
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: 15% 50%;
 }
 
 .profile-section__profile-unauthorized {

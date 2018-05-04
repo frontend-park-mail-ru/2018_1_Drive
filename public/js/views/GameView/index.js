@@ -25,7 +25,7 @@ export class GameView extends View {
         return this;
     }
 
-    create(attrs = '/game/offline-mode') {
+    create(attrs = '/game/online-mode') {
         super.create(this.attrs);
         //this.canvas = this.el.querySelector('.js-canvas');
         //this.ctx = this.canvas.getContext('2d');
