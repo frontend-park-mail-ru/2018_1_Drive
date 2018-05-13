@@ -9,6 +9,7 @@ import {GameView} from './views/GameView/index';
 import {UsersModel} from './models/UsersModel';
 import {ProfileView} from './views/ProfileView/index';
 import * as UserSingletone from './services/user-singletone';
+import {MultiPlayerGameView} from "./views/MultiplayerGame";
 
 (function () {
 
@@ -42,6 +43,7 @@ import * as UserSingletone from './services/user-singletone';
             rooter.add('/leaderboard', ScoreboardView);
             rooter.add('/profile', ProfileView);
             rooter.add('/offline-game', GameView);
+            rooter.add('/multilayer-game', MultiPlayerGameView);
             rooter.start();
         };
 
