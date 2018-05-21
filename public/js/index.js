@@ -9,7 +9,8 @@ import {GameView} from './views/GameView/index';
 import {UsersModel} from './models/UsersModel';
 import {ProfileView} from './views/ProfileView/index';
 import * as UserSingletone from './services/user-singletone';
-import {MultiPlayerGameView} from "./views/MultiplayerGame";
+import {MultiPlayerGameView} from './views/MultiplayerGame/index';
+import {GameRoomView} from './views/GameRoomView';
 
 (function () {
 
@@ -24,7 +25,7 @@ import {MultiPlayerGameView} from "./views/MultiplayerGame";
                 HttpModule.baseUrl = 'http://localhost:8080';
                 break;
             case 'frontend-drive.herokuapp.com':
-                HttpModule.baseUrl = '//backend-drive.herokuapp.com';
+                HttpModule.baseUrl = 'https://backend-drive.herokuapp.com';
                 break;
             default:
                 HttpModule.baseUrl = '';
@@ -43,7 +44,7 @@ import {MultiPlayerGameView} from "./views/MultiplayerGame";
             rooter.add('/leaderboard', ScoreboardView);
             rooter.add('/profile', ProfileView);
             rooter.add('/offline-game', GameView);
-            rooter.add('/multilayer-game', MultiPlayerGameView);
+            rooter.add('/multiplayer-game', GameRoomView);
             rooter.start();
         };
 

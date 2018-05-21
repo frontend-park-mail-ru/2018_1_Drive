@@ -3,7 +3,6 @@ import * as busSingleton from '../../bus';
 
 export class GameCore {
     constructor() {
-
         this.onGameStarted = this.onGameStarted.bind(this);
         this.onGameFinished = this.onGameFinished.bind(this);
         this.onAnswerSelected = this.onAnswerSelected.bind(this);
@@ -16,6 +15,7 @@ export class GameCore {
         this.onTimeOver = this.onTimeOver.bind(this);
         this.bus = busSingleton.getInstance();
 
+        
     }
 
     start() {
