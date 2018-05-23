@@ -2,6 +2,7 @@
 import { GAME_MODES }  from './modes';
 import  { OfflineGame } from './core/offline';
 import { OnlineGame } from './core/online';
+import {MultiplayerGame} from './multiplayer';
 
 
 export class Game {
@@ -14,6 +15,10 @@ export class Game {
             }
             case GAME_MODES.OFFLINE: {
                 GameConstructor = OfflineGame;
+                break;
+            }
+            case GAME_MODES.MULTIPLAYER: {
+                GameConstructor = MultiplayerGame;
                 break;
             }
             default:

@@ -72,7 +72,7 @@ export class OnlineGame extends GameCore {
         //}.bind(this));
     }
 
-    gameloop(now) {//main cycle we need it only for timer
+    gameloop(now) {
         this.gameloopRequestId = requestAnimationFrame(this.gameloop);
     }
 

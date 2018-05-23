@@ -1,44 +1,49 @@
+import {HttpModule} from './http';
+import * as busSingletone from './bus';
+import * as UserSingletone from '../services/user-singletone';
 
-    import * as busSingleton from './bus';
 
-    export class Ws {
-        constructor() {
-            this.bus = busSingleton.getInstance();
-            this.host = window.location.host;
-            if (Ws.__instance) {
-                return Ws.__instance;
-            }
+export class Ws {
+    constructor() {
+        let address = HttpModule.baseUrl;
+        if (address.indexOf('https') !== -1) {
+            address = address.replace('https', 'wss');
+        } else {
+            address = address.replace('http', 'ws');
+        }
+        address += '/play-game';
+        console.log('Address to WS: ' + address);
 
-            const address = `${window.location.protocol.replace('http', 'ws')}//${this.host}/ws`;
-            this.ws = new WebSocket(address);
-            this.ws.onopen = (event) => {
-                console.log(`WebSocket on address ${address} opened`);
-                console.dir(this.ws);
+        this.wsAddress = address;
+        this.ws = new WebSocket(address);
 
-                this.ws.onmessage = this.handleMessage.bind(this);
-
-                this.ws.onclose = () => {
-                    console.log('WebSocket closed');
-                };
+        this.ws.onopen = (event) => {
+            console.log('Successful open ws!');
+            this.ws.onmessage = this.handleMessage.bind(this);
+            const user = UserSingletone.getInstance().getUser();
+            console.dir(user);
+            this.send('MESSAGES_JOINGAME', user.login);
+            this.ws.onclose = () => {
+                console.log('WebSocket closed');
             };
+        };
+    }
 
-            Ws.__instance = this;
-        }
-
-        handleMessage(event) {
-            const messageText = event.data;
-
-            try {
-                const message = JSON.parse(messageText);
-                this.bus.emit(message.type, message.payload);
-            } catch (err) {
-                console.error('smth went wront in handleMessage: ', err);
-            }
-        }
-
-        send(type, payload) {
-            this.ws.send(JSON.stringify({type, payload}));
+    handleMessage(event) {
+        const messageText = event.data;
+        try {
+            const message = JSON.parse(messageText);
+            console.log(message);
+            const bus = busSingletone.getInstance();
+            bus.emit(message.event, message.payload);
+        } catch (err) {
+            console.error('smth went wrong in handleMessage: ', err);
         }
     }
 
-
+    send(event, payload) {
+        let GameMessage = {payload: payload};
+        GameMessage.event = event;
+        this.ws.send(JSON.stringify(GameMessage));
+    }
+}
