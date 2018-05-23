@@ -12,3 +12,5 @@ public/js/views/MenuView/menu-view.js
 public/js/views/ScoreboardView/scoreboard-view.js
 public/js/views/SettingsView/setting-view.js
 
+public/js/views/GameView/game-view.js
+public/js/views/GameRoomView/room-view.js
