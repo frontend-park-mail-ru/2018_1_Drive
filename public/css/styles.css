@@ -132,6 +132,17 @@ a:visited {
     height: 100%;
 }
 
+.simple-href a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: black;
+    text-decoration: none;
+    width: 100%;
+    height: 100%;
+}
+
+
 .profile-login__first-letter {
     color: orange;
 }
@@ -498,3 +509,48 @@ input[type="checkbox"]:checked + label::before {
 }
 
 
+.waiting {
+    width: 100%;
+    text-align: center;
+}
+
+
+.animation-green {
+    -webkit-animation-name: green; /* Safari 4.0 - 8.0 */
+    -webkit-animation-duration: 4s; /* Safari 4.0 - 8.0 */
+}
+
+.animation-red {
+    -webkit-animation-name: red; /* Safari 4.0 - 8.0 */
+    -webkit-animation-duration: 2.7s; /* Safari 4.0 - 8.0 */
+}
+
+@-webkit-keyframes green {
+    100% {background-color: #1fdb2f;}
+}
+
+
+@-webkit-keyframes red {
+    100% {background-color: #f70000;}
+}
+
+.scale-animation {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    font-size: 2rem;
+    -webkit-animation: scale 1s ease-out;
+    color: transparent;
+    text-shadow: 0 0 6px #000;
+}
+
+@-webkit-keyframes scale {
+    0% {
+        -webkit-transform: scale(0);
+    }
+    100% {
+        -webkit-transform: scale(1);
+    }
+}

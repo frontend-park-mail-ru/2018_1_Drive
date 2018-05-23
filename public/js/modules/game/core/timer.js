@@ -1,8 +1,9 @@
 import * as busSingleton from '../../bus';
 import {events} from './events';
+import {multiPlayerEvents} from '../multiplayer/events';
 
 export class Timer {
-    constructor(canvas) {
+    constructor(canvas, emitOnTimeOver = 'TIME_OVER') {
         this.bus = busSingleton.getInstance();
         this.ctx = canvas.getContext('2d');
         this.time = 13;//seconds for every queston
@@ -15,6 +16,7 @@ export class Timer {
         this.radius -=this.lineWidth/2;
         console.log(canvas);
         this.go = false;
+        this.emitOnTimeOver = emitOnTimeOver;
     }
 
     getColor(value) {
@@ -56,6 +58,11 @@ export class Timer {
                 this.step();
             });
         }
-        this.time <= a && (this.bus.emit(events.TIME_OVER));
+
+        if (this.emitOnTimeOver === 'TIME_OVER') {
+            this.time <= a && (this.bus.emit(events[this.emitOnTimeOver]));
+        } else {
+            this.time <= a && (this.bus.emit(multiPlayerEvents[this.emitOnTimeOver]));
+        }
     }
 }

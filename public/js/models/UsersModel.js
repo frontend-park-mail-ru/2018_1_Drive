@@ -88,7 +88,7 @@ export class UsersModel {
 
     static logout() {
         return new Promise(function (resolve, reject) {
-            HttpModule.doGet({
+            HttpModule.doPost({
                 url: '/logout',
                 callback(err, response) {
                     if (err) {
