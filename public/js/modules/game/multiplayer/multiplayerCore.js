@@ -15,6 +15,7 @@ export class MultiplayerCore {
         this.onRoundFinished = this.onRoundFinished.bind(this);
         this.onSetFinished = this.onSetFinished.bind(this);
         this.onGameFinished = this.onGameFinished.bind(this);
+        this.onHome = this.onHome.bind(this);
     }
 
     start() {
@@ -28,6 +29,7 @@ export class MultiplayerCore {
         this.bus.on(multiPlayerEvents.EVENTS_ROUND_FINISHED, this.onRoundFinished);
         this.bus.on(multiPlayerEvents.EVENTS_SET_FINISHED, this.onSetFinished);
         this.bus.on(multiPlayerEvents.EVENTS_GAME_FINISHED, this.onGameFinished);
+        this.bus.on(multiPlayerEvents.EVENTS_HOME, this.onHome);
     }
 
     destroy() {
@@ -43,6 +45,7 @@ export class MultiplayerCore {
         this.bus.off(multiPlayerEvents.EVENTS_ROUND_FINISHED, this.onRoundFinished);
         this.bus.off(multiPlayerEvents.EVENTS_SET_FINISHED, this.onSetFinished);
         this.bus.off(multiPlayerEvents.EVENTS_GAME_FINISHED, this.onGameFinished);
+        this.bus.off(multiPlayerEvents.EVENTS_HOME, this.onHome);
     }
 
 

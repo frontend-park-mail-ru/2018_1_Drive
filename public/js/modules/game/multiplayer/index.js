@@ -34,7 +34,7 @@ export class MultiplayerGame extends MultiplayerCore {
             this.bus.emit(multiPlayerEvents.START_GAME);
         });
         this.endButton.addEventListener('click', () => {
-            this.bus.emit(multiPlayerEvents.FINISH_GAME);
+            this.bus.emit(multiPlayerEvents.EVENTS_HOME);
         });
 
         let buttonNum = 1;
@@ -58,11 +58,11 @@ export class MultiplayerGame extends MultiplayerCore {
 
     start(payload) {
         super.start();
-        //в answers храним нули и единицы
         this.state = {
             currentQuestionNum: 0
         };
         this.userId = payload.userId;
+        this.opponentLogin = payload.opponentLogin;
         this.bus.emit(multiPlayerEvents.REAL_GAME_START);
     }
 
@@ -81,8 +81,6 @@ export class MultiplayerGame extends MultiplayerCore {
     }
 
     onEventsSetStarted(response) {
-        console.log('On events set selected()');
-        //todo Берем первого
         questionsAndAnswers = response.questions;
         this.themeMenu.hide();
         this.questionMenu.show();
@@ -130,8 +128,9 @@ export class MultiplayerGame extends MultiplayerCore {
         this.timer.stop();
     }
 
-    onAnswerChecked(payload) {
+    async onAnswerChecked(payload) {
         let answer, opponentAnswer;
+
         if (this.userId === payload.userId1) {
             answer = payload.userId1Answer;
             opponentAnswer = payload.userId2Answer;
@@ -139,6 +138,12 @@ export class MultiplayerGame extends MultiplayerCore {
             answer = payload.userId2Answer;
             opponentAnswer = payload.userId1Answer;
         }
+
+        const answers = {
+            myAnswer: answer,
+            opponentAnswer: opponentAnswer,
+            correctAnswer: payload.correctAnswer
+        };
 
         if (answer === payload.correctAnswer) {
             console.log('Your answer ' + answer + ' is correct!');
@@ -151,7 +156,51 @@ export class MultiplayerGame extends MultiplayerCore {
         } else {
             console.log('Opponent answer ' + opponentAnswer + ' is wrong!');
         }
+
+        await this.resolveAfterXSeconds(1800, answers);
+        this.takeOffAnimation();
         this.bus.emit(multiPlayerEvents.EVENTS_GAME_STATE_CHANGED);
+    }
+
+
+    resolveAfterXSeconds(x, answers) {
+        this.animateAnswers(answers);
+        return new Promise(resolve => {
+            setTimeout(() => {
+                resolve();
+            }, x);
+        });
+    }
+
+    animateAnswers(answers) {
+        for (let answerButton of this.answerButtons) {
+            if (answerButton.buttonNum === answers.correctAnswer) {
+                answerButton.classList.add('animation-green');
+            }
+            if (answerButton.buttonNum === answers.myAnswer && (answers.myAnswer !== answers.correctAnswer)) {
+                answerButton.classList.add('animation-red');
+            }
+            if (answerButton.buttonNum === answers.opponentAnswer) {
+                let blockWithName = document.createElement('div');
+                blockWithName.innerHTML = this.opponentLogin;
+                blockWithName.classList.add('scale-animation');
+                answerButton.appendChild(blockWithName);
+            }
+        }
+    }
+
+    takeOffAnimation() {
+        for (let answerButton of this.answerButtons) {
+            if (answerButton.classList.contains('animation-green')) {
+                answerButton.classList.remove('animation-green');
+            }
+            if (answerButton.classList.contains('animation-red')) {
+                answerButton.classList.remove('animation-red');
+            }
+            if (answerButton.classList.contains('scale-animation')) {
+                answerButton.removeChild(answerButton.firstChild);
+            }
+        }
     }
 
     onRoundFinished(evt) {
@@ -190,6 +239,11 @@ export class MultiplayerGame extends MultiplayerCore {
         } else {
             this.resultButton.innerHTML = 'Draw! Result: ' + yourResult + ' / ' + GameSettings.questionsInRound * GameSettings.numberOfSets;
         }
+    }
+
+    onHome() {
+        cancelAnimationFrame(this.gameloopRequestId);
+        this.bus.emit('home');
     }
 
 }

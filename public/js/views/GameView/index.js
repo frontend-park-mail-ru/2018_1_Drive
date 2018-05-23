@@ -30,6 +30,7 @@ export class GameView extends View {
         //this.canvas = this.el.querySelector('.js-canvas');
         //this.ctx = this.canvas.getContext('2d');
         this.render();
+        console.log('create game');
         this.doGame(attrs);
         return this;
     }

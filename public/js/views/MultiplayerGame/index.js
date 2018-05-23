@@ -1,4 +1,4 @@
-import {View} from '../View/view';;
+import {View} from '../View/view';
 const multiplayerViewTemplate = require('./multiplayer-view.pug');
 import {Ws} from '../../modules/ws';
 

@@ -9,6 +9,7 @@ const waitingBlockTemplate = require( '../../blocks/waiting-block/waiting-templa
 import {BaseComponent} from '../../blocks/baseComponent';
 import {MultiplayerGame} from '../../modules/game/multiplayer';
 const gameViewTemplate = require('../../views/GameView/game-view.pug');
+const multiplayerTemplate = require('../../modules/game/multiplayer/multiplayer.pug');
 
 export class GameRoomView extends View {
     constructor() {
@@ -24,21 +25,15 @@ export class GameRoomView extends View {
             this.initButton = this.el.querySelector('.search');
             this.initButton.addEventListener('click', this.onSearchButton.bind(this));
 
-            this.gameDiv = new BaseComponent(this.el.querySelector('.multiplayer-game'));
-            this.gameDiv.hide();
-
             this.blackBackground = new BaseComponent(this.el.querySelector('.black-background'));
             this.mainBlock = new BaseComponent(this.el.querySelector('.main-block'));
 
             this.waitingBlock = new WaitingBLock(this.el.querySelector('.waiting'), waitingBlockTemplate);
             const bus = busSingletone.getInstance();
             bus.on(multiPlayerEvents.EVENTS_GAME_START, this.onGameStarted.bind(this));
-            return this;
+        } else {
+            super.create({authorized: false});
         }
-        super.create({authorized: false});
-
-        this.gameDiv = new BaseComponent(this.el.querySelector('.multiplayer-game'));
-        this.gameDiv.hide();
         return this;
     }
 
@@ -51,33 +46,36 @@ export class GameRoomView extends View {
         console.log('GAME started');
         this.waitingBlock.root.innerHTML = '<h2>GAME STARTED</h2>';
         this.mainBlock.hide();
-        this.gameDiv.show();
-
+        let gameDiv = document.querySelector('.multiplayer-game');
+        if (gameDiv == null) {
+            gameDiv = document.createElement('div');
+            gameDiv.innerHTML = multiplayerTemplate();
+            document.querySelector('.main').appendChild(gameDiv);
+        }
         this.blackBackground.hide();
-        this.game = new MultiplayerGame(this.gameDiv.element, this.ws);
+        this.game = new MultiplayerGame(gameDiv, this.ws);
         this.game.start(payload);
     }
 
     show() {
         const user = UserSingletone.getInstance().getUser();
-
+        console.log('In show()');
         if (this.user && !user) {
             this.render({authorized: false});
-            this.gameDiv.hide();
+            this.mainBlock = new BaseComponent(this.el.querySelector('.main-block'));
             this.user = null;
+            this.blackBackground = new BaseComponent(this.el.querySelector('.black-background'));
         } else if (!this.user && user) {
             this.render(user);
             this.initButton = this.el.querySelector('.search');
             this.initButton.addEventListener('click', this.onSearchButton.bind(this));
             this.user = user;
-
-            this.gameDiv.hide();
-
+            this.mainBlock = new BaseComponent(this.el.querySelector('.main-block'));
             this.waitingBlock = new WaitingBLock(this.el.querySelector('.waiting'), waitingBlockTemplate);
+            this.blackBackground = new BaseComponent(this.el.querySelector('.black-background'));
             const bus = busSingletone.getInstance();
             bus.on(multiPlayerEvents.EVENTS_GAME_START, this.onGameStarted.bind(this));
         }
-
         this.el.removeAttribute('hidden');
         this.active = true;
         return this;

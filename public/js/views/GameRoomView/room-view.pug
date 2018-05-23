@@ -1,32 +1,14 @@
 .black-background
-.main-block
-    .menu.white-background
-        - if (authorized) {
-            .button.yellow.search Search for opponent
-            .waiting
-        - } else {
-            p Please, sign in or register
-            .button.button-half.button-left.yellow.simple-href
-                a(href="/signin") Log in
-            .button.button-half.button-left.yellow.simple-href
-                a(href="/signup") Register
-        -}
-.multiplayer-game
-    .themes
-        .button.button_yellow Choose theme
-        .button.button-half.button-left.themes_js.button_yellow JS
-        .button.button-half.button-right.themes_js.button_yellow CSS
-        .button.button-half.button-left.themes_js.button_yellow JAVA
-        .button.button-half.button-right.themes_js.button_yellow SQL
-    .questions
-        .question_block.button.button_yellow Question
-        .button.button-half.button-left.answers_js.button_yellow 1
-        .button.button-half.button-right.answers_js.button_yellow 2
-        .button.button-half.button-left.answers_js.button_yellow 3
-        .button.button-half.button-right.answers_js.button_yellow 4
-    .result
-        .button.result_js.button_yellow
-        .button.again_js.button_yellow Play again
-        .button.endGame_js.button_yellow Go to menu
-    .timer
-        canvas
+.main
+    .main-block
+        .menu.white-background
+            - if (authorized) {
+                .button.yellow.search Search for opponent
+                .waiting
+            - } else {
+                p Please, sign in or register
+                .button.button-half.button-left.yellow.simple-href
+                    a(href="/signin") Log in
+                .button.button-half.button-left.yellow.simple-href
+                    a(href="/signup") Register
+            -}

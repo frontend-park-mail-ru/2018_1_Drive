@@ -1,5 +1,6 @@
 import {HttpModule} from './http';
 import * as busSingletone from './bus';
+import * as UserSingletone from '../services/user-singletone';
 
 
 export class Ws {
@@ -19,7 +20,9 @@ export class Ws {
         this.ws.onopen = (event) => {
             console.log('Successful open ws!');
             this.ws.onmessage = this.handleMessage.bind(this);
-            this.send('MESSAGES_JOINGAME', 'Joining to the game');
+            const user = UserSingletone.getInstance().getUser();
+            console.dir(user);
+            this.send('MESSAGES_JOINGAME', user.login);
             this.ws.onclose = () => {
                 console.log('WebSocket closed');
             };
