@@ -49,8 +49,8 @@ export class UsersModel {
                     if (err) {
                         return reject(err);
                     }
-
-                    resolve(UsersModel.auth());
+                    currentUser = new UsersModel(response.user);
+                    resolve(currentUser);
                 }
             });
         });

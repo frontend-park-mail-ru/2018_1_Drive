@@ -37,7 +37,6 @@ import {GameRoomView} from './views/GameRoomView';
             const promise = await UsersModel.auth()
                 .then((user) => userSingletone.setUser(user))
                 .catch(() => userSingletone.setUser(null));
-
             rooter.add('/', MenuView);
             rooter.add('/signin', LoginView);
             rooter.add('/signup', SignupView);
@@ -61,7 +60,6 @@ import {GameRoomView} from './views/GameRoomView';
                 });
         });
 
-
         bus.on('signup', function (userdata) {
             UsersModel.signup(userdata)
                 .then(function (user) {
@@ -73,7 +71,6 @@ import {GameRoomView} from './views/GameRoomView';
                     console.log(error);
                 });
         });
-
 
         bus.on('logout', function () {
             UsersModel.logout()
@@ -93,6 +90,6 @@ import {GameRoomView} from './views/GameRoomView';
         bus.on('home', () => {
             rooter.open('/');
         });
-      
+
     });
 })();
