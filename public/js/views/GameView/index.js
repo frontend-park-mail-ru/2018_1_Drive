@@ -25,11 +25,25 @@ export class GameView extends View {
         return this;
     }
 
-    create(attrs = '/game/online-mode') {
+    create(attrs = '/game/offline-mode') {
+
+        fetch('', { method: 'HEAD' })
+            .then(() => true, () => false)
+            .then(onLine => (
+                onLine ? this.attrs = '/game/online-mode' : this.attrs = '/game/offline-mode'
+                )
+            );
+        // if ( navigator.onLine){
+        //     attrs = '/game/online-mode';
+        // }else{
+        //     attrs = '/game/offline-mode';
+        // }
+        console.log('game mode is: ' + attrs);
         super.create(this.attrs);
         //this.canvas = this.el.querySelector('.js-canvas');
         //this.ctx = this.canvas.getContext('2d');
         this.render();
+        console.log('create game');
         this.doGame(attrs);
         return this;
     }

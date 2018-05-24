@@ -3,7 +3,7 @@ import {UsersModel} from '../../models/UsersModel';
 import {ScoreboardComponent} from '../../blocks/scoreboard/scoreboard';
 
 const gridViewTemplate = require('../GridView/grid-view.pug');
-import {ProfileBlock} from '../../blocks/profile-block/profile-block';
+import {ProfileBlock} from '../../blocks/profile-block/profile';
 const ProfileBlockTemplate = require('../../blocks/profile-block/profile-block.pug');
 import * as UserSingletone from '../../services/user-singletone';
 

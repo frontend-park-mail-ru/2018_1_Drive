@@ -1,0 +1,55 @@
+$JSColor:  #FBF55D;
+.yellow {
+  background: $JSColor;
+}
+
+.leaderboard .button {
+  margin-bottom: 0;
+}
+
+
+.player {
+  padding: 2px 20px;
+  font-size: 1.5em;
+  background: white;
+  height: 40px;
+  vertical-align: middle;
+  text-align: center;
+  /*margin-bottom: 4%;*/
+  color: black;
+}
+
+
+.player:hover {
+  background-color: #3E3E3E;
+  color: $JSColor;
+}
+
+.clearfix::after {
+  content: "";
+  display: block;
+  clear: both;
+}
+
+.floated-left {
+  float: left;
+}
+
+.floated-right {
+  float: right;
+}
+
+
+.scoreboard-preloader {
+  background-image: url("../img/preloader.gif");
+  height: 3rem;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+
+.waiting {
+  width: 100%;
+  text-align: center;
+}

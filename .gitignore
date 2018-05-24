@@ -12,3 +12,10 @@ public/js/views/MenuView/menu-view.js
 public/js/views/ScoreboardView/scoreboard-view.js
 public/js/views/SettingsView/setting-view.js
 
+public/js/views/GameView/game-view.js
+public/js/views/GameRoomView/room-view.js
+public/js/blocks/profile-block/profile-block.js
+public/js/blocks/waiting-block/waiting-template.js
+public/js/views/GridView/grid-view.js
+public/js/views/MultiplayerGame/multiplayer-view.js
+public/js/views/ProfileView/profile-view.js
