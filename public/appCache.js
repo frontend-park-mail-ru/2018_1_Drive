@@ -1,6 +1,8 @@
 const CACHE_NAME = 'app_serviceworker_v_1';
 const cacheUrls = [
-    '/js/dist/',
+    '/js/dist/bundle.js',
+    '/js/dist/style.css',
+    '/js/dist/*.gif',
     '/'
 ];
 

@@ -27,7 +27,7 @@ export class GameView extends View {
     //
     create(attrs = '/game/offline-mode') {
 
-        fetch("", { method: "HEAD" })
+        fetch('', { method: 'HEAD' })
             .then(() => true, () => false)
             .then(onLine => (
                 onLine ? attrs = '/game/online-mode' : attrs = '/game/offline-mode'
