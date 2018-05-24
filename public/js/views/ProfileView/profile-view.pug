@@ -5,15 +5,18 @@
     .free-section
     .profile-section
 .main-block
-    .menu.white-background
+    .menu.menu-shadow.profile-menu.white-background
         h1 Your profile
+        .clearfix.prifile-string
+            .floated-left Login:
+            .floated-right #{login}
         br
-        |   Login
-        |   #{login}
+        .clearfix.prifile-string
+            .floated-left E-mail:
+            .floated-right #{mail}
         br
-        |   Mail:
-        |   #{mail}
+        .clearfix.prifile-string
+            .floated-left Score:
+            .floated-right #{score}
         br
-        |   Score
-        |   #{score}
         .button.button-centered.logout.yellow Logout
