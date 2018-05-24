@@ -24,8 +24,16 @@ export class GameView extends View {
         this.game.destroy();
         return this;
     }
+    //
+    create(attrs = '/game/offline-mode') {
 
-    create(attrs = '/game/online-mode') {
+        fetch("", { method: "HEAD" })
+            .then(() => true, () => false)
+            .then(onLine => (
+                onLine ? attrs = '/game/online-mode' : attrs = '/game/offline-mode'
+                )
+            );
+        console.log(attrs);
         super.create(this.attrs);
         //this.canvas = this.el.querySelector('.js-canvas');
         //this.ctx = this.canvas.getContext('2d');

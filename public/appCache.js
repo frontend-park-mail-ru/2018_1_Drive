@@ -1,11 +1,7 @@
 const CACHE_NAME = 'app_serviceworker_v_1';
 const cacheUrls = [
-    '/',
-    '/img/oil.GIF',
-    '/js/dist/bundle.js',
-    '/img/',
-    '/css/styles.scss',
-    '/js/views/GameView/styles.scss'
+    '/js/dist/',
+    '/'
 ];
 
 self.addEventListener('install', function (event) {
@@ -32,6 +28,8 @@ self.addEventListener('fetch', function (event) {
         caches
             .match(event.request)
             .then(function (cachedResponse) {
+                let url = event.request.url;
+                console.log(url);
                 if (cachedResponse) {
                     return cachedResponse;
                 }
