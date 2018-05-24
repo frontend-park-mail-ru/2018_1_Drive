@@ -4,6 +4,7 @@
 html {
     height: 100%;
     width: 100%;
+    overflow: hidden;
 }
 
 body {
@@ -501,7 +502,7 @@ input[type="checkbox"]:checked + label::before {
 
 
 .scoreboard-preloader {
-    background-image: url("../static/img/preloader.gif");
+    background-image: url("../img/preloader.gif");
     height: 3rem;
     background-size: contain;
     background-repeat: no-repeat;

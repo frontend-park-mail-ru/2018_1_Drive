@@ -26,9 +26,15 @@
   },
   "homepage": "https://github.com/Andreynnt/2018_1_Drive#readme",
   "devDependencies": {
+    "css-loader": "^0.28.11",
     "eslint": "^4.18.0",
     "eslint-config-google": "^0.9.1",
+    "extract-text-webpack-plugin": "^4.0.0-beta.0",
+    "file-loader": "^1.1.6",
+    "node-sass": "^4.9.0",
     "pug-loader": "^2.4.0",
+    "sass-loader": "^7.0.1",
+    "style-loader": "^0.21.0",
     "webpack": "^4.5.0",
     "webpack-cli": "^2.0.14"
   },

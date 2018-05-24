@@ -4,8 +4,8 @@ const cacheUrls = [
     '/img/oil.GIF',
     '/js/dist/bundle.js',
     '/img/',
-    '/css/styles.css',
-    '/js/views/GameView/styles.css'
+    '/css/styles.scss',
+    '/js/views/GameView/styles.scss'
 ];
 
 self.addEventListener('install', function (event) {

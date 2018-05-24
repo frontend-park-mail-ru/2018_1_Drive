@@ -11,6 +11,7 @@ import {ProfileView} from './views/ProfileView/index';
 import * as UserSingletone from './services/user-singletone';
 import {MultiPlayerGameView} from './views/MultiplayerGame/index';
 import {GameRoomView} from './views/GameRoomView';
+import '../css/styles.scss';
 
 (function () {
 
