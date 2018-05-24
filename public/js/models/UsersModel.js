@@ -49,8 +49,8 @@ export class UsersModel {
                     if (err) {
                         return reject(err);
                     }
-
-                    resolve(UsersModel.auth());
+                    currentUser = response.user;
+                    resolve(currentUser);
                 }
             });
         });
@@ -66,7 +66,8 @@ export class UsersModel {
                     if (err) {
                         return reject(err);
                     }
-                    resolve(UsersModel.auth());
+                    currentUser = response.user;
+                    resolve(currentUser);
                 }
             }) ;
         });
