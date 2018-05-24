@@ -33,7 +33,7 @@ export class GameView extends View {
                 onLine ? attrs = '/game/online-mode' : attrs = '/game/offline-mode'
                 )
             );
-        console.log(attrs);
+        console.log('game mode is: ' + attrs);
         super.create(this.attrs);
         //this.canvas = this.el.querySelector('.js-canvas');
         //this.ctx = this.canvas.getContext('2d');
