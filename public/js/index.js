@@ -12,12 +12,16 @@ import * as UserSingletone from './services/user-singletone';
 import {MultiPlayerGameView} from './views/MultiplayerGame/index';
 import {GameRoomView} from './views/GameRoomView';
 import '../css/styles.scss';
+import {MainPreloader} from './blocks/main-preloader';
 
 (function () {
 
     document.addEventListener('DOMContentLoaded', function () {
 
         const root = document.getElementById('application');
+        const preloader = new MainPreloader(root);
+        preloader.clearAnimation();
+
         const bus = busSingletone.getInstance();
         const userSingletone = UserSingletone.getInstance();
 
