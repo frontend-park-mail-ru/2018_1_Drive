@@ -1,21 +1,17 @@
 @media screen and (min-width: 801px) {
 	.themes, .questions{
+		margin-top: 25vh;
 		width: 400px;
 	}
 }
 @media screen and (max-width: 800px) {
 	.themes, .questions{
 		width: 90%;
+		margin-top: 10vh;
 	}
 }
 
-.themes{
-	margin-top: 25vh;
-	margin-left: auto;
-	margin-right: auto;
-}
-.questions{
-	margin-top: 25vh;
+.themes, .questions{
 	margin-left: auto;
 	margin-right: auto;
 }
