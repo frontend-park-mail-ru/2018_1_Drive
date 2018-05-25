@@ -1,9 +1,11 @@
-$JSColor:  #FBF55D;
+
 .profile-section__profile-authorized {
-  float: right;
-  height: 25%;
-  width: 11.5rem;
-  margin-right: 0.5rem;
+    display: block;
+    position: absolute;
+    top:0;
+    right:0;
+    float: right;
+
 }
 
 .profile-section__profile-unauthorized {
@@ -62,13 +64,13 @@ $JSColor:  #FBF55D;
 }
 
 .profile-login {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  float: right;
+  padding-right: 10px;
+  padding-top: 8px;
+  margin-right: 2vw;
   font-size: 1.3rem;
-  float: left;
-  width: 70%;
-  height: 100%;
+  width: 50%;
+  height: 100%
 }
 
 .profile-score {

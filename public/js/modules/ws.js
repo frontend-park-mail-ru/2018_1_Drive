@@ -46,4 +46,8 @@ export class Ws {
         GameMessage.event = event;
         this.ws.send(JSON.stringify(GameMessage));
     }
+
+    close() {
+        this.ws.close();
+    }
 }
