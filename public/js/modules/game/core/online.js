@@ -58,7 +58,6 @@ export class OnlineGame extends GameCore {
                 throw new Error('ServiceWorker error: ' + err);
             });
         }
-
         this.state = {};
         this.gameloop = this.gameloop.bind(this);
         this.gameloopRequestId = null;

@@ -21,18 +21,20 @@ export class UsersModel {
     }
 
     static auth() {
-        if (currentUser) {
-            return Promise.resolve(currentUser);
+        if (UserSingletone.getInstance().getUser()) {
+            return Promise.resolve(UserSingletone.getInstance().getUser());
         }
         return new Promise(function (resolve, reject) {
             HttpModule.doGet({
                 url: '/user',
                 callback(err, response) {
                     if (err) {
+                        UserSingletone.getInstance().setUser(null);
                         return reject(err);
                     }
 
                     currentUser = new UsersModel(response.user);
+                    UserSingletone.getInstance().setUser(currentUser);
                     resolve(currentUser);
                 }
             });
@@ -49,8 +51,9 @@ export class UsersModel {
                     if (err) {
                         return reject(err);
                     }
-
-                    resolve(UsersModel.auth());
+                    currentUser = response.user;
+                    UserSingletone.getInstance().setUser(currentUser);
+                    resolve(currentUser);
                 }
             });
         });
@@ -66,7 +69,9 @@ export class UsersModel {
                     if (err) {
                         return reject(err);
                     }
-                    resolve(UsersModel.auth());
+                    currentUser = response.user;
+                    UserSingletone.getInstance().setUser(currentUser);
+                    resolve(currentUser);
                 }
             }) ;
         });
@@ -95,6 +100,7 @@ export class UsersModel {
                         return reject(err);
                     }
                     currentUser = null;
+                    UserSingletone.getInstance().setUser(null);
                     resolve();
                 }
             });

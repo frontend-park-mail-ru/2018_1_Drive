@@ -36,8 +36,15 @@ import '../css/styles.scss';
 
         const authorizeAndStart = async () => {
             const promise = await UsersModel.auth()
-                .then((user) => userSingletone.setUser(user))
-                .catch(() => userSingletone.setUser(null));
+                .then((user) => {
+                    userSingletone.setUser(user);
+                    console.log('in index.js auth.then and user is:');
+                    console.dir(user);
+                })
+                .catch(() => {
+                    userSingletone.setUser(null);
+                    console.log('in index.js auth.catch');
+                });
 
             rooter.add('/', MenuView);
             rooter.add('/signin', LoginView);
