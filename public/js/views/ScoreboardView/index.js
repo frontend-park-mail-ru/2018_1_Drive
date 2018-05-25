@@ -25,6 +25,7 @@ export class ScoreboardView extends View {
             .then(function (users) {
                 this.scoreboard.users = {users:users};
                 this.scoreboard.render();
+
             }.bind(this))
             .catch(console.error);
         return this;
@@ -34,6 +35,11 @@ export class ScoreboardView extends View {
     update() {
         UsersModel.loadUsers(this.scoreboard.getFirstPosition(), this.scoreboard.playersOnPage)
             .then(function (users) {
+
+                if (this.scoreboard.page === 1) {
+                    this.scoreboard.prevButton.hide();
+                }
+
                 if (users.length === 0 ) {
                     this.scoreboard.stopRendrer = true;
                     return;
@@ -42,6 +48,7 @@ export class ScoreboardView extends View {
                 this.scoreboard.render();
 
                 if (users.length < this.scoreboard.playersOnPage) {
+                    this.scoreboard.nextButton.hide();
                     this.scoreboard.stopRendrer = true;
                 }
             }.bind(this))

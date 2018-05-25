@@ -24,7 +24,8 @@ export class ScoreboardComponent extends BaseComponent {
         let usersBlock = this.element.querySelector('.menu');
         usersBlock.innerHTML = this.template(this.users);
 
-        usersBlock.querySelector('.pagination-prev').addEventListener('click', () => {
+        this.prevButton = new BaseComponent( usersBlock.querySelector('.pagination-prev'));
+        this.prevButton.on('click', () => {
             if (this.page === 1) {
                 return;
             }
@@ -33,7 +34,12 @@ export class ScoreboardComponent extends BaseComponent {
             this.updateAction();
         });
 
-        usersBlock.querySelector('.pagination-next').addEventListener('click', () => {
+        if (this.page === 1) {
+            this.prevButton.hide();
+        }
+
+        this.nextButton =  new BaseComponent(usersBlock.querySelector('.pagination-next'));
+        this.nextButton.on('click', () => {
             if (this.stopRendrer) {
                 return;
             }
