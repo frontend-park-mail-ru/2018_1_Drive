@@ -80,7 +80,7 @@ export class UsersModel {
     static loadUsers(firstManPos, amountOfPeople) {
         return new Promise(function (resolve, reject) {
             HttpModule.doGet({
-                url: `/leaders/${firstManPos}/${amountOfPeople}`,
+                url: `/leaders?offset=${firstManPos}&limit=${amountOfPeople + 1}`,
                 callback(err, response) {
                     if (err) {
                         return reject(err);
