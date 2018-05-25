@@ -1,34 +1,38 @@
-define('game/game', function (require) {
-    const GAME_MODES = require('game/modes');
-    const OfflineGame = require('game/core/offline');
-    const OnlineGame = require('game/core/online');
+
+import { GAME_MODES }  from './modes';
+import  { OfflineGame } from './core/offline';
+import { OnlineGame } from './core/online';
+import {MultiplayerGame} from './multiplayer';
 
 
-    return class Game {
-        constructor(mode) {
-            let GameConstructor = null;
-            switch (mode) {
-                case GAME_MODES.ONLINE: {
-                    GameConstructor = OnlineGame;
-                    break;
-                }
-                case GAME_MODES.OFFLINE: {
-                    GameConstructor = OfflineGame;
-                    break;
-                }
-                default:
-                    throw new Error('Invalid game mode ' + mode);
+export class Game {
+    constructor(mode) {
+        let GameConstructor = null;
+        switch (mode) {
+            case GAME_MODES.ONLINE: {
+                GameConstructor = OnlineGame;
+                break;
             }
-
-            this.gameCore = new GameConstructor();
+            case GAME_MODES.OFFLINE: {
+                GameConstructor = OfflineGame;
+                break;
+            }
+            case GAME_MODES.MULTIPLAYER: {
+                GameConstructor = MultiplayerGame;
+                break;
+            }
+            default:
+                throw new Error('Invalid game mode ' + mode);
         }
 
-        start() {
-            this.gameCore.start();
-        }
+        this.gameCore = new GameConstructor();
+    }
 
-        destroy() {
-            this.gameCore.destroy();
-        }
-    };
-});
+    start() {
+        this.gameCore.start();
+    }
+
+    destroy() {
+        this.gameCore.destroy();
+    }
+}

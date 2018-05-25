@@ -1,0 +1,14 @@
+.black-background
+.main
+    .main-block
+        .menu.white-background
+            - if (authorized) {
+                .button.yellow.search Search for opponent
+                .waiting
+            - } else {
+                p Please, sign in or register
+                .button.button-half.button-left.yellow.simple-href
+                    a(href="/signin") Log in
+                .button.button-half.button-left.yellow.simple-href
+                    a(href="/signup") Register
+            -}
