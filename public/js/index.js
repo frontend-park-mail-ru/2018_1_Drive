@@ -15,6 +15,7 @@ import '../css/styles.scss';
 
 (function () {
 
+    //empty commit
     document.addEventListener('DOMContentLoaded', function () {
 
         const root = document.getElementById('application');
