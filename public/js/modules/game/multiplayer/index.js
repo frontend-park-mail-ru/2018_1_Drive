@@ -222,7 +222,7 @@ export class MultiplayerGame extends MultiplayerCore {
     }
 
     onSetFinished(evt) {
-       this.ws.send('EVENTS_NEED_RESULT', null);
+        this.ws.send('EVENTS_NEED_RESULT', null);
     }
 
     onGameFinished(payload) {
