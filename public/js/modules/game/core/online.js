@@ -148,14 +148,18 @@ export class OnlineGame extends GameCore {
     }
 
     async onAnswerSelected(buttonNum) {
+        let answers = {};
+
         await GameHttp.checkAnswer(this.state.questionId, buttonNum)
             .then((response) => {
+                answers = {
+                    myAnswer: buttonNum,
+                    correctAnswer: response.correctAnswer
+                };
                 if (response.correct === true) {
-                    console.log('Correct answer!');
                     this.state.answers.push(1);
                     this.state.correctAnswersInRound++;
                 } else if (response.correct === false) {
-                    console.log('Wrong answer!');
                     this.state.answers.push(0);
                 } else {
                     console.log('Wtf');
@@ -163,9 +167,50 @@ export class OnlineGame extends GameCore {
                 }
             })
             .catch((error) => console.log(error));
+
+        await this.resolveAfterXSeconds(1800, answers);
+        this.takeOffAnimation();
+
         this.state.currentQuestionNum++;
         this.bus.emit(events.GAME_STATE_CHANGED);
     }
+
+
+    resolveAfterXSeconds(x, answers) {
+        this.animateAnswers(answers);
+        return new Promise(resolve => {
+            setTimeout(() => {
+                resolve();
+            }, x);
+        });
+    }
+
+    animateAnswers(answers) {
+        for (let answerButton of this.answerButtons) {
+            if (answerButton.buttonNum === answers.correctAnswer) {
+                answerButton.classList.add('animation-green');
+            }
+            if (answerButton.buttonNum === answers.myAnswer && (answers.myAnswer !== answers.correctAnswer)) {
+                answerButton.classList.add('animation-red');
+            }
+        }
+    }
+
+    takeOffAnimation() {
+        for (let answerButton of this.answerButtons) {
+            if (answerButton.classList.contains('animation-green')) {
+                answerButton.classList.remove('animation-green');
+            }
+            if (answerButton.classList.contains('animation-red')) {
+                answerButton.classList.remove('animation-red');
+            }
+            if (answerButton.classList.contains('scale-animation')) {
+                answerButton.removeChild(answerButton.firstChild);
+            }
+        }
+    }
+
+
 
     onRoundFinished(evt) {
         this.questionMenu.hide();
