@@ -12,11 +12,13 @@ const question_set = [
 ];
 const answer_set = ['2n', 'calc()', 'div'];
 
-export class OfflineGame extends GameCore {
+export class OfflineGame extends GameCore {//SET IS A THREE ROUNDS AND ROUND IS THREE QUESTIONS
     constructor() {
         super();
         this.bus = busSingleton.getInstance();
 
+        this.gameProgressBar = document.querySelector('.progress-theme_js');
+        this.roundProgressBar  = document.querySelector('.progress-question_js');
         this.themeMenu = new BaseComponent(document.querySelector('.themes'));
         this.questionMenu = new BaseComponent(document.querySelector('.questions'));
         this.resultMenu = new BaseComponent(document.querySelector('.result'));
@@ -86,6 +88,8 @@ export class OfflineGame extends GameCore {
             answers: [],
             sets: []
         };
+        this.gameProgressBar.style.left = '-100%';
+        this.roundProgressBar.style.left = '-100%';
         this.resultMenu.hide();
         this.themeMenu.show();
         this.lastFrame = performance.now();
@@ -98,7 +102,10 @@ export class OfflineGame extends GameCore {
     }
 
     onRoundStarted(evt) {
+        let pb =  (- 100 + 33 * this.state.sets.length) + '%';
+        this.gameProgressBar.style.left = pb;
         this.state.answers = [];
+        this.roundProgressBar.style.left = '-100%';
         this.themeMenu.show();
     }
 
@@ -118,6 +125,8 @@ export class OfflineGame extends GameCore {
 
     onGameStateChanged(evt) {
         let i = this.state.answers.length;
+        let pb =  (- 100 + 33 * i) + '%';
+        this.roundProgressBar.style.left = pb;
         if (i === GameSettings.numberOfSets) {
             this.timer.stop();
             this.bus.emit(events.ROUND_FINISHED);

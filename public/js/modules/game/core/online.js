@@ -17,6 +17,8 @@ export class OnlineGame extends GameCore {
         this.themeMenu = new BaseComponent(document.querySelector('.themes'));
         this.questionMenu = new BaseComponent(document.querySelector('.questions'));
         this.resultMenu = new BaseComponent(document.querySelector('.result'));
+        this.gameProgressBar = document.querySelector('.progress-theme_js');
+        this.roundProgressBar  = document.querySelector('.progress-question_js');
 
         this.question = document.querySelector('.question_block');
         this.answerButtons = document.querySelectorAll('.answers_js');
@@ -84,6 +86,8 @@ export class OnlineGame extends GameCore {
     }
 
     onGameStarted(evt) {
+        this.gameProgressBar.style.left = '-100%';
+        this.roundProgressBar.style.left = '-100%';
         this.state = {
             theme: {},
             answers: [],
@@ -103,6 +107,8 @@ export class OnlineGame extends GameCore {
     }
 
     onRoundStarted(evt) {
+        let pb =  (- 100 + 33 * this.state.sets.length) + '%';
+        this.gameProgressBar.style.left = pb;
         this.state.correctAnswersInRound = 0;
         this.themeMenu.show();
     }
@@ -130,6 +136,8 @@ export class OnlineGame extends GameCore {
     }
 
     onGameStateChanged(evt) {
+        let pb =  (- 100 + 33 * this.state.answers.length) + '%';
+        this.roundProgressBar.style.left = pb;
         let i = this.state.currentQuestionNum;
         if (i === GameSettings.numberOfSets) {
             this.timer.stop();
