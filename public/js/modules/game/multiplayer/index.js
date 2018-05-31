@@ -17,6 +17,8 @@ export class MultiplayerGame extends MultiplayerCore {
         this.themeMenu = new BaseComponent(element.querySelector('.themes'));
         this.questionMenu = new BaseComponent(element.querySelector('.questions'));
         this.resultMenu = new BaseComponent(element.querySelector('.result'));
+        this.gameProgressBar = document.querySelector('.progress-theme_js');
+        this.roundProgressBar  = document.querySelector('.progress-question_js');
 
         this.question = element.querySelector('.question_block');
         this.answerButtons = element.querySelectorAll('.answers_js');
@@ -71,6 +73,8 @@ export class MultiplayerGame extends MultiplayerCore {
     }
 
     onGameStarted() {
+        this.gameProgressBar.style.left = '-100%';
+        this.roundProgressBar.style.left = '-100%';
         this.state = {
             currentQuestionNum: 0
         };
@@ -81,6 +85,7 @@ export class MultiplayerGame extends MultiplayerCore {
     }
 
     onEventsSetStarted(response) {
+
         questionsAndAnswers = response.questions;
         this.themeMenu.hide();
         this.questionMenu.show();
@@ -90,6 +95,7 @@ export class MultiplayerGame extends MultiplayerCore {
 
     onGameStateChanged() {
         let i = this.state.currentQuestionNum;
+        this.roundProgressBar.style.left =  (- 100 + 33 * i ) + '%';
         if (i % GameSettings.numberOfSets === 0) {
             this.timer.stop();
             this.bus.emit(multiPlayerEvents.EVENTS_ROUND_FINISHED);
@@ -107,6 +113,7 @@ export class MultiplayerGame extends MultiplayerCore {
     }
 
     onSetStarted(evt) {
+
 
     }
 
