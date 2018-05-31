@@ -20,7 +20,6 @@ import {MainPreloader} from './blocks/main-preloader';
 
         const root = document.getElementById('application');
         const preloader = new MainPreloader(root);
-        preloader.clearAnimation();
 
         const bus = busSingletone.getInstance();
         const userSingletone = UserSingletone.getInstance();
@@ -61,6 +60,7 @@ import {MainPreloader} from './blocks/main-preloader';
         };
 
         authorizeAndStart();
+        preloader.stop();
 
         bus.on('signin', function (userdata) {
             UsersModel.login(userdata.mail, userdata.password)
