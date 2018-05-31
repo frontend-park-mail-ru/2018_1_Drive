@@ -107,7 +107,7 @@ export class OnlineGame extends GameCore {
     }
 
     onRoundStarted(evt) {
-        let pb =  (- 100 + 33 * this.state.sets.length) + '%';
+        let pb =  (- 100 + 33 * (this.state.answers.length / 3)) + '%';
         this.gameProgressBar.style.left = pb;
         this.state.correctAnswersInRound = 0;
         this.themeMenu.show();
@@ -136,7 +136,7 @@ export class OnlineGame extends GameCore {
     }
 
     onGameStateChanged(evt) {
-        let pb =  (- 100 + 33 * this.state.answers.length) + '%';
+        let pb =  (- 100 + 33 * (this.state.answers.length % 3)) + '%';
         this.roundProgressBar.style.left = pb;
         let i = this.state.currentQuestionNum;
         if (i === GameSettings.numberOfSets) {
@@ -221,7 +221,9 @@ export class OnlineGame extends GameCore {
 
 
     onRoundFinished(evt) {
+        this.roundProgressBar.style.left = '-100%';
         this.questionMenu.hide();
+
         if (this.state.currentRound === GameSettings.numberOfSets) {
             this.bus.emit(events.SET_FINISHED);
         } else {
