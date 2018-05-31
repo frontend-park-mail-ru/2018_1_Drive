@@ -16,6 +16,7 @@ import {MainPreloader} from './blocks/main-preloader';
 
 (function () {
 
+    //empty commit
     document.addEventListener('DOMContentLoaded', function () {
 
         const root = document.getElementById('application');

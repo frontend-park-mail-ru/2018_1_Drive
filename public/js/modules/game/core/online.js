@@ -17,6 +17,8 @@ export class OnlineGame extends GameCore {
         this.themeMenu = new BaseComponent(document.querySelector('.themes'));
         this.questionMenu = new BaseComponent(document.querySelector('.questions'));
         this.resultMenu = new BaseComponent(document.querySelector('.result'));
+        this.gameProgressBar = document.querySelector('.progress-theme_js');
+        this.roundProgressBar  = document.querySelector('.progress-question_js');
 
         this.question = document.querySelector('.question_block');
         this.answerButtons = document.querySelectorAll('.answers_js');
@@ -51,12 +53,13 @@ export class OnlineGame extends GameCore {
             });
         }
 
-        // navigator.serviceWorker.register('/appCache.js').then(function (registration) {
-        //     console.log('ServiceWorker registration', registration);
-        // }).catch(function (err) {
-        //     throw new Error('ServiceWorker error: ' + err);
-        // });
-
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/appCache.js').then(function (registration) {
+                console.log('ServiceWorker registration', registration);
+            }).catch(function (err) {
+                throw new Error('ServiceWorker error: ' + err);
+            });
+        }
         this.state = {};
         this.gameloop = this.gameloop.bind(this);
         this.gameloopRequestId = null;
@@ -83,6 +86,8 @@ export class OnlineGame extends GameCore {
     }
 
     onGameStarted(evt) {
+        this.gameProgressBar.style.left = '-100%';
+        this.roundProgressBar.style.left = '-100%';
         this.state = {
             theme: {},
             answers: [],
@@ -102,6 +107,8 @@ export class OnlineGame extends GameCore {
     }
 
     onRoundStarted(evt) {
+        let pb =  (- 100 + 33 * (this.state.answers.length / 3)) + '%';
+        this.gameProgressBar.style.left = pb;
         this.state.correctAnswersInRound = 0;
         this.themeMenu.show();
     }
@@ -129,6 +136,8 @@ export class OnlineGame extends GameCore {
     }
 
     onGameStateChanged(evt) {
+        let pb =  (- 100 + 33 * (this.state.answers.length % 3)) + '%';
+        this.roundProgressBar.style.left = pb;
         let i = this.state.currentQuestionNum;
         if (i === GameSettings.numberOfSets) {
             this.timer.stop();
@@ -147,14 +156,18 @@ export class OnlineGame extends GameCore {
     }
 
     async onAnswerSelected(buttonNum) {
+        let answers = {};
+
         await GameHttp.checkAnswer(this.state.questionId, buttonNum)
             .then((response) => {
+                answers = {
+                    myAnswer: buttonNum,
+                    correctAnswer: response.correctAnswer
+                };
                 if (response.correct === true) {
-                    console.log('Correct answer!');
                     this.state.answers.push(1);
                     this.state.correctAnswersInRound++;
                 } else if (response.correct === false) {
-                    console.log('Wrong answer!');
                     this.state.answers.push(0);
                 } else {
                     console.log('Wtf');
@@ -162,12 +175,55 @@ export class OnlineGame extends GameCore {
                 }
             })
             .catch((error) => console.log(error));
+
+        await this.resolveAfterXSeconds(1800, answers);
+        this.takeOffAnimation();
+
         this.state.currentQuestionNum++;
         this.bus.emit(events.GAME_STATE_CHANGED);
     }
 
+
+    resolveAfterXSeconds(x, answers) {
+        this.animateAnswers(answers);
+        return new Promise(resolve => {
+            setTimeout(() => {
+                resolve();
+            }, x);
+        });
+    }
+
+    animateAnswers(answers) {
+        for (let answerButton of this.answerButtons) {
+            if (answerButton.buttonNum === answers.correctAnswer) {
+                answerButton.classList.add('animation-green');
+            }
+            if (answerButton.buttonNum === answers.myAnswer && (answers.myAnswer !== answers.correctAnswer)) {
+                answerButton.classList.add('animation-red');
+            }
+        }
+    }
+
+    takeOffAnimation() {
+        for (let answerButton of this.answerButtons) {
+            if (answerButton.classList.contains('animation-green')) {
+                answerButton.classList.remove('animation-green');
+            }
+            if (answerButton.classList.contains('animation-red')) {
+                answerButton.classList.remove('animation-red');
+            }
+            if (answerButton.classList.contains('scale-animation')) {
+                answerButton.removeChild(answerButton.firstChild);
+            }
+        }
+    }
+
+
+
     onRoundFinished(evt) {
+        this.roundProgressBar.style.left = '-100%';
         this.questionMenu.hide();
+
         if (this.state.currentRound === GameSettings.numberOfSets) {
             this.bus.emit(events.SET_FINISHED);
         } else {

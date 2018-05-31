@@ -22,13 +22,19 @@ export class GameRoomView extends View {
             user.authorized = true;
             this.user = user;
             super.create(user);
-            this.initButton = this.el.querySelector('.search');
-            this.initButton.addEventListener('click', this.onSearchButton.bind(this));
+            this.initButton = new BaseComponent(this.el.querySelector('.search'));
+            this.initButton.on('click', this.onSearchButton.bind(this));
+
+            this.cancelButton = new BaseComponent(this.el.querySelector('.cancel'));
+            this.cancelButton.on('click', this.onCancel.bind(this));
+            this.cancelButton.hide();
 
             this.blackBackground = new BaseComponent(this.el.querySelector('.black-background'));
             this.mainBlock = new BaseComponent(this.el.querySelector('.main-block'));
 
-            this.waitingBlock = new WaitingBLock(this.el.querySelector('.waiting'), waitingBlockTemplate);
+            this.waitingBlock = new BaseComponent(this.el.querySelector('.waiting'));
+            this.waitingBlock.hide();
+
             const bus = busSingletone.getInstance();
             bus.on(multiPlayerEvents.EVENTS_GAME_START, this.onGameStarted.bind(this));
         } else {
@@ -39,12 +45,21 @@ export class GameRoomView extends View {
 
     onSearchButton() {
         this.ws = new Ws();
-        this.waitingBlock.render();
+        this.initButton.hide();
+        this.cancelButton.show();
+        this.waitingBlock.show();
+    }
+
+    onCancel() {
+        this.ws.send(multiPlayerEvents.EVENTS_CANCEL_GAME, 'Cancel game search');
+        this.ws.close();
+        this.cancelButton.hide();
+        this.waitingBlock.hide();
+        this.initButton.show();
     }
 
     onGameStarted(payload) {
         console.log('GAME started');
-        this.waitingBlock.root.innerHTML = '<h2>GAME STARTED</h2>';
         this.mainBlock.hide();
         let gameDiv = document.querySelector('.multiplayer-game');
         if (gameDiv == null) {
@@ -67,13 +82,17 @@ export class GameRoomView extends View {
             this.blackBackground = new BaseComponent(this.el.querySelector('.black-background'));
         } else if (!this.user && user) {
             this.render(user);
-            this.initButton = this.el.querySelector('.search');
-            this.initButton.addEventListener('click', this.onSearchButton.bind(this));
+            this.initButton = new BaseComponent(this.el.querySelector('.search'));
+            this.initButton.on('click', this.onSearchButton.bind(this));
             this.user = user;
             this.mainBlock = new BaseComponent(this.el.querySelector('.main-block'));
-            this.waitingBlock = new WaitingBLock(this.el.querySelector('.waiting'), waitingBlockTemplate);
+            this.waitingBlock = new BaseComponent(this.el.querySelector('.waiting'));
+            this.waitingBlock.hide();
             this.blackBackground = new BaseComponent(this.el.querySelector('.black-background'));
             const bus = busSingletone.getInstance();
+            this.cancelButton =  new BaseComponent(this.el.querySelector('.cancel'));
+            this.cancelButton.on('click', this.onCancel.bind(this));
+            this.cancelButton.hide();
             bus.on(multiPlayerEvents.EVENTS_GAME_START, this.onGameStarted.bind(this));
         }
         this.el.removeAttribute('hidden');

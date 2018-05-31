@@ -33,7 +33,7 @@ export class GameView extends View {
         //         onLine ? attrs = '/game/online-mode' : attrs = '/game/offline-mode'
         //         )
         //     );
-        if ( navigator.onLine){
+        if (navigator.onLine){
             attrs = '/game/online-mode';
         }else{
             attrs = '/game/offline-mode';
