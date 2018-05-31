@@ -12,6 +12,7 @@ import * as UserSingletone from './services/user-singletone';
 import {MultiPlayerGameView} from './views/MultiplayerGame/index';
 import {GameRoomView} from './views/GameRoomView';
 import '../css/styles.scss';
+import {MainPreloader} from './blocks/main-preloader';
 
 (function () {
 
@@ -19,6 +20,8 @@ import '../css/styles.scss';
     document.addEventListener('DOMContentLoaded', function () {
 
         const root = document.getElementById('application');
+        const preloader = new MainPreloader(root);
+
         const bus = busSingletone.getInstance();
         const userSingletone = UserSingletone.getInstance();
 
@@ -58,6 +61,7 @@ import '../css/styles.scss';
         };
 
         authorizeAndStart();
+        preloader.stop();
 
         bus.on('signin', function (userdata) {
             UsersModel.login(userdata.mail, userdata.password)

@@ -20,3 +20,4 @@ public/js/views/GridView/grid-view.js
 public/js/views/MultiplayerGame/multiplayer-view.js
 public/js/views/ProfileView/profile-view.js
 public/js/modules/game/multiplayer/multiplayer.js
+public/js/blocks/main-preloader/main-preloader.js
