@@ -110,6 +110,6 @@ import {NotFoundView} from './views/NotFoundView/index';
 
         bus.on('openNotFound', () => {
             rooter.open('/not-found');
-        })
+        });
     });
 })();
