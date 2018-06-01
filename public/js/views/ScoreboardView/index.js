@@ -25,7 +25,7 @@ export class ScoreboardView extends View {
             .then(function (users) {
 
                 if (users.length === this.scoreboard.playersOnPage + 1) {
-                    users = users.slice(0, users.length - 1)
+                    users = users.slice(0, users.length - 1);
                 }
 
                 this.scoreboard.users = {users:users};
