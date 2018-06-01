@@ -3,7 +3,6 @@ import {UsersModel} from '../../models/UsersModel';
 import {FormComponent} from '../../blocks/form/form';
 import * as busSingletone from '../../modules/bus';
 import {Validator} from '../../modules/validator';
-
 const gridViewTemplate = require('../GridView/grid-view.pug');
 
 export class LoginView extends View {

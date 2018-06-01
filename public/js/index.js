@@ -13,6 +13,7 @@ import {MultiPlayerGameView} from './views/MultiplayerGame/index';
 import {GameRoomView} from './views/GameRoomView';
 import '../css/styles.scss';
 import {MainPreloader} from './blocks/main-preloader';
+import {NotFoundView} from './views/NotFoundView/index';
 
 (function () {
 
@@ -39,7 +40,7 @@ import {MainPreloader} from './blocks/main-preloader';
         const rooter = new Router(root);
 
         const authorizeAndStart = async () => {
-            const promise = await UsersModel.auth()
+            await UsersModel.auth()
                 .then((user) => {
                     userSingletone.setUser(user);
                     console.log('in index.js auth.then and user is:');
@@ -57,11 +58,11 @@ import {MainPreloader} from './blocks/main-preloader';
             rooter.add('/profile', ProfileView);
             rooter.add('/offline-game', GameView);
             rooter.add('/multiplayer-game', GameRoomView);
+            rooter.add('/not-found', NotFoundView);
             rooter.start();
         };
 
-        authorizeAndStart();
-        preloader.stop();
+        authorizeAndStart().then(() => {preloader.stop();});
 
         bus.on('signin', function (userdata) {
             UsersModel.login(userdata.mail, userdata.password)
@@ -106,6 +107,9 @@ import {MainPreloader} from './blocks/main-preloader';
         bus.on('home', () => {
             rooter.open('/');
         });
-      
+
+        bus.on('openNotFound', () => {
+            rooter.open('/not-found');
+        })
     });
 })();

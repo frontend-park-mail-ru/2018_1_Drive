@@ -16,6 +16,7 @@ export class MainPreloader extends BaseComponent {
     }
 
     async stop() {
+        console.log('Stopping preloader');
         const now =  new Date().getMilliseconds();
         if (now - this.startTime > 1300) {
             this.hide();

@@ -1,10 +1,10 @@
 import {View} from '../View/view';
 import {FormComponent} from '../../blocks/form/form';
 import {UsersModel} from '../../models/UsersModel';
-//import {formViewTemplate} from '../../blocks/form/form-view.pug';
 import * as busSingleton from '../../modules/bus';
 import {Validator} from '../../modules/validator';
 const gridViewTemplate = require('../GridView/grid-view.pug');
+
 
 export class SignupView extends View {
     constructor() {

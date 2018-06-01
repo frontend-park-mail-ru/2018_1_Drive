@@ -1,3 +1,5 @@
+import * as UserSingletone from '../services/user-singletone';
+
 export class Router {
     constructor(root) {
         if (Router.__instance) {
@@ -17,10 +19,17 @@ export class Router {
     }
 
     open(path) {
-        const view = this.map[path];
-        if (!view || view === this.active) {
+        let view = this.map[path];
+
+        if (!view || !this.isAllowed(path)) {
+            path = '/not-found';
+            view = this.map[path];
+        }
+
+        if (view === this.active) {
             return this;
         }
+
 
         if (this.active) {
             this.active.hide();
@@ -30,6 +39,7 @@ export class Router {
         if (this.map.hasOwnProperty(path)) {
             this.active = this.map[path].show();
         } else {
+            console.log(path);
             this.active = view.create();
         }
 
@@ -53,4 +63,16 @@ export class Router {
 
         this.open(window.location.pathname);
     }
+
+    isAllowed(path) {
+        let notForRegitser = ['/signin', '/signup'];
+        let notForUnregistred = ['/profile'];
+        if (notForRegitser.includes(path) && UserSingletone.getInstance().getUser()) {
+            return false;
+        } else if (notForUnregistred.includes(path) && !UserSingletone.getInstance().getUser()) {
+            return false;
+        }
+        return true;
+    }
+
 }
