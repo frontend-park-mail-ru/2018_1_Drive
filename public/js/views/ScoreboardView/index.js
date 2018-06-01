@@ -21,8 +21,13 @@ export class ScoreboardView extends View {
         const profile = new ProfileBlock(this.el, ProfileBlockTemplate);
         profile.render(userSingletone.getUser());
 
-        UsersModel.loadUsers(this.scoreboard.getFirstPosition(), this.scoreboard.playersOnPage)
+        UsersModel.loadUsers(this.scoreboard.getFirstPosition(), this.scoreboard.playersOnPage - 1)
             .then(function (users) {
+
+                if (users.length === this.scoreboard.playersOnPage + 1) {
+                    users = users.slice(0, users.length - 1)
+                }
+
                 this.scoreboard.users = {users:users};
                 this.scoreboard.render();
 
@@ -44,10 +49,10 @@ export class ScoreboardView extends View {
                     this.scoreboard.stopRendrer = true;
                     return;
                 }
-                this.scoreboard.users = {users:users};
+                this.scoreboard.users = {users:users.slice(0, users.length - 1)};
                 this.scoreboard.render();
 
-                if (users.length < this.scoreboard.playersOnPage) {
+                if (users.length <= this.scoreboard.playersOnPage) {
                     this.scoreboard.nextButton.hide();
                     this.scoreboard.stopRendrer = true;
                 }

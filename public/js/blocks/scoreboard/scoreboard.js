@@ -47,6 +47,4 @@ export class ScoreboardComponent extends BaseComponent {
             this.updateAction();
         });
     }
-
-
 }
