@@ -17,8 +17,9 @@ export class MultiplayerGame extends MultiplayerCore {
         this.themeMenu = new BaseComponent(element.querySelector('.themes'));
         this.questionMenu = new BaseComponent(element.querySelector('.questions'));
         this.resultMenu = new BaseComponent(element.querySelector('.result'));
-        this.gameProgressBar = document.querySelector('.progress-theme_js');
-        this.roundProgressBar  = document.querySelector('.progress-question_js');
+
+        this.gameProgressBar = element.querySelector('.progress-theme_js');
+        this.roundProgressBar  = element.querySelector('.progress-question_js');
 
         this.question = element.querySelector('.question_block');
         this.answerButtons = element.querySelectorAll('.answers_js');
@@ -74,7 +75,7 @@ export class MultiplayerGame extends MultiplayerCore {
 
     onGameStarted() {
         this.gameProgressBar.style.left = '-100%';
-        this.roundProgressBar.style.left = '-100%';
+        this.roundProgressBar.style.left = '-1000%';
         this.state = {
             currentQuestionNum: 0
         };
@@ -85,7 +86,6 @@ export class MultiplayerGame extends MultiplayerCore {
     }
 
     onEventsSetStarted(response) {
-
         questionsAndAnswers = response.questions;
         this.themeMenu.hide();
         this.questionMenu.show();
@@ -95,7 +95,8 @@ export class MultiplayerGame extends MultiplayerCore {
 
     onGameStateChanged() {
         let i = this.state.currentQuestionNum;
-        this.roundProgressBar.style.left =  (- 100 + 33 * i ) + '%';
+        let pb =  (- 100 + 33 * (this.state.currentQuestionNum % 3)) + '%';
+        this.roundProgressBar.style.left = pb;
         if (i % GameSettings.numberOfSets === 0) {
             this.timer.stop();
             this.bus.emit(multiPlayerEvents.EVENTS_ROUND_FINISHED);
@@ -113,7 +114,6 @@ export class MultiplayerGame extends MultiplayerCore {
     }
 
     onSetStarted(evt) {
-
 
     }
 
@@ -151,18 +151,6 @@ export class MultiplayerGame extends MultiplayerCore {
             opponentAnswer: opponentAnswer,
             correctAnswer: payload.correctAnswer
         };
-
-        if (answer === payload.correctAnswer) {
-            console.log('Your answer ' + answer + ' is correct!');
-        } else {
-            console.log('Your answer ' + answer + ' is wrong ;(');
-        }
-
-        if (opponentAnswer === payload.correctAnswer) {
-            console.log('Opponent answer ' + opponentAnswer + ' is correct ;(');
-        } else {
-            console.log('Opponent answer ' + opponentAnswer + ' is wrong!');
-        }
 
         await this.resolveAfterXSeconds(1800, answers);
         this.takeOffAnimation();
@@ -211,11 +199,13 @@ export class MultiplayerGame extends MultiplayerCore {
     }
 
     onRoundFinished(evt) {
+
         let i = this.state.currentQuestionNum;
         if (this.state.currentQuestionNum === GameSettings.questionsInRound * GameSettings.numberOfSets) {
             this.bus.emit(multiPlayerEvents.EVENTS_SET_FINISHED);
         } else {
-            //todo писать о раунде
+            let pb =  (- 100 + 33 * (this.state.currentQuestionNum / 3)) + '%';
+            this.gameProgressBar.style.left = pb;
             this.timer.start((new Date).getTime());
             this.question.innerHTML = questionsAndAnswers[i].question.question;
             let j = 0;
