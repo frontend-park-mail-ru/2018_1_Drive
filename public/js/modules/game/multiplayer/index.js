@@ -24,7 +24,7 @@ export class MultiplayerGame extends MultiplayerCore {
         this.question = element.querySelector('.question_block');
         this.answerButtons = element.querySelectorAll('.answers_js');
         this.themeButtons = element.querySelectorAll('.themes_js');
-        this.resultButton = element.querySelector('.result_js');
+        this.resultButton = element.querySelector('.center-block');
         this.endButton = element.querySelector('.endGame_js');
         this.againButton = element.querySelector('.again_js');
         this.timer = new Timer(element.querySelector('canvas'), 'EVENTS_TIME_OVER');
@@ -34,7 +34,7 @@ export class MultiplayerGame extends MultiplayerCore {
         this.resultMenu.hide();
 
         this.againButton.addEventListener('click', () => {
-            this.bus.emit(multiPlayerEvents.START_GAME);
+            this.bus.emit(multiPlayerEvents.RESTART_GAME);
         });
         this.endButton.addEventListener('click', () => {
             this.bus.emit(multiPlayerEvents.EVENTS_HOME);
@@ -243,4 +243,8 @@ export class MultiplayerGame extends MultiplayerCore {
         this.bus.emit('home');
     }
 
+    onRestart() {
+        this.ws.close();
+        this.bus.emit('restart-game');
+    }
 }

@@ -64,6 +64,13 @@ export class Router {
         this.open(window.location.pathname);
     }
 
+    reload(path) {
+        let view = this.map[path];
+        view.el.innerHTML = '';
+        view.create();
+        view.show();
+    }
+
     isAllowed(path) {
         let notForRegitser = ['/signin', '/signup'];
         let notForUnregistred = ['/profile'];

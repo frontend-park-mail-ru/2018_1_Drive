@@ -51,7 +51,7 @@ export class GameRoomView extends View {
     }
 
     onCancel() {
-        this.ws.send(multiPlayerEvents.EVENTS_CANCEL_GAME, 'Cancel game search');
+        this.ws.send('EVENTS_CANCEL_GAME', 'Cancel game search');
         this.ws.close();
         this.cancelButton.hide();
         this.waitingBlock.hide();

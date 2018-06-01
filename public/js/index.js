@@ -111,5 +111,9 @@ import {NotFoundView} from './views/NotFoundView/index';
         bus.on('openNotFound', () => {
             rooter.open('/not-found');
         });
+
+        bus.on('restart-game', () => {
+            rooter.reload('/multiplayer-game');
+        });
     });
 })();
