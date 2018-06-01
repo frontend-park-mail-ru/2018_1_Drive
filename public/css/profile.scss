@@ -1,11 +1,9 @@
 
 .profile-section__profile-authorized {
-    display: block;
-    position: absolute;
-    top:0;
-    right:0;
-    float: right;
-
+  float: right;
+  height: 25%;
+  width: 12rem;
+  margin-right: 0.5rem;
 }
 
 .profile-section__profile-unauthorized {
@@ -67,7 +65,7 @@
   float: right;
   padding-right: 10px;
   padding-top: 8px;
-  margin-right: 2vw;
+
   font-size: 1.3rem;
   width: 50%;
   height: 100%
@@ -82,4 +80,12 @@
   align-items: center;
   width: 60%;
   height: 50%;
+}
+
+.center-block {
+  text-align: center;
+}
+
+.center-block > h1 {
+  display: inline-block;
 }
