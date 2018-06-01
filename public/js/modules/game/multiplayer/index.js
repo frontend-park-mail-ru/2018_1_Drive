@@ -24,7 +24,7 @@ export class MultiplayerGame extends MultiplayerCore {
         this.question = element.querySelector('.question_block');
         this.answerButtons = element.querySelectorAll('.answers_js');
         this.themeButtons = element.querySelectorAll('.themes_js');
-        this.resultButton = element.querySelector('.center-block');
+        this.resultButton = element.querySelector('.center-block-multiplayer');
         this.endButton = element.querySelector('.endGame_js');
         this.againButton = element.querySelector('.again_js');
         this.timer = new Timer(element.querySelector('canvas'), 'EVENTS_TIME_OVER');
@@ -230,11 +230,11 @@ export class MultiplayerGame extends MultiplayerCore {
         this.resultMenu.show();
 
         if (yourResult > opponentResult) {
-            this.resultButton.innerHTML = 'Your win! Result: ' + yourResult + ' / ' + GameSettings.questionsInRound * GameSettings.numberOfSets;
+            this.resultButton.childNodes[0].innerHTML = 'Your win! Result: ' + yourResult + ' / ' + GameSettings.questionsInRound * GameSettings.numberOfSets;
         } else if (yourResult < opponentResult) {
-            this.resultButton.innerHTML = 'Your lose! Result: ' + yourResult + ' / ' + GameSettings.questionsInRound * GameSettings.numberOfSets;
+            this.resultButton.childNodes[0].innerHTML = 'Your lose! Result: ' + yourResult + ' / ' + GameSettings.questionsInRound * GameSettings.numberOfSets;
         } else {
-            this.resultButton.innerHTML = 'Draw! Result: ' + yourResult + ' / ' + GameSettings.questionsInRound * GameSettings.numberOfSets;
+            this.resultButton.childNodes[0].innerHTML = 'Draw! Result: ' + yourResult + ' / ' + GameSettings.questionsInRound * GameSettings.numberOfSets;
         }
     }
 

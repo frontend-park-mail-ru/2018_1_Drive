@@ -23,7 +23,7 @@ export class OnlineGame extends GameCore {
         this.question = document.querySelector('.question_block');
         this.answerButtons = document.querySelectorAll('.answers_js');
         this.themeButtons = document.querySelectorAll('.themes_js');
-        this.resultButton = document.querySelector('.center-block');
+        this.resultButton = document.querySelector('.center-block-singleplayer');
         this.endButton = document.querySelector('.endGame_js');
         this.againButton = document.querySelector('.again_js');
         this.timer = new Timer(document.querySelector('canvas'));
@@ -249,7 +249,7 @@ export class OnlineGame extends GameCore {
             }
             questionInRound++;
         }
-        this.resultButton.innerHTML = 'Your result is ' + result + ' / 3';
+        this.resultButton.childNodes[0].innerHTML = 'Your result is ' + result + ' / 3';
     }
 
     onGameFinished(evt) {
