@@ -3,6 +3,7 @@ import * as busSingletone from './modules/bus';
 import {Router} from './modules/router';
 import {MenuView} from './views/MenuView/index';
 import {LoginView} from './views/LoginView/index';
+import {AboutView} from './views/AboutView/index';
 import {SignupView} from './views/SignupView/index';
 import {ScoreboardView} from './views/ScoreboardView/index';
 import {GameView} from './views/GameView/index';
@@ -17,7 +18,6 @@ import {NotFoundView} from './views/NotFoundView/index';
 
 (function () {
 
-    //empty commit
     document.addEventListener('DOMContentLoaded', function () {
 
         const root = document.getElementById('application');
@@ -59,6 +59,7 @@ import {NotFoundView} from './views/NotFoundView/index';
             rooter.add('/offline-game', GameView);
             rooter.add('/multiplayer-game', GameRoomView);
             rooter.add('/not-found', NotFoundView);
+            rooter.add('/about', AboutView);
             rooter.start();
         };
 

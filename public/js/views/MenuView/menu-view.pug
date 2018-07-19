@@ -1,15 +1,56 @@
-.header
-    .logo-section
-        .logo-section__logo
-    .profile-section
-.main-block
-    .logo-oil
-    .menu
-        .unauthorized
-            .button
-                a.menu-href.search(href = "/multiplayer-game") Play multiplayer
-        .common-menu
-            .button
-                a.menu-href(href = "/offline-game") Play singleplayer
-            .button.button-leaderboard
-                a.menu-href(href="/leaderboard") Leaderboard
+//.header
+//    .logo-section
+//        .logo-section__logo
+//    .profile-section
+//.main-block
+//    .logo-oil
+//    .menu
+//        .unauthorized
+//            .button
+//                a.menu-href.search(href = "/multiplayer-game") Play multiplayer
+//        .common-menu
+//            .button
+//                a.menu-href(href = "/offline-game") Play singleplayer
+//            .button.button-leaderboard
+//                a.menu-href(href="/leaderboard") Leaderboard
+
+.grid
+    .header
+        .header__logo-section Code Storm
+    .main
+        .main__menu
+            .main__button
+                a.main__href_style.center-appearance.href-animation(href="/offline-game") Start game
+            .main-button.multiplayer-popup-button
+                .main__href_style.center-appearance.href-animation.popup-button-inner.light-purple-font Multiplayer
+            .room-popup.popup2
+                .room-popup__inner.purple-font
+                    .room-popup__close.popup__close.room-popup__close.popup__close X
+                    .room-popup__title.center-content Waiting for opponent
+                    .room-popup__player1.center-content
+                        img(src="/views/refactoring-style/avatars/7.svg")
+                        .room-name1.pink-font Andreynnt
+                    .room-popup__vs.center-content
+                        span V
+                        span S
+                    .room-popup__player2.center-content.room-popup__opponent-animation
+                        img.room-image2(src="")
+                        .room-name2.pink-font
+                    .room-popup__text.center-content.room-popup__tips-animation
+            .multiplayer-popup.popup
+                .multiplayer-popup__inner.popup__inner.purple-font
+                    .multiplayer-popup__close.popup__close X
+                    .multiplayer-popup__title Hello!
+                    .multiplayer-popup__text If play want to play multiplayer, you need to login
+                    .main__send-data
+                        .popup__login.form__button_style.btn-animation
+                            span Log me in!
+                        .main__not-registered
+                            .popup__additional-title You are not registered?
+                            .popup__additional-button.form__button_style.btn-animation Register
+            .main__button
+                a.main__href_style.center-appearance.href-animation(href="/leaderboard") Scoreboard
+            .main__button
+                a.main__href_style.center-appearance.href-animation(href="/about") About
+
+        .profile-section

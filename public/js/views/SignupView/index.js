@@ -3,22 +3,22 @@ import {FormComponent} from '../../blocks/form/form';
 import {UsersModel} from '../../models/UsersModel';
 import * as busSingleton from '../../modules/bus';
 import {Validator} from '../../modules/validator';
-const gridViewTemplate = require('../GridView/grid-view.pug');
+const signupViewTemplate = require('./signup-view.pug');
 
 
 export class SignupView extends View {
     constructor() {
-        super('Register', gridViewTemplate);
-        this.attrs = {
-            caption: 'Register',
-            fields: [
-                ['mail', 'text', 'register-mail'],
-                ['login', 'text', 'register-login'],
-                ['password', 'password', 'register-password'],
-                ['passwordSubmit', 'password', 'register-submit']
-            ],
-            buttonCaption: 'Register me'
-        };
+        super('Register', signupViewTemplate);
+        // this.attrs = {
+        //     caption: 'Register',
+        //     fields: [
+        //         ['mail', 'text', 'register-mail'],
+        //         ['login', 'text', 'register-login'],
+        //         ['password', 'password', 'register-password'],
+        //         ['passwordSubmit', 'password', 'register-submit']
+        //     ],
+        //     buttonCaption: 'Register me'
+        // };
         busSingleton.getInstance().on('signup-error', this.onerror.bind(this));
     }
 
@@ -28,10 +28,10 @@ export class SignupView extends View {
 
     create() {
         super.create();
-        this.formRoot = this.el.querySelector('.menu');
-        this.formComponent = new FormComponent(this.formRoot, this.attrs, this.onSubmit.bind(this));
-        this.formComponent.render();
-        this.formComponent.addListeners();
+        // this.formRoot = this.el.querySelector('.menu');
+        // this.formComponent = new FormComponent(this.formRoot, this.attrs, this.onSubmit.bind(this));
+        // this.formComponent.render();
+        // this.formComponent.addListeners();
         return this;
     }
 

@@ -5,7 +5,6 @@ import {Button} from '../button/button';
 const formViewTemplate = require('./form-view.pug');
 
 export class FormComponent extends BaseComponent {
-
     constructor(element, params, callback) {
         super(element);
         this.type = params.type;

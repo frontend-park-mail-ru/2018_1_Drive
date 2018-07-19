@@ -12,6 +12,7 @@ export class View {
         this.active = false;
 
         this.el = document.createElement('div');
+        this.el.style.height = '100%';
         this.hide();
     }
 
