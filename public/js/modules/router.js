@@ -30,7 +30,6 @@ export class Router {
             return this;
         }
 
-
         if (this.active) {
             this.active.hide();
             this.active = null;
@@ -39,7 +38,6 @@ export class Router {
         if (this.map.hasOwnProperty(path)) {
             this.active = this.map[path].show();
         } else {
-            console.log(path);
             this.active = view.create();
         }
 

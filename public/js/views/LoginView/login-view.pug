@@ -5,14 +5,14 @@
         form.main__signin-form.material-shadow.round-borders
             .main__login-title Log in
             .form_elements
-                input.form_elements__input(type="text", required)
-                span.bar
-                label.form_elements__label Name
-            .form_elements
-                input.form_elements__input(type="text", required)
+                input.form_elements__input(type="text", required, name="mail")
                 span.bar
                 label.form_elements__label Email
-            .main__errors
+            .form_elements
+                input.form_elements__input(type="password", required, name="password")
+                span.bar
+                label.form_elements__label Password
+            .main__errors.center-content
 
             .main__send-data
                 .main__action-button.form__button_style.btn-animation

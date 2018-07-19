@@ -21,7 +21,7 @@ export class MainPreloader extends BaseComponent {
             this.hide();
             return;
         }
-        this.resolveAfterXSeconds(2000).then(() => {this.hide();});
+        this.resolveAfterXSeconds(100).then(() => {this.hide();});
     }
 
 }

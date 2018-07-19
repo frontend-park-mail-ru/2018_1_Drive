@@ -8,13 +8,12 @@ export class ProfileBlock {
 
     render(user) {
         let root = this.element.querySelector('.profile-section');
-
         if (user) {
             user.authorized = true;
             user.firstLetter = user.login.slice(0, 1);
             user.otherLetters = user.login.slice(1, user.login.length);
             root.innerHTML = this.template(user);
-            const button = root.querySelector('.profile-section__profile-authorized');
+            const button = root.querySelector('.main__profile-registered');
             button.addEventListener('click',  () => {
                 busSingletone.getInstance().emit('profile-settings', user);
             });

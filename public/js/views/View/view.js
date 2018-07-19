@@ -10,7 +10,6 @@ export class View {
         this.router = new Router;
         this.bus = busSingleton.getInstance();
         this.active = false;
-
         this.el = document.createElement('div');
         this.el.style.height = '100%';
         this.hide();
