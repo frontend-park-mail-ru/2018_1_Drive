@@ -46,7 +46,6 @@
     "express": "^4.16.2",
     "express-history-api-fallback": "^2.2.1",
     "morgan": "^1.9.0",
-    "pug-cli": "^1.0.0-alpha6",
-    "material-design-icons": "^3.0.1"
+    "pug-cli": "^1.0.0-alpha6"
   }
 }
