@@ -70,4 +70,13 @@ export class ScoreboardComponent extends BaseComponent {
             this.nextButton.element.classList.add('md-inactive');
         }
     }
+
+    highlightLogin(login) {
+        const usersRows = this.element.querySelectorAll('.table__tr');
+        this.users.forEach((el, index) => {
+           if (el.login === login) {
+               usersRows[index + 1].classList.add('js-current-player');
+           }
+        });
+    }
 }

@@ -80,4 +80,7 @@ export class Router {
         return true;
     }
 
+    getView(path) {
+        return this.map[path];
+    }
 }

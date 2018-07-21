@@ -69,6 +69,7 @@ import {NotFoundView} from './views/NotFoundView/index';
             UsersModel.login(userdata.mail, userdata.password)
                 .then(function (user) {
                     userSingletone.setUser(user);
+                    rooter.getView('/leaderboard').highlightCurrentUser();
                     new Router().open('/');
                 })
                 .catch(function (error) {

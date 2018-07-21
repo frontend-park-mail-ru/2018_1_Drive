@@ -46,4 +46,8 @@ export class ScoreboardView extends View {
         this.active = true;
         return this;
     }
+
+    highlightCurrentUser() {
+        this.scoreboard.highlightLogin(UserSingleton.getInstance().getUser().login);
+    }
 }
