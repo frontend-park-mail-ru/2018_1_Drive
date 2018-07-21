@@ -21,6 +21,10 @@ export class Router {
     open(path) {
         let view = this.map[path];
 
+        console.dir(this.map);
+        console.log(view);
+        console.log(!this.isAllowed(path));
+
         if (!view || !this.isAllowed(path)) {
             path = '/not-found';
             view = this.map[path];
@@ -70,11 +74,12 @@ export class Router {
     }
 
     isAllowed(path) {
-        let notForRegitser = ['/signin', '/signup'];
-        let notForUnregistred = ['/profile'];
-        if (notForRegitser.includes(path) && UserSingletone.getInstance().getUser()) {
+        let notForRegistered = ['/signin', '/signup'];
+        let notForUnregistered = ['/profile'];
+        if (notForRegistered.includes(path) && UserSingletone.getInstance().getUser()) {
             return false;
-        } else if (notForUnregistred.includes(path) && !UserSingletone.getInstance().getUser()) {
+        }
+        if (notForUnregistered.includes(path) && !UserSingletone.getInstance().getUser()) {
             return false;
         }
         return true;

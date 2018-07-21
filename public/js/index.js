@@ -95,15 +95,12 @@ import {NotFoundView} from './views/NotFoundView/index';
             UsersModel.logout()
                 .then(function () {
                     userSingletone.logout();
+                    rooter.getView('/profile').deleteUser();
                     new Router().open('/');
                 })
                 .catch(function (error) {
                         bus.emit('logout-error', error);
                 });
-        });
-
-        bus.on('profile-settings', function (user) {
-            rooter.open('/profile', user);
         });
       
         bus.on('home', () => {

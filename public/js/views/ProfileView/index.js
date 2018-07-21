@@ -10,23 +10,17 @@ export class ProfileView extends View {
     }
 
     create() {
-        const user = UserSingletone.getInstance().getUser();
-
-        if (!user) {
-            const bus = busSingletone.getInstance();
-            bus.emit('not-found');
+        this.user = UserSingletone.getInstance().getUser();
+        if (!this.user) {
             return this;
         } else {
-            super.render(user);
+            super.render(this.user);
         }
-
-        const logoutButton = this.el.querySelector('.logout');
+        const logoutButton = this.el.querySelector('.logout-button');
         this.addLogoutAction(logoutButton);
-
         super.hide();
         return this;
     }
-
 
     addLogoutAction(button) {
         button.addEventListener('click', () => busSingletone.getInstance().emit('logout'));
@@ -34,11 +28,15 @@ export class ProfileView extends View {
 
     show() {
         const user = UserSingletone.getInstance().getUser();
-        if (user && this.attrs.login != user.login) {
+        if (user && !this.user) {
             this.create();
         }
         this.el.removeAttribute('hidden');
         this.active = true;
         return this;
+    }
+
+    deleteUser() {
+        this.user = null;
     }
 }
