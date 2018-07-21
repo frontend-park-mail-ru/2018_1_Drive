@@ -21,10 +21,6 @@ export class Router {
     open(path) {
         let view = this.map[path];
 
-        console.dir(this.map);
-        console.log(view);
-        console.log(!this.isAllowed(path));
-
         if (!view || !this.isAllowed(path)) {
             path = '/not-found';
             view = this.map[path];

@@ -3,6 +3,7 @@ const profileViewTemplate = require('./profile-view.pug');
 import {UsersModel} from '../../models/UsersModel';
 import * as UserSingletone from '../../services/user-singletone';
 import * as busSingletone from '../../modules/bus';
+import {ProfilePopup} from './ProfilePopup/profile-popup';
 
 export class ProfileView extends View {
     constructor() {
@@ -16,8 +17,8 @@ export class ProfileView extends View {
         } else {
             super.render(this.user);
         }
-        const logoutButton = this.el.querySelector('.logout-button');
-        this.addLogoutAction(logoutButton);
+        this.addLogoutAction(this.el.querySelector('.logout-button'));
+        this.addAvatarsPopup(this.el.querySelector('.user-profile__change-avatar'));
         super.hide();
         return this;
     }
@@ -38,5 +39,14 @@ export class ProfileView extends View {
 
     deleteUser() {
         this.user = null;
+    }
+
+    addAvatarsPopup(button) {
+        this.profilePopup = new ProfilePopup(this.el.querySelector('.js-profile-main'), this.getAvatarsPaths());
+        this.profilePopup.activate(button);
+    }
+
+    getAvatarsPaths() {
+        return ['../../img/avatars/1.svg', '../../img/avatars/2.svg', '../../img/avatars/3.svg', '../../img/avatars/4.svg'];
     }
 }

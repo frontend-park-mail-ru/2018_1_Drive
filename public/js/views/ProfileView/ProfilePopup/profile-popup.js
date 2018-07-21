@@ -1,0 +1,18 @@
+import {Popup2} from '../../../blocks/popup2/popup2';
+const profilePopupTemplate = require('./profile-popup.pug');
+
+export class ProfilePopup extends Popup2 {
+    constructor(root, imgs) {
+        const element = document.createElement('div');
+        element.classList.add('popup2', 'profile__popup', 'center-content');
+        element.innerHTML = profilePopupTemplate({avatars:imgs});
+        root.appendChild(element);
+        super(element, element.querySelector('.profile__popup-inner'));
+        this.popup = element;
+    }
+
+    activate(button) {
+        super.activate(button);
+        super.onCancel(this.popup.querySelector('.js-avatars-close'));
+    }
+}
