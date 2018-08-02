@@ -43,12 +43,9 @@ import {NotFoundView} from './views/NotFoundView/index';
             await UsersModel.auth()
                 .then((user) => {
                     userSingletone.setUser(user);
-                    console.log('in index.js auth.then and user is:');
-                    console.dir(user);
                 })
                 .catch(() => {
                     userSingletone.setUser(null);
-                    console.log('in index.js auth.catch');
                 });
 
             rooter.add('/', MenuView);

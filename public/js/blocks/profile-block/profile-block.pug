@@ -4,7 +4,8 @@
         span.profile-registered__first-letter.pink-font #{firstLetter}
         | #{otherLetters}
     .main__profile-picture
-        img.main__profile-image(src="../../img/avatars/1.svg")
+        -let str = `../../img/avatars/${avatar}.svg`
+        img.main__profile-image(src=str)
 
 - } else {
 .main__profile-unregistered

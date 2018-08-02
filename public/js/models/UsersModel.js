@@ -10,6 +10,7 @@ export class UsersModel {
         this.mail = data.mail;
         this.password = data.password;
         this.score = data.score;
+        this.avatar = data.avatar;
     }
 
     static isAuthorized() {
@@ -34,6 +35,7 @@ export class UsersModel {
                     }
 
                     currentUser = new UsersModel(response.user);
+                    console.dir(response.user);
                     UserSingletone.getInstance().setUser(currentUser);
                     resolve(currentUser);
                 }
@@ -101,6 +103,22 @@ export class UsersModel {
                     }
                     currentUser = null;
                     UserSingletone.getInstance().setUser(null);
+                    resolve();
+                }
+            });
+        });
+    }
+
+    static updateAvatar(avatar) {
+        return new Promise(function (resolve, reject) {
+            HttpModule.doPost({
+                url: '/change-avatar',
+                data: avatar,
+                callback(err, response) {
+                    if (err) {
+                        return reject(err);
+                    }
+                    UserSingletone.getInstance().getUser().avatar = response.avatar_id;
                     resolve();
                 }
             });

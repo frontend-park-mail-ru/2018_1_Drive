@@ -5,6 +5,8 @@ import * as UserSingletone from '../../services/user-singletone';
 import * as busSingletone from '../../modules/bus';
 import {ProfilePopup} from './ProfilePopup/profile-popup';
 
+
+
 export class ProfileView extends View {
     constructor() {
         super('Profile', profileViewTemplate);
@@ -42,11 +44,16 @@ export class ProfileView extends View {
     }
 
     addAvatarsPopup(button) {
-        this.profilePopup = new ProfilePopup(this.el.querySelector('.js-profile-main'), this.getAvatarsPaths());
+        this.profilePopup = new ProfilePopup(this.el.querySelector('.js-profile-main'), this.getAvatarsPaths(), this.user.avatar);
         this.profilePopup.activate(button);
     }
 
     getAvatarsPaths() {
-        return ['../../img/avatars/1.svg', '../../img/avatars/2.svg', '../../img/avatars/3.svg', '../../img/avatars/4.svg'];
+        let avatarsAmount = 9;
+        let paths = [];
+        for (let i = 1; i <= avatarsAmount; i++) {
+            paths[i - 1] = `../../img/avatars/${i}.svg`;
+        }
+        return paths;
     }
 }
