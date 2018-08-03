@@ -345,6 +345,9 @@ body a {
     margin: 1vh 0;
 }
 
+.noTextDecoration {
+    text-decoration: none;
+}
 
 .btn-animation {
     transition: 300ms ease-in-out;
@@ -1580,6 +1583,9 @@ body {
         height: 6vmin;
         line-height: 6vmin;
         font-size: 2vmin;
+        font-weight: 600;
+        right: -0.5rem;
+        top: -0.5rem;
     }
     .multiplayer-popup__text {
         font-size: 5vmin;

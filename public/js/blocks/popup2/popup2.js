@@ -8,17 +8,13 @@ export class Popup2 {
 
         activate(button) {
             button.addEventListener('click', () => {
-                this.popup.style.visibility = 'visible';
-                this.popup.style.opacity = '1';
-                this.inner.style.animation = 'forward 0.3s 1';
+                this.openPopup();
             });
         }
 
         onCancel(cancelButton) {
             cancelButton.addEventListener('click', () => {
-                this.popup.style.visibility = 'hidden';
-                this.popup.style.opacity = '0';
-                this.inner.style.animation = '';
+                this.closePopup();
             });
         }
 
@@ -26,5 +22,17 @@ export class Popup2 {
             cancelButton.addEventListener('click', () => {
                 callback();
             });
+        }
+
+        openPopup() {
+            this.popup.style.visibility = 'visible';
+            this.popup.style.opacity = '1';
+            this.inner.style.animation = 'forward 0.3s 1';
+        }
+
+        closePopup() {
+            this.popup.style.visibility = 'hidden';
+            this.popup.style.opacity = '0';
+            this.inner.style.animation = '';
         }
 }

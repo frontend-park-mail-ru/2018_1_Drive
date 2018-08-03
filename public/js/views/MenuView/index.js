@@ -4,6 +4,7 @@ import {ProfileBlock} from '../../blocks/profile-block/profile';
 const ProfileBlockTemplate = require('../../blocks/profile-block/profile-block.pug');
 import * as UserSingletone from '../../services/user-singletone';
 import {Router} from '../../modules/router';
+import {Popup} from '../../blocks/popup/popup';
 
 
 export class MenuView extends View {
@@ -20,9 +21,11 @@ export class MenuView extends View {
         const profile = new ProfileBlock(this.el, ProfileBlockTemplate);
         profile.render(currentUser);
 
+        this.addNotLoginedPopup();
+
         this.multiplayerButton.addEventListener('click', () => {
            if (!UserSingletone.getInstance().getUser()) {
-                console.log('unregistered');
+                this.popup.openPopup();
                 return;
            }
            new Router().open('/multiplayer-game');
@@ -47,6 +50,17 @@ export class MenuView extends View {
         } else {
             user ? none() : this.multiplayerButton.firstChild.classList.add('light-purple-font');
         }
+    }
+
+    addNotLoginedPopup() {
+        this.popup = new Popup(document.querySelector('.multiplayer-popup'), document.querySelector('.multiplayer-popup__inner'));
+        this.popup.onCancel(this.popup.inner.querySelector('.multiplayer-popup__close'));
+        this.popup.inner.querySelector('.js-unreg-signin').addEventListener('click', () => {
+            new Router().open('/signin');
+        });
+        this.popup.inner.querySelector('.js-unreg-signup').addEventListener('click', () => {
+            new Router().open('/signup');
+        });
     }
 
 }
