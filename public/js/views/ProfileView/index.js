@@ -1,6 +1,5 @@
 import {View} from '../View/view';
 const profileViewTemplate = require('./profile-view.pug');
-import {UsersModel} from '../../models/UsersModel';
 import * as UserSingletone from '../../services/user-singletone';
 import * as busSingletone from '../../modules/bus';
 import {ProfilePopup} from './ProfilePopup/profile-popup';
@@ -46,6 +45,12 @@ export class ProfileView extends View {
     addAvatarsPopup(button) {
         this.profilePopup = new ProfilePopup(this.el.querySelector('.js-profile-main'), this.getAvatarsPaths(), this.user.avatar);
         this.profilePopup.activate(button);
+        this.profilePopup.addActionOnClose(() => {
+            let profileImage = this.el.querySelector('.user-profile__image');
+            if (profileImage.src !== `../../img/avatars/${UserSingletone.getInstance().getUser().avatar}.svg`) {
+                profileImage.src = `../../img/avatars/${UserSingletone.getInstance().getUser().avatar}.svg`;
+            }
+        });
     }
 
     getAvatarsPaths() {

@@ -2,7 +2,7 @@ const path = require('path');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
-    entry: './public/js/avatars-select.js',
+    entry: './public/js/index.js',
     output: {
         filename: 'bundle.js',
         path: path.resolve(__dirname + '/public/js', 'dist')

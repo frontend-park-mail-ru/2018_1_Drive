@@ -11,6 +11,7 @@ export class ProfilePopup extends Popup2 {
         super(element, element.querySelector('.profile__popup-inner'));
         this.popup = element;
         this.selectButton = this.popup.querySelector('.select-button');
+        this.closeButton = this.popup.querySelector('.js-avatars-close');
         this.avatars = [...this.popup.querySelectorAll('.avatars__avatar')];
         this.userAvatar = userAvatar;
     }
@@ -21,8 +22,9 @@ export class ProfilePopup extends Popup2 {
         this.avatarsSelect = new AvatarsSelect(this.avatars, this.userAvatar, this.selectButton);
         this.avatarsSelect.addOnClickAnimation();
         this.avatarsSelect.addSelectButtonAnimation();
-
     }
 
-
+    addActionOnClose(callback) {
+        super.addActionOnClose(this.closeButton, callback);
+    }
 }

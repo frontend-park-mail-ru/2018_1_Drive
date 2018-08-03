@@ -6,7 +6,8 @@
             .user-profile.round-borders
                 .user-profile__header.purple-font Profile
                 .user-profile__picture.center-content
-                    img.user-profile__image(src="../../img/avatars/1.svg")
+                    -var imagePath = `../../img/avatars/${avatar}.svg`
+                    img.user-profile__image(src=imagePath)
                 .profile-data-wrapper
                     .user-profile__row
                         .user-profile__row-left.purple-font Login:
@@ -27,4 +28,3 @@
                 .main__send-data.user-profile__button
                     .logout-button.form__button_style.btn-animation
                         span Logout
-                        

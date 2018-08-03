@@ -21,4 +21,10 @@ export class Popup2 {
                 this.inner.style.animation = '';
             });
         }
+
+        addActionOnClose(cancelButton, callback) {
+            cancelButton.addEventListener('click', () => {
+                callback();
+            });
+        }
 }
