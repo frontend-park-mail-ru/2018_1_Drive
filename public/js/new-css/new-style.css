@@ -1452,7 +1452,36 @@ body {
     margin-bottom: 3vmin;
 }
 
-
+.wrapper-not-found {
+    background-color: #673AB7;
+    width: 100%;
+    height: 100%;
+}
+.wrapper-not-found__404 {
+    font-size: 50vmin;
+    color: white;
+    text-shadow: 6px 6px 0 rgba(0,0,0,0.2);
+    margin-right: 15vmin;
+}
+.wrapper-not-found__text {
+    font-size: 4vmin;
+    text-align: center;
+    width: 90%;
+    margin-top: 5vmin;
+}
+.wrapper-not-found__info {
+    background-color: white;
+    width: 50vmin;
+    height: 40vmin;
+    flex-direction: column;
+}
+.wrapper-not-found__button {
+    margin-top: 5vmin;
+    margin-bottom: 5vmin;
+    width: 20vmin;
+    height: 6vmin;
+    font-size: 3vmin;
+}
 
 
 
@@ -1744,6 +1773,24 @@ body {
          0%   {border: 0}
          100% {box-shadow:inset 0 0 0 4px #EE4266;}
      }
+    .wrapper-not-found {
+        flex-direction: column;
+    }
+    .wrapper-not-found__404 {
+        margin-right: 0;
+    }
+    .wrapper-not-found__info {
+        width: 85vmin;
+    }
+    .wrapper-not-found__text {
+        font-size: 5vmin;
+        width: 70%;
+    }
+    .wrapper-not-found__button {
+        margin-top: 5vmin;
+        font-size: 4vmin;
+        width: 30vmin;
+    }
 }
 
 /*Phones landscape*/
@@ -1903,6 +1950,17 @@ and (orientation : landscape) {
     }
     .select-button {
         margin-bottom: 2vmin;
+    }
+    .wrapper-not-found {
+        flex-direction: row;
+    }
+    .wrapper-not-found__info {
+        width: 80vmin;
+        margin-left: 4vmin;
+    }
+    .wrapper-not-found__button {
+        margin-top: 3vmin;
+        width: 30vmin;
     }
 
 }

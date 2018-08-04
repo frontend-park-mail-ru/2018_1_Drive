@@ -57,9 +57,11 @@ export class MenuView extends View {
         this.popup.onCancel(this.popup.inner.querySelector('.multiplayer-popup__close'));
         this.popup.inner.querySelector('.js-unreg-signin').addEventListener('click', () => {
             new Router().open('/signin');
+            this.popup.closePopup();
         });
         this.popup.inner.querySelector('.js-unreg-signup').addEventListener('click', () => {
             new Router().open('/signup');
+            this.popup.closePopup();
         });
     }
 
