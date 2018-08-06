@@ -22,6 +22,7 @@ module.exports = {
         ],
         "no-undef": "off",
         "no-unused-vars": "off",
+        "no-useless-escape": "off",
         "no-console": "off",
         "semi": [
             "error",
