@@ -5,7 +5,11 @@ import * as busSingleton from '../../bus';
 import {Timer} from '../../../modules/game/core/timer';
 import GameSettings from '../game-settings';
 import GameHttp from '../game-http';
-import {multiPlayerEvents} from '../multiplayer/events';
+import {ProgressBar} from './ProgressBar';
+import {ClickManager} from '../../clickManager';
+import {Popup} from '../../../blocks/popup/popup';
+
+
 
 
 let questionsAndAnswers = {};
@@ -16,9 +20,9 @@ export class OnlineGame extends GameCore {
         this.bus = busSingleton.getInstance();
         this.themeBlock = new BaseComponent(document.querySelector('.js-themes'));
         this.questionsBlock = new BaseComponent(document.querySelector('.js-questions'));
-        //this.resultMenu = new BaseComponent(document.querySelector('.result'));
-        //this.gameProgressBar = document.querySelector('.progress-theme_js');
-        //this.roundProgressBar  = document.querySelector('.progress-question_js');
+
+        this.progressBar = new ProgressBar(document.querySelector('.progress-bar__inside'));
+        this.clickManager = new ClickManager(document.querySelector('.main.game-main'));
 
         this.question = document.querySelector('.js-main-question');
         this.answerButtons = document.querySelectorAll('.js-answer-button');
@@ -26,29 +30,34 @@ export class OnlineGame extends GameCore {
 
         this.headerOpponent = document.querySelector('.header__opponent');
         this.headerOpponent.innerHTML = 'Singleplayer';
-
         this.headerRound = document.querySelector('.header__round');
         this.headerTheme = document.querySelector('.header__theme');
         this.headerHyphen = document.querySelector('.header__hyphen');
 
-        //this.resultButton = document.querySelector('.center-block-singleplayer');
-        //this.endButton = document.querySelector('.endGame_js');
-        //this.againButton = document.querySelector('.again_js');
+        this.resultPopup = new Popup(document.querySelector('.game-popup'), document.querySelector('.game-popup__inner'));
+        this.endButton = document.querySelector('.js-end-game');
+        this.againButton = document.querySelector('.js-again-button');
+
         this.timerDiv = document.querySelector('.header__timer');
         this.infoDiv = document.querySelector('.header__waiting-block');
-        this.roundTime = 13;
+        this.roundTime = GameSettings.roundTime;
         this.timer = this.initTimer(this.timerDiv, this.infoDiv);
 
         this.questionsBlock.hide();
         this.themeBlock.hide();
-        // this.resultMenu.hide();
 
-        // this.againButton.addEventListener('click', () => {
-        //     this.bus.emit(events.START_GAME);
-        // });
-        // this.endButton.addEventListener('click', () => {
-        //     this.bus.emit(events.FINISH_GAME);
-        // });
+        this.againButton.addEventListener('click', () => {
+            this.progressBar.setToZero();
+            this.questionsBlock.hide();
+            this.bus.emit(events.START_GAME);
+            this.resultPopup.closePopup();
+        });
+        this.endButton.addEventListener('click', () => {
+            this.bus.emit(events.FINISH_GAME);
+            this.questionsBlock.hide();
+            this.resultPopup.closePopup();
+            this.bus.emit(events.START_GAME);
+        });
 
         let buttonNum = 1;
         for (let answerButton of this.answerButtons) {
@@ -102,8 +111,6 @@ export class OnlineGame extends GameCore {
 
 
     onGameStarted(evt) {
-        // this.gameProgressBar.style.left = '-100%';
-        // this.roundProgressBar.style.left = '-100%';
         this.state = {
             theme: {},
             answers: [],
@@ -111,8 +118,11 @@ export class OnlineGame extends GameCore {
             currentQuestionNum: 0,
             correctAnswersInRound: 0
         };
-        //this.resultMenu.hide();
+        this.headerRound.innerHTML = 'Choose theme';
+        this.headerHyphen.innerHTML = '';
+        this.headerTheme.innerHTML = '';
         this.themeBlock.show();
+        this.progressBar.setToZero();
     }
 
     onSetStarted(evt) {
@@ -121,8 +131,7 @@ export class OnlineGame extends GameCore {
     }
 
     onRoundStarted(evt) {
-        //let pb =  (- 100 + 33 * (this.state.answers.length / 3)) + '%';
-        //this.gameProgressBar.style.left = pb;
+        this.progressBar.setToZero();
         this.state.correctAnswersInRound = 0;
         this.headerRound.innerHTML = 'Choose theme';
         this.headerHyphen.innerHTML = '';
@@ -135,12 +144,13 @@ export class OnlineGame extends GameCore {
             .then(response => questionsAndAnswers = response)
             .catch(err => {
                 console.log(err);
-                //todo перекидывать на страницу ошибки
+                this.bus.emit('openNotFound');
             });
 
         this.state.theme = evt;
         this.themeBlock.hide();
         this.questionsBlock.show();
+        this.progressBar.setToFirst();
         this.state.currentQuestionNum = 0;
         this.headerTheme.innerHTML = evt;
         this.headerHyphen.innerHTML = '-';
@@ -153,11 +163,10 @@ export class OnlineGame extends GameCore {
     }
 
     onGameStateChanged(evt) {
-        //let pb =  (- 100 + 33 * (this.state.answers.length % 3)) + '%';
-        //this.roundProgressBar.style.left = pb;
         let i = this.state.currentQuestionNum;
         if (i === GameSettings.numberOfSets) {
             this.timer.stop();
+            this.clickManager.turnOnClicks();
             this.bus.emit(events.ROUND_FINISHED);
         } else {
             this.timer.start(this.roundTime);
@@ -169,12 +178,15 @@ export class OnlineGame extends GameCore {
                 answerButton.num = questionsAndAnswers[i].answers[j].answerNum;
                 j++;
             }
+            this.clickManager.turnOnClicks();
         }
     }
 
     async onAnswerSelected(buttonNum) {
         let answers = {};
         this.timer.stop();
+        this.progressBar.update();
+        this.clickManager.turnOffCLicks();
         await GameHttp.checkAnswer(this.state.questionId, buttonNum)
             .then((response) => {
                 answers = {
@@ -187,18 +199,15 @@ export class OnlineGame extends GameCore {
                 } else if (response.correct === false) {
                     this.state.answers.push(0);
                 } else {
-                    console.log('Wtf');
-                    //todo перекидывать на страницу ошибки
+                    this.bus.emit('openNotFound');
                 }
             })
             .catch((error) => console.log(error));
-
         await this.resolveAfterXSeconds(1500, answers);
         this.takeOffAnimation();
         this.state.currentQuestionNum++;
         this.bus.emit(events.GAME_STATE_CHANGED);
     }
-
 
     resolveAfterXSeconds(x, answers) {
         this.animateAnswers(answers);
@@ -235,27 +244,20 @@ export class OnlineGame extends GameCore {
     }
 
 
-
     onRoundFinished(evt) {
-        //this.roundProgressBar.style.left = '-100%';
-        this.questionsBlock.hide();
-
         this.timerDiv.innerHTML = '';
         this.infoDiv.innerHTML = '';
-
         if (this.state.currentRound === GameSettings.numberOfSets) {
             this.bus.emit(events.SET_FINISHED);
         } else {
+            this.questionsBlock.hide();
             this.state.currentRound++;
             this.bus.emit(events.ROUND_STARTED);
         }
     }
 
     onSetFinished(evt) {
-        //this.resultMenu.show();
-        let result  = 0;
-        let counter = 0;
-        let questionInRound = 1;
+        let result  = 0, counter = 0, questionInRound = 1;
         for (let i = 0; i < this.state.answers.length; i++) {
             if (this.state.answers[i] === 1) {
                 counter++;
@@ -268,11 +270,11 @@ export class OnlineGame extends GameCore {
             }
             questionInRound++;
         }
-        //this.resultButton.childNodes[0].innerHTML = 'Your result is ' + result + ' / 3';
+        this.resultPopup.inner.querySelector('.game-popup__result').innerHTML = 'Your result is ' + result + ' / 3';
+        this.resultPopup.openPopup();
     }
 
     onGameFinished(evt) {
         this.bus.emit('home');
     }
-
 }
