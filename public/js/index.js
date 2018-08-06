@@ -28,7 +28,7 @@ import {NotFoundView} from './views/NotFoundView/index';
 
         switch (window.location.hostname) {
             case 'localhost':
-                HttpModule.baseUrl = 'https://backend-drive.herokuapp.com';
+                HttpModule.baseUrl = 'http://localhost:8080';
                 break;
             case 'frontend-drive.herokuapp.com':
                 HttpModule.baseUrl = 'https://backend-drive.herokuapp.com';

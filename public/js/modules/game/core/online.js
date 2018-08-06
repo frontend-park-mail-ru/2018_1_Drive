@@ -96,19 +96,11 @@ export class OnlineGame extends GameCore {
 
     start() {
         super.start();
-        //в answers храним нули и единицы
-        this.state = {
-            theme: {},
-            answers: [],
-            currentRound: 1,
-            currentQuestionNum: 0
-        };
         this.headerRound.innerHTML = 'Choose theme';
         this.headerHyphen.innerHTML = '';
         this.headerTheme.innerHTML = '';
         this.bus.emit(events.START_GAME);
     }
-
 
     onGameStarted(evt) {
         this.state = {

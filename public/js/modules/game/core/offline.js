@@ -4,42 +4,95 @@ import {GameCore} from './index';
 import * as busSingleton from '../../bus';
 import {Timer} from './timer';
 import GameSettings from '../game-settings';
+import {ClickManager} from '../../clickManager';
+import {ProgressBar} from './ProgressBar';
+import {Popup} from '../../../blocks/popup/popup';
 
-const question_set = [
-    'Как выбрать четные элементы списка в nth-of-type?', ['2i', '2n', '2j+1', '2i+1'],
-    'Как совместить в одном выражении разные единицы(px и % например)', ['add()', 'eval()', 'apply()', 'calc()'],
-    'Как выбрать все div одним селектором?', ['div', ':div', '.div', 'all:div'],
-];
-const answer_set = ['2n', 'calc()', 'div'];
+
+//обрезанная версия для offline игры
+const questionsSet = {
+    'CSS': {
+        questions: ['Как выбрать четные элементы списка в nth-of-type?',
+            'Как совместить в одном выражении разные единицы(px и % например)',
+            'Как выбрать все div одним селектором?'],
+        answers: [['2i', '2n', '2j+1', '2i+1'],
+            ['add()', 'eval()', 'apply()', 'calc()'],
+            ['div', ':div', '.div', 'all:div']],
+        correctAnswers: ['2n', 'calc()', 'div']
+    },
+    'JAVA': {
+        questions: ['Сколько ключевых слов в Java?',
+            'Какой метод не принадлежит классу Object?',
+            'Сколько примитивов в Java'],
+        answers: [['20', '30', '50', '37'],
+            ['toString()', 'final()', 'notifyAll()', 'wait()'],
+            ['6', '7', '8', '9']],
+        correctAnswers: ['50', 'final()', '8']
+    },
+    'JS': {
+        questions: ['let obj = {"0":1, 0:2}; \nalert(obj["0"]+obj[0]);',
+            'for (let k in {1:0, 0:0}) \n{ alert(key); }',
+            'Огурец стоит 1.15, помидор 2.30. Сколько стоит салат с точки зрения JS?'],
+        answers: [['2', '3', '4', '12'],
+            ['0, затем 1', '1, затем 0', 'В коде ошибка', 'Зависит от браузера'],
+            ['345', '3.45', '3.43', 'Другой ответ']],
+        correctAnswers: ['4', '0, затем 1', 'Другой ответ']
+    },
+    'SQL': {
+        questions: ['Какого вида JOIN нет в SQL?',
+            'Для какого типа данных недопустимо использовать SUM()?',
+            'Назовите аббревиатуру команд определения структур данных'],
+        answers: [['CROSS', 'FULL', 'OUTER', 'CONFLUX'],
+            ['bit', 'double', 'tinyint', 'money'],
+            ['DML', 'DDL', 'TCL', 'DCL']],
+        correctAnswers: ['CONFLUX', 'bit', 'DDL']
+    }
+};
+
 
 export class OfflineGame extends GameCore {//SET IS A THREE ROUNDS AND ROUND IS THREE QUESTIONS
     constructor() {
         super();
         this.bus = busSingleton.getInstance();
+        this.themeBlock = new BaseComponent(document.querySelector('.js-themes'));
+        this.questionsBlock = new BaseComponent(document.querySelector('.js-questions'));
 
-        this.gameProgressBar = document.querySelector('.progress-theme_js');
-        this.roundProgressBar  = document.querySelector('.progress-question_js');
-        this.themeMenu = new BaseComponent(document.querySelector('.themes'));
-        this.questionMenu = new BaseComponent(document.querySelector('.questions'));
-        this.resultMenu = new BaseComponent(document.querySelector('.result'));
+        this.progressBar = new ProgressBar(document.querySelector('.progress-bar__inside'));
+        this.clickManager = new ClickManager(document.querySelector('.main.game-main'));
 
-        this.question = document.querySelector('.question_block');
-        this.answerButtons = document.querySelectorAll('.answers_js');
-        this.themeButtons = document.querySelectorAll('.themes_js');
-        this.resultButton = document.querySelector('.result_js');
-        this.endButton = document.querySelector('.endGame_js');
-        this.againButton = document.querySelector('.again_js');
-        this.timer = new Timer(document.querySelector('canvas'));
+        this.question = document.querySelector('.js-main-question');
+        this.answerButtons = document.querySelectorAll('.js-answer-button');
+        this.themeButtons = document.querySelectorAll('.js-theme-button');
 
-        this.questionMenu.hide();
-        this.themeMenu.hide();
-        this.resultMenu.hide();
+        this.headerOpponent = document.querySelector('.header__opponent');
+        this.headerOpponent.innerHTML = 'Singleplayer';
+        this.headerRound = document.querySelector('.header__round');
+        this.headerTheme = document.querySelector('.header__theme');
+        this.headerHyphen = document.querySelector('.header__hyphen');
+
+        this.resultPopup = new Popup(document.querySelector('.game-popup'), document.querySelector('.game-popup__inner'));
+        this.endButton = document.querySelector('.js-end-game');
+        this.againButton = document.querySelector('.js-again-button');
+
+        this.timerDiv = document.querySelector('.header__timer');
+        this.infoDiv = document.querySelector('.header__waiting-block');
+        this.roundTime = GameSettings.roundTime;
+        this.timer = this.initTimer(this.timerDiv, this.infoDiv);
+
+        this.questionsBlock.hide();
+        this.themeBlock.hide();
 
         this.againButton.addEventListener('click', () => {
+            this.progressBar.setToZero();
+            this.questionsBlock.hide();
             this.bus.emit(events.START_GAME);
+            this.resultPopup.closePopup();
         });
         this.endButton.addEventListener('click', () => {
             this.bus.emit(events.FINISH_GAME);
+            this.questionsBlock.hide();
+            this.resultPopup.closePopup();
+            this.bus.emit(events.START_GAME);
         });
 
         for (let answerButton of this.answerButtons) {
@@ -60,40 +113,47 @@ export class OfflineGame extends GameCore {//SET IS A THREE ROUNDS AND ROUND IS 
         //     });
         // }
         this.state = {};
-        this.gameloop = this.gameloop.bind(this);
-        this.gameloopRequestId = null;
-        this.lastFrame = 0;
     }
 
-    start() {//initial state здесь надо отрисовать менюшку и скрытые вопросы
+    initTimer(timerDiv, infoDiv) {
+        const onStart = () => {
+            timerDiv.innerHTML = `${this.roundTime}\'\'`;
+            infoDiv.innerHTML = 'Time left';
+        };
+        const onEnd = () => {
+            //this.bus.emit(events['TIME_OVER']);
+        };
+        return new Timer(timerDiv, onStart, onEnd);
+    }
+
+    start() {
         super.start();
         this.state = {
             theme: {},
             answers: [],
-            sets: []
+            sets: [],
+            currentRound: 1,
+            currentTheme: ''
         };
+        this.headerRound.innerHTML = 'Choose theme';
+        this.headerHyphen.innerHTML = '';
+        this.headerTheme.innerHTML = '';
         this.bus.emit(events.START_GAME);
-        //setTimeout(function () {
-        //    bus.emit(events.START_GAME, this.state);
-        //}.bind(this));
-    }
-
-    gameloop(now) {//main cycle we need it only for timer
-        this.gameloopRequestId = requestAnimationFrame(this.gameloop);
     }
 
     onGameStarted(evt) {
         this.state = {
             theme: {},
             answers: [],
-            sets: []
+            sets: [],
+            currentRound: 1,
+            questionInSet: 0
         };
-        this.gameProgressBar.style.left = '-100%';
-        this.roundProgressBar.style.left = '-100%';
-        this.resultMenu.hide();
-        this.themeMenu.show();
-        this.lastFrame = performance.now();
-        this.gameloopRequestId = requestAnimationFrame(this.gameloop);
+        this.headerRound.innerHTML = 'Choose theme';
+        this.headerHyphen.innerHTML = '';
+        this.headerTheme.innerHTML = '';
+        this.themeBlock.show();
+        this.progressBar.setToZero();
     }
 
     onSetStarted(evt) {
@@ -102,81 +162,132 @@ export class OfflineGame extends GameCore {//SET IS A THREE ROUNDS AND ROUND IS 
     }
 
     onRoundStarted(evt) {
-        let pb =  (- 100 + 33 * this.state.sets.length) + '%';
-        this.gameProgressBar.style.left = pb;
         this.state.answers = [];
-        this.roundProgressBar.style.left = '-100%';
-        this.themeMenu.show();
+        this.progressBar.setToZero();
+        this.state.correctAnswersInRound = 0;
+        this.headerRound.innerHTML = 'Choose theme';
+        this.headerHyphen.innerHTML = '';
+        this.headerTheme.innerHTML = '';
+        this.themeBlock.show();
     }
 
     onThemeSelected(evt) {
         this.state.theme = evt;
-        this.themeMenu.hide();
-        this.questionMenu.show();
+        this.state.currentTheme = evt;
+        this.themeBlock.hide();
+        this.questionsBlock.show();
+        this.progressBar.setToFirst();
+        this.headerTheme.innerHTML = evt;
+        this.headerHyphen.innerHTML = '-';
+        this.headerRound.innerHTML = `Round ${this.state.currentRound}/${GameSettings.numberOfSets}`;
         //TODO: method requestSet(theme) -> question_set
         this.bus.emit(events.GAME_STATE_CHANGED, this.state);
     }
 
     onTimeOver(evt){
-        console.log(this);
-        this.state.answers.push('');
-        this.bus.emit(events.GAME_STATE_CHANGED);
+        this.onAnswerSelected(-1);
     }
 
     onGameStateChanged(evt) {
         let i = this.state.answers.length;
-        let pb =  (- 100 + 33 * i) + '%';
-        this.roundProgressBar.style.left = pb;
         if (i === GameSettings.numberOfSets) {
             this.timer.stop();
+            this.clickManager.turnOnClicks();
+            this.state.questionInSet = 0;
             this.bus.emit(events.ROUND_FINISHED);
         } else {
-            //запуск таймера
-            this.timer.start((new Date).getTime());
-            this.question.innerHTML = question_set[2 * i];
+            this.timer.start(this.roundTime);
+            this.question.innerHTML = questionsSet[this.state.currentTheme].questions[i];
             let j = 0;
             for (let answerButton of this.answerButtons) {
-                answerButton.innerHTML = question_set[2 * i + 1][j];
+                answerButton.innerHTML = questionsSet[this.state.currentTheme].answers[i][j];
                 j++;
             }
+            this.state.questionInSet++;
+            this.clickManager.turnOnClicks();
         }
     }
 
-    onAnswerSelected(evt) {
+    async onAnswerSelected(evt) {
         this.state.answers.push(evt);
+        this.timer.stop();
+        this.progressBar.update();
+        this.clickManager.turnOffCLicks();
+
+        let answers = {
+            myAnswer: evt,
+            correctAnswer: questionsSet[this.state.currentTheme].correctAnswers[this.state.questionInSet - 1]
+        };
+
+        console.dir(answers);
+
+        await this.resolveAfterXSeconds(1500, answers);
+        this.takeOffAnimation();
         this.bus.emit(events.GAME_STATE_CHANGED);
     }
 
+    resolveAfterXSeconds(x, answers) {
+        this.animateAnswers(answers);
+        return new Promise(resolve => {
+            setTimeout(() => {
+                resolve();
+            }, x);
+        });
+    }
+
+    animateAnswers(answers) {
+        for (let answerButton of this.answerButtons) {
+            if (answerButton.innerHTML === answers.correctAnswer) {
+                answerButton.classList.add('correct-answer');
+            }
+            if (answerButton.innerHTML === answers.myAnswer && (answers.myAnswer !== answers.correctAnswer)) {
+                answerButton.classList.add('wrong-answer');
+            }
+        }
+    }
+
+    takeOffAnimation() {
+        for (let answerButton of this.answerButtons) {
+            if (answerButton.classList.contains('correct-answer')) {
+                answerButton.classList.remove('correct-answer');
+            }
+            if (answerButton.classList.contains('wrong-answer')) {
+                answerButton.classList.remove('wrong-answer');
+            }
+            if (answerButton.classList.contains('scale-animation')) {
+                answerButton.removeChild(answerButton.firstChild);
+            }
+        }
+    }
+
     onRoundFinished(evt) {
-        this.questionMenu.hide();
+        this.timerDiv.innerHTML = '';
+        this.infoDiv.innerHTML = '';
         let result = 0;
         for (let answer in this.state.answers) {
-            if (this.state.answers[answer] === answer_set[answer]) {
+            if (this.state.answers[answer] === questionsSet[this.state.currentTheme].correctAnswers[answer]) {
                 result++;
             }
         }
-
         this.state.sets.push(result > 1);
         if (this.state.sets.length === GameSettings.numberOfSets) {
             this.bus.emit(events.SET_FINISHED);
         } else {
+            this.questionsBlock.hide();
+            this.state.currentRound++;
             this.bus.emit(events.ROUND_STARTED);
         }
     }
 
     onSetFinished(evt) {
-        this.resultMenu.show();
-        let result = 0;
-        result = this.state.sets.reduce(function (count, value) {
+        let result = this.state.sets.reduce(function (count, value) {
             return count + (value === true);
         }, 0);
-        this.resultButton.innerHTML = 'your result is' + result + '/3';
-
+        this.resultPopup.inner.querySelector('.game-popup__result').innerHTML = 'Your result is ' + result + ' / 3';
+        this.resultPopup.openPopup();
     }
 
     onGameFinished(evt) {
-
-        cancelAnimationFrame(this.gameloopRequestId);
         this.bus.emit('home');
     }
 

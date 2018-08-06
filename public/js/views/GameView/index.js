@@ -1,7 +1,6 @@
 import {View} from '../View/view';
 import {Game} from '../../modules/game/game';
 import {GAME_MODES} from  '../../modules/game/modes' ;
-//import {gameViewTemplate} from './game-view.pug';
 const gameViewTemplate = require('./game-view.pug');
 
 
@@ -38,12 +37,11 @@ export class GameView extends View {
         }else{
             attrs = '/game/offline-mode';
         }
-        console.log('game mode is: ' + attrs);
+
+        /*new*/ attrs = '/game/offline-mode';
+
         super.create(attrs);
-        //this.canvas = this.el.querySelector('.js-canvas');
-        //this.ctx = this.canvas.getContext('2d');
         this.render();
-        console.log('create game');
         this.doGame(attrs);
         return this;
     }
