@@ -12,13 +12,13 @@ export class Router {
         Router.__instance = this;
     }
 
-    add(path, View) {
-        this.map[path] = new View().renderTo(this.root).create();
+    add(path, View, attrs) {
+        this.map[path] = new View().renderTo(this.root).create(attrs);
         this.map[path].hide();
         return this;
     }
 
-    open(path) {
+    open(path, attrs) {
         let view = this.map[path];
 
         if (!view || !this.isAllowed(path)) {
@@ -36,7 +36,7 @@ export class Router {
         }
 
         if (this.map.hasOwnProperty(path)) {
-            this.active = this.map[path].show();
+            this.active = this.map[path].show(attrs);
         } else {
             this.active = view.create();
         }

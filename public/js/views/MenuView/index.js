@@ -5,6 +5,7 @@ const ProfileBlockTemplate = require('../../blocks/profile-block/profile-block.p
 import * as UserSingletone from '../../services/user-singletone';
 import {Router} from '../../modules/router';
 import {Popup} from '../../blocks/popup/popup';
+import {RoomPopup} from '../../blocks/room-popup/room-popup';
 
 
 export class MenuView extends View {
@@ -20,15 +21,16 @@ export class MenuView extends View {
         this.changeMultiplayerButtonColor(currentUser);
         const profile = new ProfileBlock(this.el, ProfileBlockTemplate);
         profile.render(currentUser);
-
+        this.changeMultiplayerPopupUser(currentUser);
         this.addNotLoginedPopup();
+        this.addRoomPopup();
 
         this.multiplayerButton.addEventListener('click', () => {
            if (!UserSingletone.getInstance().getUser()) {
                 this.popup.openPopup();
                 return;
            }
-           new Router().open('/multiplayer-game');
+           this.roomPopup.openPopup();
         });
         return this;
     }
@@ -37,6 +39,7 @@ export class MenuView extends View {
         const currentUser = UserSingletone.getInstance().getUser();
         const profile = new ProfileBlock(this.el, ProfileBlockTemplate);
         profile.render(currentUser);
+        this.changeMultiplayerPopupUser(currentUser);
         this.changeMultiplayerButtonColor(currentUser);
         this.el.removeAttribute('hidden');
         this.active = true;
@@ -65,4 +68,15 @@ export class MenuView extends View {
         });
     }
 
+    addRoomPopup() {
+        this.roomPopup = new RoomPopup(document.querySelector('.room-popup'), document.querySelector('.room-popup__inner'));
+        this.roomPopup.onCancel(this.roomPopup.inner.querySelector('.room-popup__close'));
+    }
+
+    changeMultiplayerPopupUser(currentUser) {
+        if (currentUser) {
+            this.el.querySelector('.room-name1').innerHTML = currentUser.login;
+            this.el.querySelector('.room-popup-user-image').src = `../../img/avatars/${currentUser.avatar}.svg`;
+        }
+    }
 }

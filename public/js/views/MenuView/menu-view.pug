@@ -23,13 +23,14 @@
                 a.main__href_style.center-appearance.href-animation(href="/offline-game") Start game
             .main-button.multiplayer-popup-button
                 .main__href_style.center-appearance.href-animation.popup-button-inner.light-purple-font Multiplayer
+
             .room-popup.popup2
                 .room-popup__inner.purple-font
                     .room-popup__close.popup__close.room-popup__close.popup__close X
                     .room-popup__title.center-content Waiting for opponent
                     .room-popup__player1.center-content
-                        img(src="/views/refactoring-style/avatars/7.svg")
-                        .room-name1.pink-font Andreynnt
+                        img.room-popup-user-image
+                        .room-name1.pink-font
                     .room-popup__vs.center-content
                         span V
                         span S
@@ -37,6 +38,7 @@
                         img.room-image2(src="")
                         .room-name2.pink-font
                     .room-popup__text.center-content.room-popup__tips-animation
+
             .multiplayer-popup.popup
                 .multiplayer-popup__inner.popup__inner.purple-font
                     .multiplayer-popup__close.popup__close X

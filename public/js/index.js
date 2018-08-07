@@ -54,7 +54,6 @@ import {NotFoundView} from './views/NotFoundView/index';
             rooter.add('/leaderboard', ScoreboardView);
             rooter.add('/profile', ProfileView);
             rooter.add('/offline-game', GameView);
-            rooter.add('/multiplayer-game', GameRoomView);
             rooter.add('/not-found', NotFoundView);
             rooter.add('/about', AboutView);
             rooter.start();
@@ -109,7 +108,8 @@ import {NotFoundView} from './views/NotFoundView/index';
         });
 
         bus.on('restart-game', () => {
-            rooter.reload('/multiplayer-game');
+            rooter.open('/');
+            bus.emit('open-mult-popup');
         });
     });
 })();
