@@ -18,6 +18,7 @@ export class Popup {
         this.inner.style.transform = `rotate(${this.angle}deg)`;
         this.inner.style.right = `${-this.appearanceCoordinates[appearance].x}vh`;
         this.inner.style.bottom = `${this.appearanceCoordinates[appearance].y}vw`;
+        this.isOpen = false;
     }
 
     openPopup() {
@@ -27,6 +28,7 @@ export class Popup {
         this.inner.style.right = '0';
         this.inner.classList.add('active');
         this.popup.classList.add('active');
+        this.isOpen = true;
     }
 
     closePopup() {
@@ -36,6 +38,7 @@ export class Popup {
         this.inner.style.transform = `rotate(${this.angle}deg)`;
         this.inner.style.right = `${-this.appearanceCoordinates[this.appearance].x}vh`;
         this.inner.style.bottom = `${this.appearanceCoordinates[this.appearance].y}vw`;
+        this.isOpen = false;
     }
 
 

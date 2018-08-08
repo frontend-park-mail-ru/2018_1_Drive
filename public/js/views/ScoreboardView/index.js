@@ -50,4 +50,8 @@ export class ScoreboardView extends View {
     highlightCurrentUser() {
         this.scoreboard.highlightLogin(UserSingleton.getInstance().getUser().login);
     }
+
+    updateCurrentPage(login) {
+        this.scoreboard.updateCurrentPage(login);
+    }
 }

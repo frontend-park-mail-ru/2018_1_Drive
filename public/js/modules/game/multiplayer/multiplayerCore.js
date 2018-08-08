@@ -87,4 +87,8 @@ export class MultiplayerCore {
     onGameStateChanged(evt) {
         throw new Error('This method must be overridden');
     }
+
+    onEventsSetStarted(evt) {
+        throw new Error('This method must be overridden');
+    }
 }

@@ -28,7 +28,8 @@ import {NotFoundView} from './views/NotFoundView/index';
 
         switch (window.location.hostname) {
             case 'localhost':
-                HttpModule.baseUrl = 'http://localhost:8080';
+                HttpModule.baseUrl = 'https://backend-drive.herokuapp.com';
+                //HttpModule.baseUrl = 'http://localhost:8080';
                 break;
             case 'frontend-drive.herokuapp.com':
                 HttpModule.baseUrl = 'https://backend-drive.herokuapp.com';
@@ -110,6 +111,10 @@ import {NotFoundView} from './views/NotFoundView/index';
         bus.on('restart-game', () => {
             rooter.open('/');
             bus.emit('open-mult-popup');
+        });
+
+        bus.on('update-scoreboard', (login) => {
+            rooter.getView('/leaderboard').updateCurrentPage(login);
         });
     });
 })();

@@ -13,7 +13,6 @@ export class Ws {
         }
         address += '/play-game';
         console.log('Address to WS: ' + address);
-
         this.wsAddress = address;
         this.ws = new WebSocket(address);
 
@@ -21,7 +20,6 @@ export class Ws {
             console.log('Successful open ws!');
             this.ws.onmessage = this.handleMessage.bind(this);
             const user = UserSingletone.getInstance().getUser();
-            console.dir(user);
             this.send('MESSAGES_JOINGAME', user.login);
             this.ws.onclose = () => {
                 console.log('WebSocket closed');

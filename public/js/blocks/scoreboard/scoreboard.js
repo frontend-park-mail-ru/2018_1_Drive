@@ -79,4 +79,16 @@ export class ScoreboardComponent extends BaseComponent {
            }
         });
     }
+
+    updateCurrentPage(login) {
+        const usersRows = this.element.querySelectorAll('.table__tr');
+        this.users.forEach((el, index) => {
+            if (el.login === login) {
+                let newValue = parseInt(usersRows[index + 1].lastChild.innerHTML);
+                if (!isNaN(newValue)) {
+                    usersRows[index + 1].lastChild.innerHTML = newValue + 1;
+                }
+            }
+        });
+    }
 }

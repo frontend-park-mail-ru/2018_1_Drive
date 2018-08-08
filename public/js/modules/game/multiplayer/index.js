@@ -8,6 +8,7 @@ import {events} from '../core/events';
 import {ClickManager} from '../../clickManager';
 import {Popup} from '../../../blocks/popup/popup';
 import {ProgressBar} from '../core/ProgressBar';
+import {UsersModel} from '../../../models/UsersModel';
 
 
 let questionsAndAnswers = {};
@@ -47,14 +48,12 @@ export class MultiplayerGame extends MultiplayerCore {
 
         this.againButton.addEventListener('click', () => {
             this.progressBar.setToZero();
-            this.questionsBlock.hide();
             this.bus.emit(multiPlayerEvents.RESTART_GAME);
+            this.takeOffAnimationAnswers();
             this.resultPopup.closePopup();
         });
         this.endButton.addEventListener('click', () => {
             this.bus.emit(events.FINISH_GAME);
-            this.questionsBlock.hide();
-            this.resultPopup.closePopup();
             this.bus.emit(multiPlayerEvents.EVENTS_HOME);
         });
 
@@ -94,6 +93,10 @@ export class MultiplayerGame extends MultiplayerCore {
         this.state = {
             currentQuestionNum: 0,
         };
+        this.questionsBlock.hide();
+        if (this.resultPopup.isOpen) {
+            this.resultPopup.closePopup();
+        }
         this.userId = payload.userId;
         this.opponentLogin = payload.opponentLogin;
         this.headerRound.innerHTML = 'Choose theme';
@@ -113,18 +116,25 @@ export class MultiplayerGame extends MultiplayerCore {
         this.progressBar.setToZero();
     }
 
-    onEventsSetStarted(response) {
+    async onEventsSetStarted(response) {
         questionsAndAnswers = response.questions;
-        this.themeBlock.hide();
-        this.questionsBlock.show();
         this.state.currentQuestionNum = 0;
         this.progressBar.setToFirst();
 
+        //хорошо бы, чтобы бэкенд это присылал
         this.state.themes =
             [response.questions[0].question.theme, response.questions[3].question.theme, response.questions[6].question.theme];
+        let opponentTheme = this.state.playerTheme;
+
+        if (this.state.themes[0] !== this.state.playerTheme) opponentTheme = this.state.themes[0];
+        if (this.state.themes[2] !== this.state.playerTheme) opponentTheme = this.state.themes[2];
+        await this.resolveAfterXSeconds(1500, opponentTheme, this.animateTheme.bind(this));
+        this.takeOffAnimationThemes(this.textOnThemeButtonBefore);
+
+        this.themeBlock.hide();
+        this.questionsBlock.show();
         this.headerTheme.innerHTML = this.state.themes[0];
         this.state.currentThemeNum = 0;
-
         this.bus.emit(multiPlayerEvents.EVENTS_GAME_STATE_CHANGED);
     }
 
@@ -148,16 +158,9 @@ export class MultiplayerGame extends MultiplayerCore {
         }
     }
 
-    onSetStarted(evt) {
-
-    }
-
-    onRoundStarted(evt) {
-
-    }
-
     onThemeSelected(evt) {
         this.progressBar.setToFirst();
+        this.state.playerTheme = evt.toLowerCase();
         this.ws.send('EVENTS_THEME_SELECTED', evt);
     }
 
@@ -189,14 +192,14 @@ export class MultiplayerGame extends MultiplayerCore {
             opponentAnswer: opponentAnswer,
             correctAnswer: payload.correctAnswer
         };
-        await this.resolveAfterXSeconds(1500, answers);
-        this.takeOffAnimation();
+        await this.resolveAfterXSeconds(1500, answers, this.animateAnswers.bind(this));
+        this.takeOffAnimationAnswers();
         this.bus.emit(multiPlayerEvents.EVENTS_GAME_STATE_CHANGED);
     }
 
 
-    resolveAfterXSeconds(x, answers) {
-        this.animateAnswers(answers);
+    resolveAfterXSeconds(x, answers, callback) {
+        callback(answers);
         return new Promise(resolve => {
             setTimeout(() => {
                 resolve();
@@ -213,6 +216,7 @@ export class MultiplayerGame extends MultiplayerCore {
                 answerButton.classList.add('wrong-answer');
             }
             if (answerButton.buttonNum === answers.opponentAnswer) {
+                answerButton.innerHTML = '';
                 let blockWithName = document.createElement('div');
                 blockWithName.innerHTML = this.opponentLogin;
                 blockWithName.classList.add('scale-animation');
@@ -221,19 +225,38 @@ export class MultiplayerGame extends MultiplayerCore {
         }
     }
 
-    takeOffAnimation() {
-        for (let answerButton of this.answerButtons) {
-            if (answerButton.classList.contains('correct-answer')) {
-                answerButton.classList.remove('correct-answer');
-            }
-            if (answerButton.classList.contains('wrong-answer')) {
-                answerButton.classList.remove('wrong-answer');
-            }
-            if (answerButton.classList.contains('scale-animation')) {
-                answerButton.removeChild(answerButton.lastChild);
+    animateTheme(theme) {
+        for (let themeButton of this.themeButtons) {
+            if (themeButton.innerHTML.toLowerCase() === theme) {
+                this.textOnThemeButtonBefore = themeButton.innerHTML;
+                themeButton.innerHTML = '';
+                let blockWithName = document.createElement('div');
+                blockWithName.innerHTML = this.opponentLogin;
+                blockWithName.classList.add('scale-animation');
+                themeButton.appendChild(blockWithName);
             }
         }
     }
+
+    takeOffAnimationAnswers() {
+        for (let button of this.answerButtons) {
+            if (button.classList.contains('correct-answer')) {
+                button.classList.remove('correct-answer');
+            }
+            if (button.classList.contains('wrong-answer')) {
+                button.classList.remove('wrong-answer');
+            }
+        }
+    }
+
+    takeOffAnimationThemes(theme) {
+        for (let button of this.themeButtons) {
+            if (button.childNodes[0].classList && button.childNodes[0].classList.contains('scale-animation')) {
+                button.innerHTML = theme;
+            }
+        }
+    }
+
 
     onRoundFinished(evt) {
         this.timerDiv.innerHTML = '';
@@ -267,14 +290,18 @@ export class MultiplayerGame extends MultiplayerCore {
         let opponentResult = this.userId === payload.userId1 ? payload.userId2Result : payload.userId1Result;
         const divForResult = this.resultPopup.inner.querySelector('.game-popup__result');
 
+        let winnerLogin = '';
         if (yourResult > opponentResult) {
             divForResult.innerHTML = 'Your win! Result: ' + yourResult + ' / ' + GameSettings.questionsInRound * GameSettings.numberOfSets;
+            winnerLogin = UsersModel.getCurrentUser().login;
         } else if (yourResult < opponentResult) {
             divForResult.innerHTML = 'Your lose! Result: ' + yourResult + ' / ' + GameSettings.questionsInRound * GameSettings.numberOfSets;
+            winnerLogin = this.opponentLogin;
         } else {
             divForResult.innerHTML = 'Draw! Result: ' + yourResult + ' / ' + GameSettings.questionsInRound * GameSettings.numberOfSets;
         }
         this.resultPopup.openPopup();
+        this.bus.emit('update-scoreboard', winnerLogin);
     }
 
     onHome() {

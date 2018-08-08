@@ -33,9 +33,7 @@ export class UsersModel {
                         UserSingletone.getInstance().setUser(null);
                         return reject(err);
                     }
-
                     currentUser = new UsersModel(response.user);
-                    console.dir(response.user);
                     UserSingletone.getInstance().setUser(currentUser);
                     resolve(currentUser);
                 }
