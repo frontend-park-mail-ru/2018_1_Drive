@@ -10,11 +10,11 @@ import {GameView} from './views/GameView/index';
 import {UsersModel} from './models/UsersModel';
 import {ProfileView} from './views/ProfileView/index';
 import * as UserSingletone from './services/user-singletone';
-import {MultiPlayerGameView} from './views/MultiplayerGame/index';
-import {GameRoomView} from './views/GameRoomView';
 import '../css/styles.scss';
 import {MainPreloader} from './blocks/main-preloader';
 import {NotFoundView} from './views/NotFoundView/index';
+import {NotAllowedView} from './views/NotAllowedView';
+import {MultiplayerSearchNotAllowed} from './views/SearchFromHomeView';
 
 (function () {
 
@@ -56,6 +56,8 @@ import {NotFoundView} from './views/NotFoundView/index';
             rooter.add('/profile', ProfileView);
             rooter.add('/offline-game', GameView);
             rooter.add('/not-found', NotFoundView);
+            rooter.add('/not-allowed', NotAllowedView);
+            rooter.add('/search-from-home', MultiplayerSearchNotAllowed);
             rooter.add('/about', AboutView);
             rooter.start();
         };

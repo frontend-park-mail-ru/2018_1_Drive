@@ -56,7 +56,6 @@ export class MultiplayerGame extends MultiplayerCore {
             this.bus.emit(events.FINISH_GAME);
             this.bus.emit(multiPlayerEvents.EVENTS_HOME);
         });
-
         let buttonNum = 1;
         for (let answerButton of this.answerButtons) {
             answerButton.buttonNum = buttonNum;
@@ -70,7 +69,6 @@ export class MultiplayerGame extends MultiplayerCore {
                 this.bus.emit(multiPlayerEvents.EVENTS_THEME_SELECTED, themeButton.innerHTML);
             });
         }
-
         this.state = {};
     }
 
@@ -102,13 +100,19 @@ export class MultiplayerGame extends MultiplayerCore {
         this.headerRound.innerHTML = 'Choose theme';
         this.headerHyphen.innerHTML = '';
         this.headerTheme.innerHTML = '';
+
+        let opponentId = payload.userId === payload.userId1 ? payload.userId2 : payload.userId1;
+
+        this.state = {
+            currentQuestionNum: 0,
+            currentThemeNum: 1,
+            youFirst: this.userId < opponentId
+        };
+
         this.bus.emit(multiPlayerEvents.REAL_GAME_START);
     }
 
-    onGameStarted() {
-        this.state = {
-            currentQuestionNum: 0
-        };
+    onGameStarted(response) {
         this.headerRound.innerHTML = 'Choose theme';
         this.headerHyphen.innerHTML = '';
         this.headerTheme.innerHTML = '';
@@ -120,7 +124,6 @@ export class MultiplayerGame extends MultiplayerCore {
         questionsAndAnswers = response.questions;
         this.state.currentQuestionNum = 0;
         this.progressBar.setToFirst();
-
         //хорошо бы, чтобы бэкенд это присылал
         this.state.themes =
             [response.questions[0].question.theme, response.questions[3].question.theme, response.questions[6].question.theme];
@@ -128,6 +131,7 @@ export class MultiplayerGame extends MultiplayerCore {
 
         if (this.state.themes[0] !== this.state.playerTheme) opponentTheme = this.state.themes[0];
         if (this.state.themes[2] !== this.state.playerTheme) opponentTheme = this.state.themes[2];
+        this.infoDiv.innerHTML = '';
         await this.resolveAfterXSeconds(1500, opponentTheme, this.animateTheme.bind(this));
         this.takeOffAnimationThemes(this.textOnThemeButtonBefore);
 
@@ -161,6 +165,7 @@ export class MultiplayerGame extends MultiplayerCore {
     onThemeSelected(evt) {
         this.progressBar.setToFirst();
         this.state.playerTheme = evt.toLowerCase();
+        this.infoDiv.innerHTML = 'Waiting opponent';
         this.ws.send('EVENTS_THEME_SELECTED', evt);
     }
 
@@ -266,7 +271,16 @@ export class MultiplayerGame extends MultiplayerCore {
             this.bus.emit(multiPlayerEvents.EVENTS_SET_FINISHED);
         } else {
             this.progressBar.setToFirst();
-            this.headerTheme.innerHTML = this.state.themes[this.state.currentThemeNum++];
+            let pick = '';
+            if ((this.state.youFirst && this.state.currentThemeNum === 0) || (!this.state.youFirst && this.state.currentThemeNum === 2)) {
+                pick = ' (your pick)';
+            } else if ((!this.state.youFirst && this.state.currentThemeNum === 0) || (this.state.youFirst && this.state.currentThemeNum === 2)) {
+                pick = ' (opponent pick)';
+            } else {
+                pick = ' (random pick)';
+            }
+
+            this.headerTheme.innerHTML = this.state.themes[this.state.currentThemeNum++] + pick;
             this.headerHyphen.innerHTML = '-';
             this.headerRound.innerHTML = `Round ${this.state.currentThemeNum}/${GameSettings.numberOfSets}`;
             this.timer.start();

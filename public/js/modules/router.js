@@ -21,8 +21,18 @@ export class Router {
     open(path, attrs) {
         let view = this.map[path];
 
-        if (!view || !this.isAllowed(path)) {
+        if (path === '/multiplayer-game' && !this.map[path]) {
+            path = '/search-from-home';
+            view = this.map[path];
+        }
+
+        if (!view) {
             path = '/not-found';
+            view = this.map[path];
+        }
+
+        if (!this.isAllowed(path)) {
+            path = '/not-allowed';
             view = this.map[path];
         }
 
