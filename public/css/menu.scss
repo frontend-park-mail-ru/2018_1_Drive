@@ -1,36 +1,98 @@
-.menu{
-  z-index: 1;
-  position: absolute;
+.main__menu {
   display: inline-block;
 }
-.menu-shadow{
-  box-shadow: 0 4px 14px rgba(0,0,0,0.15), 0 5px 5px rgba(0,0,0,0.12);
-}
-.profile-menu{
 
-}
-@media screen and (min-width: 801px) {
-  .menu {
-    top: 35vh;
-    left: calc(50% - 175px);
-    width: 350px;
-  }
-}
-@media screen and (max-width: 800px) {
-  .menu{
-    top: 15vh;
-    width:90%;
-    left:5%;
-  }
+.main__button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.menu-href {
-  height: 100%;
-  width: 100%;
-  left: 0;
-  top: 0;
+.href-animation:before, .href-animation:after {
+  content: '';
   position: absolute;
-  z-index: 1;
-  color: black;
+  transition: transform .5s ease;
+}
+
+.center-appearance {
+  padding-top: 10px;
+  text-decoration:none;
+}
+
+.center-appearance:before {
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 2px;
+  background: #EE4266;
+  transform: scaleX(0);
+}
+.center-appearance:hover:before {
+  transform: scaleX(1);
+}
+
+.main__profile-unregistered {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-between;
+}
+
+.main__profile-registered {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  display: flex;
+  height: 8vmin;
+  justify-content: space-between;
+}
+
+.main__profile-image {
+  width: 100%;
+  height: 100%;
+}
+
+.main__profile-picture {
+  width: 10vmin;
+}
+
+.main__profile-registered {
+  font-size: 4vh;
+  margin: 0 2vmin 2vmin 0;
+}
+
+.main__profile-unregistered a {
   text-decoration: none;
+}
+
+
+.bottom-appearance {
+  position: relative;
+  display: inline-block;
+  text-decoration: none;
+}
+
+.bottom-appearance::after {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background-color: #EE4266;
+  content: '';
+  opacity: 0;
+  -webkit-transition: opacity 0.3s, -webkit-transform 0.3s;
+  -moz-transition: opacity 0.3s, -moz-transform 0.3s;
+  transition: opacity 0.3s, transform 0.3s;
+  -webkit-transform: translateY(15px);
+  -moz-transform: translateY(15px);
+  transform: translateY(15px);
+}
+
+.bottom-appearance:hover::after, .bottom-appearance:focus::after {
+  opacity: 1;
+  -webkit-transform: translateY(0px);
+  -moz-transform: translateY(0px);
+  transform: translateY(0px);
 }

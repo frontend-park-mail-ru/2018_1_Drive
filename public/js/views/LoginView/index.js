@@ -1,6 +1,5 @@
 import {View} from '../View/view';
 import {UsersModel} from '../../models/UsersModel';
-import {FormComponent} from '../../blocks/form/form';
 import * as busSingletone from '../../modules/bus';
 import {Validator} from '../../modules/validator';
 const loginViewTemplate = require('./login-view.pug');
@@ -28,7 +27,6 @@ export class LoginView extends View {
     onSubmit(formData) {
         const errWindow = this.el.querySelector('.main__errors');
         errWindow.innerHTML = '';
-        console.dir(formData);
         let errors = Validator.validate(formData);
         if (Object.keys(errors).length > 0) {
             for (let error in errors) {

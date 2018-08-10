@@ -17,12 +17,10 @@ import {NotAllowedView} from './views/NotAllowedView';
 import {MultiplayerSearchNotAllowed} from './views/SearchFromHomeView';
 
 (function () {
-
     document.addEventListener('DOMContentLoaded', function () {
 
         const root = document.getElementById('application');
         const preloader = new MainPreloader(root);
-
         const bus = busSingletone.getInstance();
         const userSingletone = UserSingletone.getInstance();
 
@@ -76,7 +74,6 @@ import {MultiplayerSearchNotAllowed} from './views/SearchFromHomeView';
                 });
         });
 
-
         bus.on('signup', function (userdata) {
             UsersModel.signup(userdata)
                 .then(function (user) {
@@ -88,7 +85,6 @@ import {MultiplayerSearchNotAllowed} from './views/SearchFromHomeView';
                     console.log(error);
                 });
         });
-
 
         bus.on('logout', function () {
             UsersModel.logout()

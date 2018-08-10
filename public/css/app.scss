@@ -1,91 +1,92 @@
+html, body {
+  height: 100%;
+  margin: 0;
+  font-family: 'Nunito Sans', sans-serif;
+  font-weight: bold;
+  /*background: #000000;
+  background: -moz-linear-gradient(-45deg, #000000 84%, #45484d 96%);
+  background: -webkit-linear-gradient(-45deg, #000000 84%,#45484d 96%);
+  background: linear-gradient(162deg, #000000 84%,#45484d 96%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#000000', endColorstr='#45484d',GradientType=1 );color: #FBFBFB;
+  */
+}
+
+#application {
+  height: 100%;
+  width: 100%;
+}
+
+/*
+розовый #EE4266
+фиолетовый #FBFBFB
+белый #FBFBFB
+светло-голубой #C5D5EA
+серый #EAEAEA
+new goole purple 673AB7
+ */
+
+body a {
+  color: #FBFBFB;
+}
+
+.grid {
+  display: grid;
+  height: 100%;
+  grid-template-columns: 15% 70% 15%;
+  grid-template-rows: 30% 60% 10%;
+  grid-template-areas:
+          "header header header"
+          "main main main"
+          "main main main";
+  background-color: #EAEAEA;
+}
 
 .header {
-  float: left;
-  display: flex;
-  width: 100%;
-  height: 10rem;
-}
-
-
-.logo-section {
-  width: 30vw;
-  height: 12vh;
-  float: left;
-  display: flex;
-}
-
-.logo-section__logo {
-  display: inline-block;
-  float: left;
-  width: 50%;
-  height: 80%;
-  color: #000;
-  font-size:1.8rem;
-  text-align: center;
-  background-image: url("../img/logo3.JPEG");
-  background-repeat: no-repeat;
-  background-size: contain;
-  background-position: 15% 50%;
-}
-
-
-.free-section {
-  background-color: white;
-  height: 100%;
-  width: 40%;
-}
-
-.profile-section {
-  font-family: 'Antic Didone', serif;
-  position: absolute;
-  right: 0;
-  top: 0;
-  width: 10vw;
-}
-
-.profile-img {
-  display: block;
-  height: 50%;
-  width: 50%;
-  margin: 8px;
-}
-
-.profile-section__profile {
-  display: flex;
-}
-
-.material {
-  background: #fff;
-  border-radius: 2px;
-  position: relative;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
-  transition: all 0.3s cubic-bezier(.25,.8,.25,1);
-}
-
-.simple-href a {
+  grid-area: header;
   display: flex;
   justify-content: center;
   align-items: center;
-  color: black;
-  text-decoration: none;
-  width: 100%;
-  height: 100%;
-}
-.main-block {
-  width: 100%;
-  display: flex;
-  height: 80%;
-  justify-content: center;
+  background-color: #673AB7;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
 }
 
-.logo-oil {
-  position: absolute;
-  top: 10vh;
-  z-index: -1;
-  width: 100%;
-  height: 90vh;
-  background-image: url("../img/oil.GIF");
-  background-size:90vh;
-  background-repeat: no-repeat;
-  background-position: center;
+
+.header__logo-section {
+  display: block;
+  color: #FBFBFB;
+}
+
+.main__href_style {
+  position: relative;
+  color: #6441A5;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.main {
+  grid-area: main;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  grid-row: 2/3;
+  grid-column: 2/3;
+}
+
+.material-shadow {
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+}
+
+.small-material-shadow {
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+}
+
+.smalld-material-shadow {
+  box-shadow: 0 0 2px rgba(0,0,0,0.400);
+}
+
+
+.center-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

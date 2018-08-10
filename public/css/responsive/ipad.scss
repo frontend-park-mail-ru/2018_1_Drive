@@ -1,0 +1,36 @@
+/* IPads 1-5 and iPad mini portrait and landscape */
+@media screen and (min-device-width : 768px) and (max-device-width : 1024px) {
+  .header__logo-section {
+    font-size: 15vw;
+  }
+  .main__href_style {
+    font-size: 9vh;
+  }
+  .main__profile-unregistered {
+    font-size: 3.8vmin;
+    width: 28vw;
+    margin: 0 2vmin 0 0;
+  }
+  .main__additional-button {
+    margin:0 0 4vw 0;
+  }
+  .logout-button {
+    width: 30vw;
+    font-size: 3vh;
+  }
+  .multiplayer-popup__inner {
+    width: 90vw;
+    height: 65vh;
+  }
+  .game-popup__inner {
+    width: 90vw;
+    height: 65vh;
+  }
+  .about-page, .about-block{
+    width: 85vw;
+    height: 70vh;
+  }
+  .popup2__inner {
+    margin-top: 20vmin;
+  }
+}

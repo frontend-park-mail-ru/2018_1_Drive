@@ -1,91 +1,75 @@
-
-.profile-section__profile-authorized {
-  float: right;
-  height: 25%;
-  width: 12rem;
-  margin-right: 0.5rem;
+.user-profile {
+  width: 50vw;
+  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+  background-color: white;
+  display: grid;
+  grid-template-columns: 40% 60%;
+  grid-template-rows: 10% 50% 20%;
+  grid-template-areas:
+          "profile-header profile-header"
+          "picture wrapper"
+          "user-profile__change profile-button";
 }
 
-.profile-section__profile-unauthorized {
-  float: right;
-  height: 25%;
-  width: 12rem;
-  margin-right: 0.5rem;
+.round-borders {
+  border-radius: 10px;
 }
 
-.profile-login__login {
-  height: 100%;
-  width: 50%;
-  font-size: 1.3rem;
-  float:left;
+.user-profile__button {
+  grid-area: profile-button;
+  border-left: 3px solid #6441A5;
+  height: 7vmin;
+  margin-bottom: 6vmin;
 }
 
-.profile-login__login  a {
+.user-profile__picture {
+  grid-area: picture;
+  margin-bottom: 1vmin;
+}
+
+.user-profile__change-avatar {
+  width: 5vmin;
+  height: 5vmin;
+  border-radius: 2.5vmin;
+  background-color: #EE4266;
+  color: white;
+  border-bottom: 0;
+  grid-area: user-profile__change-avatar;
+}
+
+.user-profile__change {
+  grid-area: user-profile__change;
+  margin-bottom: 4vmin;
+}
+
+
+.user-profile__image {
+  width: 70%;
+  height: 70%;
+
+}
+
+.profile-data-wrapper {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  color: black;
-  text-decoration: none;
-  width: 100%;
-  height: 100%;
+  grid-area: wrapper;
+  flex-direction: column;
+  margin-top: auto;
+  padding-left: 5vmin;
+  border-left: 3px solid #6441A5;
 }
 
-.profile-login__first-letter {
-  color: orange;
-}
-
-.profile-login__signup {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 1.3rem;
-  width: 50%;
-  height: 100%;
-}
-
-.profile-login__signup a {
-  width: 100%;
-  height: 100%;
-  color: black;
-  text-decoration: none;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.profile-photo {
-  float: left;
-  display: inline-block;
-  height: 100%;
-  width: 25%;
-  margin-left: 0.3rem;
-}
-
-.profile-login {
-  float: right;
-  padding-right: 10px;
-  padding-top: 8px;
-
-  font-size: 1.3rem;
-  width: 50%;
-  height: 100%
-}
-
-.profile-score {
-  float: left;
+.user-profile__header {
+  font-size: 6vmin;
   text-align: center;
-  display: flex;
-  font-size: 1.2rem;
-  justify-content: center;
-  align-items: center;
-  width: 60%;
-  height: 50%;
+  margin-top: 4vmin;
+  grid-area: profile-header;
 }
 
-.center-block {
-  text-align: center;
-}
-
-.center-block > h1 {
+.logout-button {
   display: inline-block;
+  width: 14vw;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  font-size: 3vh;
+  margin-top: 2vmin;
+  margin-bottom: 4vmin;
 }

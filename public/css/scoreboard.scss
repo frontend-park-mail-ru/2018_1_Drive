@@ -1,65 +1,111 @@
-
-.yellow {
-  background: #FBF55D;
-}
-
-.leaderboard .button {
-  margin-bottom: 0;
-}
-
-
-.player {
-  padding: 2px 20px;
-  font-size: 1.5em;
-  background: white;
-  height: 40px;
-  vertical-align: middle;
-  text-align: center;
-  /*margin-bottom: 4%;*/
-  color: black;
-}
-
-
-.player:hover {
-  background-color: #3E3E3E;
-  color: $JSColor;
-}
-
-.clearfix::after {
-  content: "";
-  display: block;
-  clear: both;
-}
-
-.floated-left {
-  float: left;
-  margin-left: 2rem;
-}
-
-.floated-right {
-  float: right;
-  margin-right: 2rem;
-}
-
-
-.scoreboard-preloader {
-  background-image: url("../img/preloader.gif");
-  height: 3rem;
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-}
-
-.float-right {
-  float: right;
-}
-
-.float-left {
-  float: left;
-}
-
-
-.waiting {
+.user-profile__row {
   width: 100%;
-  text-align: center;
+  height: 6vmin;
+  display: flex;
+  align-items: center;
+  font-weight: 400;
 }
+
+.main__scoreboard, .about-page {
+  background-color: white;
+}
+
+.user-profile__row-left,  .user-profile__row-right{
+  display: inline-block;
+  font-size: 3vmin;
+}
+
+.user-profile__row-left {
+  margin-right: 4vmin;
+}
+
+.scoreboard-title {
+  margin: 1vh auto 2vh auto;
+  text-align: center;
+  font-size: 6vmin;
+  display: block;
+}
+
+.table-scoreboard {
+  font-size: 4vmin;
+  width: 80vh;
+  text-align: center;
+  border-collapse: collapse;
+}
+
+.table__th {
+  font-weight: normal;
+  border-left: #c4c4c4 2px solid;
+  min-width: 2.5vw;
+}
+
+.js-current-player > .table__th:nth-child(2) {
+  color: #EE4266;
+}
+
+.js-current-player:hover > .table__th {
+  color: white;
+}
+
+.table__tr:not(.table__tr-nohover):hover {
+  background-color: #6441A5;
+  color: white;
+}
+
+.table__th-no-border {
+  border-left:none;
+}
+
+.table__tr:nth-child(1) > th {
+  border-bottom: #c4c4c4 2px solid;
+  border-top: #c4c4c4 2px solid;
+  font-weight: bold;
+}
+
+.table__tr:last-child > th {
+  border-bottom: #c4c4c4 2px solid;
+}
+
+.table__th-first {
+  width: 17%;
+}
+
+.table__th-second {
+  width: 63%;
+}
+
+.table__th-third {
+  width: 20%;
+}
+
+.scoreboard__pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.animation-on-hover:hover {
+  -webkit-transform: scale(1.5);
+  -ms-transform: scale(1.5);
+  transform: scale(1.5);
+}
+
+.pagination-prev:hover {
+  animation: anim-prev 0.5s linear;
+}
+
+.pagination-next:hover {
+  animation: anim-next 0.5s linear;
+}
+
+@keyframes anim-next {
+  50% {transform: translate(10px);}
+  100% {}
+}
+
+@keyframes anim-prev {
+  50% {transform: translate(-10px);;}
+  100% {}
+}
+
