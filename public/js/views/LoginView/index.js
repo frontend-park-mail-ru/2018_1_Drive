@@ -2,6 +2,7 @@ import {View} from '../View/view';
 import {UsersModel} from '../../models/UsersModel';
 import * as busSingletone from '../../modules/bus';
 import {Validator} from '../../modules/validator';
+import {HomeButton} from '../../blocks/home-button/HomeButton';
 const loginViewTemplate = require('./login-view.pug');
 
 export class LoginView extends View {
@@ -21,6 +22,8 @@ export class LoginView extends View {
         loginButton.addEventListener('click', () => {
             this.onSubmit(this.getFields());
         });
+        const homeButton = new HomeButton();
+        homeButton.render(this.el);
         return this;
     }
 

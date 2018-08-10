@@ -1,4 +1,5 @@
 import {View} from '../View/view';
+import {HomeButton} from '../../blocks/home-button/HomeButton';
 const aboutViewTempalte = require('./about-view.pug');
 
 export class AboutView extends View {
@@ -8,6 +9,8 @@ export class AboutView extends View {
 
     create() {
         super.create();
+        const homeButton = new HomeButton();
+        homeButton.render(this.el);
         super.hide();
         return this;
     }

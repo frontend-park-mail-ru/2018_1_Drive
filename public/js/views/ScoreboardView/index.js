@@ -6,6 +6,7 @@ const scoreboardViewTemplate = require('./scoreboard-view.pug');
 import {ProfileBlock} from '../../blocks/profile-block/profile';
 const ProfileBlockTemplate = require('../../blocks/profile-block/profile-block.pug');
 import * as UserSingleton from '../../services/user-singletone';
+import {HomeButton} from '../../blocks/home-button/HomeButton';
 
 export class ScoreboardView extends View {
     constructor() {
@@ -26,6 +27,9 @@ export class ScoreboardView extends View {
                 this.scoreboard.render(users, userSingleton.getUser(), this.scoreboard.getFirstPosition());
             }.bind(this))
             .catch(console.error);
+
+        const homeButton = new HomeButton();
+        homeButton.render(this.el);
         return this;
     }
 

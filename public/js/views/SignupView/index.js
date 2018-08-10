@@ -3,6 +3,7 @@ import {FormComponent} from '../../blocks/form/form';
 import {UsersModel} from '../../models/UsersModel';
 import * as busSingleton from '../../modules/bus';
 import {Validator} from '../../modules/validator';
+import {HomeButton} from '../../blocks/home-button/HomeButton';
 const signupViewTemplate = require('./signup-view.pug');
 
 
@@ -23,6 +24,8 @@ export class SignupView extends View {
         registerButton.addEventListener('click', () => {
             this.onSubmit(this.getFields());
         });
+        const homeButton = new HomeButton();
+        homeButton.render(this.el);
         return this;
     }
 

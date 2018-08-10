@@ -3,6 +3,7 @@ const profileViewTemplate = require('./profile-view.pug');
 import * as UserSingletone from '../../services/user-singletone';
 import * as busSingletone from '../../modules/bus';
 import {ProfilePopup} from './ProfilePopup/profile-popup';
+import {HomeButton} from '../../blocks/home-button/HomeButton';
 
 
 
@@ -20,6 +21,8 @@ export class ProfileView extends View {
         }
         this.addLogoutAction(this.el.querySelector('.logout-button'));
         this.addAvatarsPopup(this.el.querySelector('.user-profile__change-avatar'));
+        const homeButton = new HomeButton();
+        homeButton.render(this.el);
         super.hide();
         return this;
     }
