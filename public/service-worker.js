@@ -1,10 +1,11 @@
-const CACHE_NAME = 'app_serviceworker_v_4';
+const CACHE_NAME = 'app_serviceworker_v_5';
 const cacheUrls = [
     '/js/dist/bundle.js',
     '/js/dist/style.css',
     '/',
     '/img/avatars/',
-    'img/icon/main/'
+    '/img/icon/main/',
+    '/apple-touch-icon.png'
 ];
 
 self.addEventListener('install', function (event) {
