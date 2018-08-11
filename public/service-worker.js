@@ -1,4 +1,4 @@
-const CACHE_NAME = 'app_serviceworker_v_1';
+const CACHE_NAME = 'app_serviceworker_v_2';
 const cacheUrls = [
     '/js/dist/bundle.js',
     '/js/dist/style.css',
