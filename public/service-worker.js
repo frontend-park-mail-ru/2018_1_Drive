@@ -3,7 +3,7 @@ const cacheUrls = [
     '/js/dist/bundle.js',
     '/js/dist/style.css',
     '/',
-    '/img/avatar'
+    '/img/avatars'
 ];
 
 self.addEventListener('install', function (event) {
@@ -26,10 +26,10 @@ self.addEventListener('install', function (event) {
 
 self.addEventListener('fetch', function (event) {
 
-    // /** online first */
-    // if (navigator.onLine) {
-    //     return fetch(event.request);
-    // }
+    /** online first */
+    if (navigator.onLine) {
+        return fetch(event.request);
+    }
 
     /** cache first */
     event.respondWith(
