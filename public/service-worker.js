@@ -3,7 +3,16 @@ const cacheUrls = [
     '/js/dist/bundle.js',
     '/js/dist/style.css',
     '/',
-    '/img/avatars'
+    '/img/avatars/1.svg',
+    '/img/avatars/2.svg',
+    '/img/avatars/3.svg',
+    '/img/avatars/4.svg',
+    '/img/avatars/5.svg',
+    '/img/avatars/6.svg',
+    '/img/avatars/7.svg',
+    '/img/avatars/8.svg',
+    '/img/avatars/9.svg',
+    '/img/avatars/10.svg'
 ];
 
 self.addEventListener('install', function (event) {
