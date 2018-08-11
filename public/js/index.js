@@ -52,13 +52,23 @@ import {MultiplayerSearchNotAllowed} from './views/SearchFromHomeView';
             rooter.add('/signup', SignupView);
             rooter.add('/leaderboard', ScoreboardView);
             rooter.add('/profile', ProfileView);
-            rooter.add('/offline-game', GameView);
+            rooter.add('/singleplayer', GameView);
             rooter.add('/not-found', NotFoundView);
             rooter.add('/not-allowed', NotAllowedView);
             rooter.add('/search-from-home', MultiplayerSearchNotAllowed);
             rooter.add('/about', AboutView);
             rooter.start();
         };
+
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('service-worker.js')
+                .then(registration => {
+                    console.log('Service worker registration', registration);
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+        }
 
         authorizeAndStart().then(() => {preloader.stop();});
 

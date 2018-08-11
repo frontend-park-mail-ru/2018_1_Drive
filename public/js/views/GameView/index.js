@@ -8,9 +8,7 @@ export class GameView extends View {
     constructor() {
         super('GameView', gameViewTemplate);
         this.attrs = {};
-        this.canvas = null;
         this.game = null;
-
         this.bus.on('CLOSE_GAME', function () {
             if (this.active) {
                 this.router.open('/');
@@ -24,22 +22,12 @@ export class GameView extends View {
         return this;
     }
 
-    create(attrs = '/game/offline-mode') {
-
-        // fetch('', { method: 'HEAD' })
-        //     .then(() => true, () => false)
-        //     .then(onLine => (
-        //         onLine ? attrs = '/game/online-mode' : attrs = '/game/offline-mode'
-        //         )
-        //     );
+    create(attrs = 'offline-mode') {
         if (navigator.onLine){
-            attrs = '/game/online-mode';
+            attrs = 'online-mode';
         }else{
-            attrs = '/game/offline-mode';
+            attrs = 'offline-mode';
         }
-
-        /*new*/ attrs = '/game/offline-mode';
-
         super.create(attrs);
         this.render();
         this.doGame(attrs);
@@ -48,12 +36,11 @@ export class GameView extends View {
 
     doGame(pathname) {
         let mode = '';
-        if (pathname === '/game/online-mode') {
+        if (pathname === 'online-mode') {
             mode = GAME_MODES.ONLINE;
         } else {
             mode = GAME_MODES.OFFLINE;
         }
-        //создаем инстанс Гейм
         this.game = new Game(mode);
         this.game.start();
     }

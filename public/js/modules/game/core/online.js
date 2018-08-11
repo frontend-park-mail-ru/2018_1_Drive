@@ -72,14 +72,6 @@ export class OnlineGame extends GameCore {
                 this.bus.emit(events.THEME_SELECTED, themeButton.innerHTML);
             });
         }
-
-        if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('/appCache.js').then(function (registration) {
-                console.log('ServiceWorker registration', registration);
-            }).catch(function (err) {
-                throw new Error('ServiceWorker error: ' + err);
-            });
-        }
         this.state = {};
     }
 

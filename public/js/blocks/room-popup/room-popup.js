@@ -28,11 +28,11 @@ export class RoomPopup extends Popup2{
 
     openPopup() {
         if (this.gameOpened !== true) {
-            super.openPopup();
             this.ticker = new Ticker(this.inner.querySelector('.room-popup__text'));
-            this.ticker.start(5);
             this.playerTicker = new PlayerTicker(this.inner.querySelector('.room-popup__player2'));
-            this.playerTicker.start(3);
+            this.ticker.start(5000);
+            this.playerTicker.start(3000);
+            super.openPopup();
             this.ws = new Ws();
             this.gameOpened = false;
         } else {

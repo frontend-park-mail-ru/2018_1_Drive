@@ -105,13 +105,6 @@ export class OfflineGame extends GameCore {//SET IS A THREE ROUNDS AND ROUND IS 
                 this.bus.emit(events.THEME_SELECTED, themeButton.innerHTML);
             });
         }
-        // if ('serviceWorker' in navigator) {
-        //     navigator.serviceWorker.register('/appCache.js').then(function (registration) {
-        //         console.log('ServiceWorker registration', registration);
-        //     }).catch(function (err) {
-        //         throw new Error('ServiceWorker error: ' + err);
-        //     });
-        // }
         this.state = {};
     }
 
@@ -213,13 +206,10 @@ export class OfflineGame extends GameCore {//SET IS A THREE ROUNDS AND ROUND IS 
         this.timer.stop();
         this.progressBar.update();
         this.clickManager.turnOffCLicks();
-
         let answers = {
             myAnswer: evt,
             correctAnswer: questionsSet[this.state.currentTheme].correctAnswers[this.state.questionInSet - 1]
         };
-
-        console.dir(answers);
 
         await this.resolveAfterXSeconds(1500, answers);
         this.takeOffAnimation();

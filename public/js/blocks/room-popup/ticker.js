@@ -14,7 +14,7 @@ export class Ticker {
         this.counter = 1;
     }
 
-    start(seconds) {
+    start(time) {
         this.ticker.innerHTML = this.sentences[0];
         this.timerId = setInterval(() => {
             if (this.counter === this.sentences.length) {
@@ -22,7 +22,7 @@ export class Ticker {
             }
             this.ticker.innerHTML = this.sentences[this.counter];
             this.counter++;
-        }, seconds * 1000);
+        }, time);
     }
 
     stop() {

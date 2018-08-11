@@ -34,7 +34,7 @@ export class PlayerTicker {
             }
             name.innerHTML = this.names[this.nameCounter++];
             image.src = this.photoPath + `${this.photoCounter++}.svg`;
-        }, time * 1000);
+        }, time);
     }
 
     stop() {
