@@ -1,4 +1,4 @@
-const CACHE_NAME = 'app_serviceworker_v_2';
+const CACHE_NAME = 'app_serviceworker_v_3';
 const cacheUrls = [
     '/js/dist/bundle.js',
     '/js/dist/style.css',
@@ -35,10 +35,10 @@ self.addEventListener('install', function (event) {
 
 self.addEventListener('fetch', function (event) {
 
-    /** online first */
-    if (navigator.onLine) {
-        return fetch(event.request);
-    }
+    // /** online first */
+    // if (navigator.onLine) {
+    //     return fetch(event.request);
+    // }
 
     /** cache first */
     event.respondWith(
