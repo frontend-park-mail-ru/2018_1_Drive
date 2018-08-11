@@ -30,6 +30,8 @@ export class RoomPopup extends Popup2{
         if (this.gameOpened !== true) {
             this.ticker = new Ticker(this.inner.querySelector('.room-popup__text'));
             this.playerTicker = new PlayerTicker(this.inner.querySelector('.room-popup__player2'));
+            this.inner.querySelector('.room-popup__player2').classList.add('room-popup__opponent-animation');
+            this.inner.querySelector('.room-popup__text').classList.add('room-popup__tips-animation');
             this.ticker.start(5000);
             this.playerTicker.start(3000);
             super.openPopup();
@@ -53,6 +55,14 @@ export class RoomPopup extends Popup2{
             payload.needRestartGameView = true;
         }
         router.open('/multiplayer-game', payload);
+    }
+
+
+
+    closePopup() {
+        super.closePopup();
+        this.inner.querySelector('.room-popup__player2').classList.remove('room-popup__opponent-animation');
+        this.inner.querySelector('.room-popup__text').classList.remove('room-popup__tips-animation');
     }
 
     newGame() {
