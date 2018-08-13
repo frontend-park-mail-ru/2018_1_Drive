@@ -18,7 +18,6 @@ import {MultiplayerSearchNotAllowed} from './views/SearchFromHomeView';
 
 (function () {
     document.addEventListener('DOMContentLoaded', function () {
-
         const root = document.getElementById('application');
         const preloader = new MainPreloader(root);
         const bus = busSingletone.getInstance();
@@ -46,7 +45,6 @@ import {MultiplayerSearchNotAllowed} from './views/SearchFromHomeView';
                 .catch(() => {
                     userSingletone.setUser(null);
                 });
-
             rooter.add('/', MenuView);
             rooter.add('/signin', LoginView);
             rooter.add('/signup', SignupView);
@@ -87,6 +85,7 @@ import {MultiplayerSearchNotAllowed} from './views/SearchFromHomeView';
         bus.on('signup', function (userdata) {
             UsersModel.signup(userdata)
                 .then(function (user) {
+                    user.avatar = 1;
                     userSingletone.setUser(user);
                     new Router().open('/');
                 })
