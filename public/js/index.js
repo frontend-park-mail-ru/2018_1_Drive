@@ -31,6 +31,12 @@ import {MultiplayerSearchNotAllowed} from './views/SearchFromHomeView';
             case 'frontend-drive.herokuapp.com':
                 HttpModule.baseUrl = 'https://backend-drive.herokuapp.com';
                 break;
+            case 'codestorm.com':
+                HttpModule.baseUrl = 'https://backend-drive.herokuapp.com';
+                break;
+            case '46.101.103.150':
+                HttpModule.baseUrl = 'https://backend-drive.herokuapp.com';
+                break;
             default:
                 HttpModule.baseUrl = '';
         }
