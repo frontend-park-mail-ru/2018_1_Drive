@@ -3,7 +3,6 @@ export class Validator {
         static validate(arr) {
             let errors = {};
 
-            //-E-mail tests
             let mailReg = /.+@.+\..+/i;//https://habrahabr.ru/post/175375/
             let passReg = /(?=.*[0-9])(?=.*[a-z][A-Z])/i;
             if (!mailReg.test(arr.mail)) {
@@ -12,11 +11,11 @@ export class Validator {
 
             //Password tests
             if (arr.password.length < 7) {
-                errors.password = 'password must be 7 characters at least';
+                errors.password = 'Password must be 7 characters at least';
             } else if (!passReg.test(arr.password)) {
-                errors.password = 'password should have numbers and chars!';
+                errors.password = 'Password should have numbers and chars';
             } else if (arr.hasOwnProperty('passwordSubmit') && arr.passwordSubmit !== arr.password) {
-                errors.password = 'passwords should be the same';
+                errors.password = 'Passwords should be the same';
             }
 
             //Login tests
@@ -25,7 +24,7 @@ export class Validator {
                     errors.login = 'Only letters and numbers!';
                 }
                 if (arr.login.length < 7) {
-                    errors.login = 'Login must be  7 characters at least.';
+                    errors.login = 'Login must be 7 characters at least';
                 }
             }
             //return errors like {"problem-source1":"problem description 1", ...}

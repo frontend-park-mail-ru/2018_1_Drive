@@ -1,0 +1,33 @@
+
+
+
+.wrapper-not-found {
+  background-color: #673AB7;
+  width: 100%;
+  height: 100%;
+}
+.wrapper-not-found__404 {
+  font-size: 50vmin;
+  color: white;
+  text-shadow: 6px 6px 0 rgba(0,0,0,0.2);
+  margin-right: 15vmin;
+}
+.wrapper-not-found__text {
+  font-size: 4vmin;
+  text-align: center;
+  width: 90%;
+  margin-top: 5vmin;
+}
+.wrapper-not-found__info {
+  background-color: white;
+  width: 50vmin;
+  height: 45vmin;
+  flex-direction: column;
+}
+.wrapper-not-found__button {
+  margin-top: 5vmin;
+  margin-bottom: 5vmin;
+  width: 20vmin;
+  height: 6vmin;
+  font-size: 3vmin;
+}

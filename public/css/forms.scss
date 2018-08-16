@@ -1,94 +1,156 @@
-
-.label-box {
-  position: relative;
-  width: 270px;
-}
-.label-box::before,
-.label-box::after {
-  content: "";
-  position: absolute;
-  height: 3px;
-  width: 0;
-  bottom: 0px;
-  background-color:  #FBF55D;
-  transition-property: width;
-  transition-duration: 0.3s;
-}
-.label-box::before {
-  left: 50%;
+.form_elements {
+  margin-left: auto;
+  margin-right: auto;
+  position:relative;
+  margin-bottom:5vh;
 }
 
-.label-box::after {
-  right: 50%;
+.form_elements__input {
+  font-size:3vh;
+  display:block;
+  width:25vw;
+  border:none;
+  border-bottom:2px solid #6441A5;
+  -webkit-appearance: none;
+  border-radius: 0;
 }
 
-input:focus + .label-box::before,
-input:focus + .label-box::after {
-  width: 50%;
+.form_elements__input:focus {
+  outline:none;
 }
 
-input[type = "text"],input[type = "password"] {
-  width: 270px;
-  padding: 5px;
-  font-size: 18px;
-  border: none;
-  border-bottom: 2px solid  #FBF55D;
-  box-sizing: border-box;
+/* LABEL ======================================= */
+.form_elements__label {
+  color:#999;
+  font-size:2vh;
+  font-weight:normal;
+  position:absolute;
+  pointer-events:none;
+  left:0.3vw;
+  top:0.1vh;
+  transition:0.2s ease all;
+  -moz-transition:0.2s ease all;
+  -webkit-transition:0.2s ease all;
 }
 
-input[type = "text"] + .label-box label,
-input[type = "password"] + .label-box label {
-  position: absolute;
-  top: -36px;
-  font-size: 18px;
-  color: #757575;
-  transition: 0.2s ease all;
-  pointer-events: none;
+/* active state */
+.form_elements__input:focus ~ .form_elements__label, .form_elements__input:valid ~ .form_elements__label {
+  top:-2.2vh;
+  font-size:1.6vh;
+  color:#EE4266;
 }
 
-input:focus + .label-box label{
-
-  font-size: 14px;
-  transform: translateY(-20px);
-}
-input:focus{
-  outline: none;
+/* BOTTOM BARS ================================= */
+.bar {
+  position:relative;
+  display:block;
+  width:100%;
 }
 
-
-
-
-.check{
-  margin-left:45px;
+.bar:before, .bar:after {
+  content:'';
+  height:2.5px;
+  width:0;
+  bottom:1px;
+  position:absolute;
+  background:#6441A5;
+  transition:0.5s ease all;
+  -moz-transition:0.5s ease all;
+  -webkit-transition:0.5s ease all;
+}
+.bar:before {
+  left:50%;
+}
+.bar:after {
+  right:50%;
 }
 
-input[type="checkbox"] + label {
-  position: relative;
-  cursor: pointer;
+/* active state */
+.form_elements__input:focus ~ .bar:before, .form_elements__input:focus ~ .bar:after {
+  width:50%;
 }
 
-input[type="checkbox"] + label::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: -44px;
-  z-index: 1;
-  width: 16px;
-  height: 16px;
-  border: 4px solid #262626;
-  transition-duration: 0.3s;
-  transition-timing-function: ease-in-out;
+
+.main__signin-form {
+  width: 60vh;
+  display: flex;
+  flex-direction: column;
+  background-color: white;
 }
 
-input[type="checkbox"] {
-  display: none;
+.main__signup-form {
+  width: 60vh;
+  display: flex;
+  flex-direction: column;
+  background-color: white;
 }
 
-input[type="checkbox"]:checked + label::before {
-  width: 21px;
-  height: 10px;
-  border-color: #44AF69;
-  border-left-style: none;
-  border-bottom-style: none;
-  transform: rotate(135deg);
+.main__login-title {
+  font-size: 3.8vmin;
+  text-align: center;
+  margin:2vw 0 0.5vw 0;
+  color: #6441A5;
+}
+
+.main__send-data {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+
+.main__action-button {
+  display: inline-block;
+  width: 14vw;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+  font-size: 3vh;
+  margin-bottom: 3vh;
+}
+
+.main__not-registered {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.form__button_style {
+  text-align: center;
+  color: white;
+  background-color: #EE4266;
+  border-radius: 5px;
+}
+
+.main__additional-button {
+  font-size: 2.5vh;
+  width: 8vw;
+  margin:0 0 2vw 0;
+  display: inline-block;
+  text-decoration: none;
+}
+
+.main__additional-title {
+  font-size: 2.5vh;
+  color: #6441A5;
+  margin: 1vh 0;
+}
+
+.noTextDecoration {
+  text-decoration: none;
+}
+
+.btn-animation {
+  transition: 300ms ease-in-out;
+  border-bottom: 3px solid #cc0000;
+}
+
+.btn-animation:hover {
+  transform: translateY(-0.7vmin);
+}
+
+.main__errors {
+  width:25vw;
+  margin: 0 auto 1.5vh auto;
+  font-size: 2vmin;
+  color:#EE4266;
+  text-align: center;
 }

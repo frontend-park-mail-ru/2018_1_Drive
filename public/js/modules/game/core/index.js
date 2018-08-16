@@ -14,8 +14,6 @@ export class GameCore {
         this.onRoundStarted= this.onRoundStarted.bind(this);
         this.onTimeOver = this.onTimeOver.bind(this);
         this.bus = busSingleton.getInstance();
-
-        
     }
 
     start() {

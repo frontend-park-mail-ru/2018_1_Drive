@@ -1,0 +1,30 @@
+.grid
+    .header
+        .header__logo-section Code Storm
+    .main
+        form.main__signup-form.material-shadow.round-borders
+            .main__login-title Register
+            .form_elements
+                input.form_elements__input(type="text", required, name="mail")
+                span.bar
+                label.form_elements__label Email
+            .form_elements
+                input.form_elements__input(type="text", required, name="login")
+                span.bar
+                label.form_elements__label Login
+            .form_elements
+                input.form_elements__input(type="password", required, name="password")
+                span.bar
+                label.form_elements__label Password
+            .form_elements
+                input.form_elements__input(type="password", required, name="passwordSubmit")
+                span.bar
+                label.form_elements__label Password submit
+            .main__errors
+
+            .main__send-data
+                .main__action-button.form__button_style.btn-animation
+                    span Register me!
+                .main__not-registered
+                    .main__additional-title Have account?
+                a.btn.main__additional-button.form__button_style.btn-animation(href="/signin") Sign in

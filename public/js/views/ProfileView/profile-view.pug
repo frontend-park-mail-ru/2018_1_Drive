@@ -1,22 +1,30 @@
-.black-background
-.header
-    .logo-section
-        .logo-section__logo LOGO
-    .free-section
-    .profile-section
-.main-block
-    .menu.menu-shadow.profile-menu.white-background
-        h1 Your profile
-        .clearfix.prifile-string
-            .floated-left Login:
-            .floated-right #{login}
-        br
-        .clearfix.prifile-string
-            .floated-left E-mail:
-            .floated-right #{mail}
-        br
-        .clearfix.prifile-string
-            .floated-left Score:
-            .floated-right #{score}
-        br
-        .button.button-centered.logout.yellow Logout
+.grid
+    .header
+        .header__logo-section Code Storm
+    .main.js-profile-main
+        .profile-d
+            .user-profile.round-borders
+                .user-profile__header.purple-font Profile
+                .user-profile__picture.center-content
+                    -var imagePath = `../../img/avatars/${avatar}.svg`
+                    img.user-profile__image(src=imagePath)
+                .profile-data-wrapper
+                    .user-profile__row
+                        .user-profile__row-left.purple-font Login:
+                        .user-profile__row-right.pink-font #{login}
+                    .user-profile__row
+                        .user-profile__row-left.purple-font Email:
+                        .user-profile__row-right.pink-font #{mail}
+                    .user-profile__row
+                        .user-profile__row-left.purple-font Password:
+                        .user-profile__row-right.pink-font ...
+                    .user-profile__row
+                        .user-profile__row-left.purple-font Score:
+                        .user-profile__row-right.pink-font #{score}
+
+                .user-profile__change.center-content
+                    .user-profile__change-avatar.center-content.btn-animation
+                        i.material-icons.md-64 edit
+                .main__send-data.user-profile__button
+                    .logout-button.form__button_style.btn-animation
+                        span Logout

@@ -10,6 +10,7 @@ export class UsersModel {
         this.mail = data.mail;
         this.password = data.password;
         this.score = data.score;
+        this.avatar = data.avatar;
     }
 
     static isAuthorized() {
@@ -32,7 +33,6 @@ export class UsersModel {
                         UserSingletone.getInstance().setUser(null);
                         return reject(err);
                     }
-
                     currentUser = new UsersModel(response.user);
                     UserSingletone.getInstance().setUser(currentUser);
                     resolve(currentUser);
@@ -80,7 +80,7 @@ export class UsersModel {
     static loadUsers(firstManPos, amountOfPeople) {
         return new Promise(function (resolve, reject) {
             HttpModule.doGet({
-                url: `/leaders?offset=${firstManPos}&limit=${amountOfPeople + 1}`,
+                url: `/leaders?offset=${firstManPos}&limit=${amountOfPeople}`,
                 callback(err, response) {
                     if (err) {
                         return reject(err);
@@ -101,6 +101,22 @@ export class UsersModel {
                     }
                     currentUser = null;
                     UserSingletone.getInstance().setUser(null);
+                    resolve();
+                }
+            });
+        });
+    }
+
+    static updateAvatar(avatar) {
+        return new Promise(function (resolve, reject) {
+            HttpModule.doPost({
+                url: '/change-avatar',
+                data: avatar,
+                callback(err, response) {
+                    if (err) {
+                        return reject(err);
+                    }
+                    UserSingletone.getInstance().getUser().avatar = response.avatar_id;
                     resolve();
                 }
             });

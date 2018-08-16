@@ -16,6 +16,7 @@ export class MultiplayerCore {
         this.onSetFinished = this.onSetFinished.bind(this);
         this.onGameFinished = this.onGameFinished.bind(this);
         this.onHome = this.onHome.bind(this);
+        this.onRestart = this.onRestart.bind(this);
     }
 
     start() {
@@ -30,6 +31,7 @@ export class MultiplayerCore {
         this.bus.on(multiPlayerEvents.EVENTS_SET_FINISHED, this.onSetFinished);
         this.bus.on(multiPlayerEvents.EVENTS_GAME_FINISHED, this.onGameFinished);
         this.bus.on(multiPlayerEvents.EVENTS_HOME, this.onHome);
+        this.bus.on(multiPlayerEvents.RESTART_GAME, this.onRestart);
     }
 
     destroy() {
@@ -46,6 +48,7 @@ export class MultiplayerCore {
         this.bus.off(multiPlayerEvents.EVENTS_SET_FINISHED, this.onSetFinished);
         this.bus.off(multiPlayerEvents.EVENTS_GAME_FINISHED, this.onGameFinished);
         this.bus.off(multiPlayerEvents.EVENTS_HOME, this.onHome);
+        this.bus.off(multiPlayerEvents.RESTART_GAME, this.onRestart);
     }
 
 
@@ -82,6 +85,10 @@ export class MultiplayerCore {
     }
 
     onGameStateChanged(evt) {
+        throw new Error('This method must be overridden');
+    }
+
+    onEventsSetStarted(evt) {
         throw new Error('This method must be overridden');
     }
 }

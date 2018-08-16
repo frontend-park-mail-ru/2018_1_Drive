@@ -1,0 +1,17 @@
+.popup2__inner.profile__popup-inner
+    .popup__close.profile__popup-close.js-avatars-close.profile-close-phone.center-content X
+    .avatars.center-content
+        .avatars__title.center-content.purple-font Avatars
+        .avatars__left-arrow.center-content
+            i.material-icons.md-48.md-inactive chevron_left
+        .avatars__right-arrow.center-content
+            i.material-icons.md-48.pagination-next.md-inactive chevron_right
+        -var i = 0
+        -for (let avatar of avatars) {
+        -i++
+            .avatars__avatar.center-content(class="av" + i)
+                img.avatar__img(src=avatar)
+        -}
+        .avatars__select-button.main__send-data.center-content
+            .select-button.form__button_style
+                span Select

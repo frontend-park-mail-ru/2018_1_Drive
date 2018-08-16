@@ -1,14 +1,14 @@
 - if (authorized) {
-.profile-section__profile-authorized.material
-    .profile-photo
-        img.profile-img(src="../../img/avatar.png")
-    .profile-login
-        span.profile-login__first-letter #{firstLetter}
+.main__profile-registered.center-content
+    a.bottom-appearance.purple-font(href='/profile')
+        span.profile-registered__first-letter.pink-font #{firstLetter}
         | #{otherLetters}
+    .main__profile-picture
+        -let str = `../../img/avatars/${avatar}.svg`
+        img.main__profile-image(src=str)
+
 - } else {
-.profile-section__profile-unauthorized.material
-    .profile-login__login
-        a(href="/signin") Log in
-    .profile-login__signup
-        a(href="/signup") Register
+.main__profile-unregistered
+    a.bottom-appearance.pink-font(href="/signin") Login
+    a.bottom-appearance.pink-font(href="/signup") Register
 -}

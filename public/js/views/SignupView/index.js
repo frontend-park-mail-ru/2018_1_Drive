@@ -1,24 +1,15 @@
 import {View} from '../View/view';
 import {FormComponent} from '../../blocks/form/form';
 import {UsersModel} from '../../models/UsersModel';
-//import {formViewTemplate} from '../../blocks/form/form-view.pug';
 import * as busSingleton from '../../modules/bus';
 import {Validator} from '../../modules/validator';
-const gridViewTemplate = require('../GridView/grid-view.pug');
+import {HomeButton} from '../../blocks/home-button/HomeButton';
+const signupViewTemplate = require('./signup-view.pug');
+
 
 export class SignupView extends View {
     constructor() {
-        super('Register', gridViewTemplate);
-        this.attrs = {
-            caption: 'Register',
-            fields: [
-                ['mail', 'text', 'register-mail'],
-                ['login', 'text', 'register-login'],
-                ['password', 'password', 'register-password'],
-                ['passwordSubmit', 'password', 'register-submit']
-            ],
-            buttonCaption: 'Register me'
-        };
+        super('Register', signupViewTemplate);
         busSingleton.getInstance().on('signup-error', this.onerror.bind(this));
     }
 
@@ -28,27 +19,36 @@ export class SignupView extends View {
 
     create() {
         super.create();
-        this.formRoot = this.el.querySelector('.menu');
-        this.formComponent = new FormComponent(this.formRoot, this.attrs, this.onSubmit.bind(this));
-        this.formComponent.render();
-        this.formComponent.addListeners();
+        super.hide();
+        const registerButton = this.el.querySelector('.main__action-button');
+        registerButton.addEventListener('click', () => {
+            this.onSubmit(this.getFields());
+        });
+        const homeButton = new HomeButton();
+        homeButton.render(this.el);
         return this;
     }
 
-    onSubmit(formdata) {
-        const errWindow = this.formComponent.element.querySelector('.errors');
+    onSubmit(formData) {
+        const errWindow = this.el.querySelector('.main__errors');
         errWindow.innerHTML = '';
-
-        let errors = Validator.validate(formdata);
+        let errors = Validator.validate(formData);
         if (Object.keys(errors).length > 0) {
             for (let error in errors) {
-                errWindow.innerHTML += error + ' error!';
                 errWindow.innerHTML += errors[error] + '<br>';
             }
             return;
         }
+        busSingleton.getInstance().emit('signup', formData);
+    }
 
-        busSingleton.getInstance().emit('signup', formdata);
+    getFields() {
+        const formData = {};
+        const fields = this.el.querySelectorAll('input');
+        for (let field of fields) {
+            formData[field.name] = field.value;
+        }
+        return formData;
     }
 
     onerror() {

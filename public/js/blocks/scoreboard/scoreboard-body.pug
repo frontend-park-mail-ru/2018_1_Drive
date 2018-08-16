@@ -1,9 +1,23 @@
-.button Top players
-.leaderboard-body
-    - for (let player of users) {
-    .clearfix.player
-        .floated-left #{player.login}
-        .floated-right #{player.score}
-    - }
-.button.button-half.pagination-prev.button-left.yellow Prev
-.button.button-half.button-last.pagination-next.button-right.yellow Next
+table.table-scoreboard.purple-font
+    tbody
+        tr.table__tr.table__tr-nohover
+            th.table__th.table__th-first.table__th-no-border #
+            th.table__th.table__th-second Name
+            th.table__th.table__th-third Score
+        -var position = offset + 1;
+        -for (let player of users) {
+            -if (player.login === currentPlayer) {
+                tr.table__tr.js-current-player
+                    th.table__th.table__th-no-border #{position++}
+                    th.table__th #{player.login}
+                    th.table__th #{player.score}
+            -} else {
+                tr.table__tr
+                    th.table__th.table__th-no-border #{position++}
+                    th.table__th #{player.login}
+                    th.table__th #{player.score}
+            -}
+        -}
+.scoreboard__pagination
+    i.material-icons.md-48.pagination-prev.animation-on-hover.pink-font.js-pagination-prev chevron_left
+    i.material-icons.md-48.pagination-next.animation-on-hover.pink-font.js-pagination-next chevron_right

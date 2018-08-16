@@ -1,23 +1,13 @@
 import {View} from '../View/view';
 import {UsersModel} from '../../models/UsersModel';
-import {FormComponent} from '../../blocks/form/form';
 import * as busSingletone from '../../modules/bus';
 import {Validator} from '../../modules/validator';
-
-const gridViewTemplate = require('../GridView/grid-view.pug');
+import {HomeButton} from '../../blocks/home-button/HomeButton';
+const loginViewTemplate = require('./login-view.pug');
 
 export class LoginView extends View {
     constructor() {
-        super('Login', gridViewTemplate);
-        this.attrs = {
-            caption: 'Login',
-            fields: [
-                ['mail', 'text', 'login-mail'],
-                ['password', 'password', 'login-password'],
-                ['remember', 'checkbox', 'remember']
-            ],
-            buttonCaption: 'Log me in!'
-        };
+        super('Login', loginViewTemplate);
         busSingletone.getInstance().on('login-error', this.onerror.bind(this));
     }
 
@@ -26,32 +16,41 @@ export class LoginView extends View {
     }
 
     create() {
-        super.create();
+        super.render();
         super.hide();
-        this.formRoot = this.el.querySelector('.menu');
-        this.formComponent = new FormComponent(this.formRoot, this.attrs, this.onSubmit.bind(this));
-        this.formComponent.render();
-        this.formComponent.addListeners();
+        const loginButton = this.el.querySelector('.main__action-button');
+        loginButton.addEventListener('click', () => {
+            this.onSubmit(this.getFields());
+        });
+        const homeButton = new HomeButton();
+        homeButton.render(this.el);
         return this;
     }
 
-    onSubmit(formdata) {
-        const errWindow = this.formComponent.element.querySelector('.errors');
+    onSubmit(formData) {
+        const errWindow = this.el.querySelector('.main__errors');
         errWindow.innerHTML = '';
-
-        let errors = Validator.validate(formdata);
+        let errors = Validator.validate(formData);
         if (Object.keys(errors).length > 0) {
             for (let error in errors) {
-                errWindow.innerHTML += error + ' error!';
                 errWindow.innerHTML += errors[error] + '<br>';
             }
             return;
         }
-        busSingletone.getInstance().emit('signin', formdata);
+        busSingletone.getInstance().emit('signin', formData);
+    }
+
+    getFields() {
+        const formData = {};
+        const fields = this.el.querySelectorAll('input');
+        for (let field of fields) {
+            formData[field.name] = field.value;
+        }
+        return formData;
     }
 
     onerror() {
-        const errWindow = this.formComponent.element.querySelector('.errors');
+        const errWindow = this.el.querySelector('.main__errors');
         errWindow.innerHTML = 'User doesn\'t exists';
     }
 }

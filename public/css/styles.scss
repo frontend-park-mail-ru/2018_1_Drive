@@ -1,60 +1,17 @@
-@import url("../js/views/GameView/styles.css");
-
-$JSColor:  #FBF55D;
-.yellow{
-    background-color: $JSColor;
-}
-html {
-    height: 100vh;
-    width: 100%;
-    overflow: hidden;
-}
-
-body {
-    color: #3E3E3E;
-    font-family: 'Oswald', sans-serif;
-    background-color: #FFFFFF;
-    border-top: 0px solid #7e7e7e;
-    margin: 0;
-    height: 100%;
-    width: 100%;
-}
-
-a:visited {
-    color: black;
-}
-
-#application {
-    width: 100%;
-    height: 100%;
-    display: block;
-}
-
-.black-background {
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    height: 100%;
-    background-color: white;
-    z-index: 0;
-}
-
-.white-background {
-    background-color: white;
-    z-index: 1;
-    position: absolute;
-    top:15vh;
-    left: calc(50% - 175px);
-    display: inline-block;
-    width: 350px;
-}
-
-@import url("./buttons.scss");
+@import url("colors.scss");
+@import url("./home-button.scss");
 @import url("./app.scss");
-@import url("./profile.scss");
-@import url("./modal-menu.scss");
+@import url("./about.scss");
+@import url("./error-pages.scss");
 @import url("./forms.scss");
-@import url("./scoreboard.scss");
 @import url("./game.scss");
+@import url("./icons.scss");
 @import url("./menu.scss");
+@import url("./popups.scss");
+@import url("./preloader.scss");
+@import url("./profile.scss");
+@import url("./scoreboard.scss");
+@import url("./responsive/laptops.scss");
+@import url("./responsive/phones-portrait.scss");
+@import url("./responsive/phones-landscape.scss");
+@import url("./responsive/ipad.scss");
