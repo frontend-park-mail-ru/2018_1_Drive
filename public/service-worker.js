@@ -1,10 +1,8 @@
-const CACHE_NAME = 'app_serviceworker_v_6';
+const CACHE_NAME = 'app_serviceworker_v_7';
 const cacheUrls = [
     './js/dist/bundle.js',
     './js/dist/style.css',
     './',
-    './img/avatars/',
-    './img/icon/main/',
     './apple-touch-icon.png'
 ];
 
