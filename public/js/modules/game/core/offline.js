@@ -65,7 +65,7 @@ export class OfflineGame extends GameCore {//SET IS A THREE ROUNDS AND ROUND IS 
         this.themeButtons = document.querySelectorAll('.js-theme-button');
 
         this.headerOpponent = document.querySelector('.header__opponent');
-        this.headerOpponent.innerHTML = 'Singleplayer';
+        this.headerOpponent.innerHTML = 'Offline mode';
         this.headerRound = document.querySelector('.header__round');
         this.headerTheme = document.querySelector('.header__theme');
         this.headerHyphen = document.querySelector('.header__hyphen');
